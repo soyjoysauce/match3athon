@@ -13,7 +13,7 @@ function init() {
 function Controller() {//click handlers for each piece that is clicked on
     //this.model = new Model(this)
 
-    game_board.create_pieces(64);
+    game_board.create_pieces();
 
 
     this.clickHandlers = function() {
@@ -44,9 +44,9 @@ function Game_board() {
     var first_click_x = null;
     var first_click_y = null;
     this.jewel_arr = [];
-    this.pieces_arr = ['compass_tile', 'flower_title', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
-    this.create_pieces = function (num) {//creation of the pieces
-        for (var i = 0; i < num; i += 8) {//first loop changes the x coordinates increments adds four to complete total number of requested pieces
+    this.pieces_arr = ['compass_tile', 'flower_tile', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
+    this.create_pieces = function () {//creation of the pieces
+        for (var i = 0; i < 8; i ++) {//first loop changes the x coordinates increments adds four to complete total number of requested pieces
             var multi_arr = [];//creation of the multi-array that holds the coordinates of each piece, created at the start of each the outer loop
             for(var j = 0; j < 8;j++ ) {//creation of the the inner multi-array objects
                 var ran_num = Math.floor(Math.random() * this.pieces_arr.length);
@@ -62,15 +62,6 @@ function Game_board() {
 
                 };
                 $('.game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
-
-
-                var test = $('<div>', {
-                    text: 'hello',
-                    class: 'random'
-                })
-
-                $('.game_grid_container').append(this.jewel_piece.info);//actual appending of the dom element to the html body
-
                 // $('game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
                 multi_arr.push(this.jewel_piece);//each iteration of the inner loop pushes the value to the inner array
             } this.jewel_arr.push(multi_arr);
