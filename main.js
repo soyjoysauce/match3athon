@@ -12,13 +12,6 @@ function init() {
 function Controller() {//click handlers for each piece that is clicked on
     game_board.create_pieces(16, 'blue_diamond');
     $('body > *').on('click',function(){
-        // $('.blue_diamond').off('click');
-        //$(function to determine what to turn on)
-        // setTimeout(function(){
-        //     $('.blue_diamond').on('click',function(){
-        //         game_board.clicked($(this).attr('x'), $(this).attr('y'),'.' + $(this).attr('class'));
-        //     });
-        // },6000);
         game_board.clicked($(this).attr('x'), $(this).attr('y'));
     });
 }
@@ -26,7 +19,6 @@ function Controller() {//click handlers for each piece that is clicked on
 function Game_board() {
     var first_click = null;
     var second_click = null;
-    var counter = 0;
     var x_cord = 0;
     var first_attr = null;
     var second_attr = null;
@@ -54,11 +46,13 @@ function Game_board() {
                 };
                 $(this.jewel_piece.info).append(this.jewel_piece.jewel_piece_img);//append the image to the dom elements just for my visuals
                 $('body').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
-                multi_arr.push(this.jewel_piece);//each iteraation of the inner loop pushes the value to the inner array
+                multi_arr.push(this.jewel_piece);//each iteration of the inner loop pushes the value to the inner array
 
             } this.jewel_arr.push(multi_arr);
             x_cord++;
-        } counter = 0;
+        }
+        this.piece_fill();
+
     };
 
     this.clicked = function(x,y) {//click handler function when the player clicks on a piece, passed the x and y values of the piece clicked
@@ -68,7 +62,7 @@ function Game_board() {
             first_click_y = y;
             first_attr = this.jewel_arr[x][y].color;
             first_click = this.jewel_arr[x][y];//saves the color attribute for the first piece for the sway
-            //this.off_click(x,y);
+            this.off_click(x,y);
             console.log(this.jewel_arr[x][y].color)
             return
         } else {//assigns the second click x and y coordinates of the piece that was clicked
@@ -77,12 +71,11 @@ function Game_board() {
             second_attr = this.jewel_arr[x][y].color;//saves the color attribute for the second for the sway
             second_click = this.jewel_arr[x][y];
             $('body > .game_pieces').removeClass('clickable');//.game_pieces is a place holder class, removes the clickable feature of surronding pieces
-            debugger;
         }
-        debugger;
         //after the two clicks and happen this switches the color attribute which we'll tie to the board pieces
         this.jewel_arr[second_click_x][second_click_y].color = first_attr;
         this.jewel_arr[first_click_x][first_click_y].color = second_attr;
+        //send the board state to shane which is the array
     };
 
     this.off_click = function(x,y) {//this turns the click handler off all pieces and turns them on just for the adjacent pieces
@@ -93,12 +86,34 @@ function Game_board() {
         var select_right = "[y='" + (parseInt(y) + 1) + "']";//move right 1 spot to select the piece above
         var select_down = "[x='" + (parseInt(x) + 1) + "']";//move down 1 spot to select the piece above
         var select_left = "[y='" + (parseInt(y) - 1) + "']";//move left 1 spot to select the piece above
-        var both = "" + selectx + selecty;
         $(selectx).filter(select_right).addClass('clickable');//add click handler to right piece
         $(selectx).filter(select_left).addClass('clickable');//add click handler to left piece
         $(select_up).filter(selecty).addClass('clickable');//add click handler to piece above
         $(select_down).filter(selecty).addClass('clickable');//add click handler to piece below
+    }
 
+    this.piece_fill = function() {
+        this.jewel_arr[3][0].color = null;
+        this.jewel_arr[0][2].color = null;
+        this.jewel_arr[1][3].color = null;
+        this.jewel_arr[2][3].color = null;
+        this.jewel_arr[3][3].color = null;
+        debugger;
+        for (var i = 3; i >= 0; i--) {
+            for(var j = 3; j >= 0; j--) {
+                if(this.jewel_arr[i][j].color === null) {
+                    if(i === 0) {
+                        this.jewel_arr[i][j].color = 'yellow';
+
+                        return this.piece_fill()
+                    }else {
+                        this.jewel_arr[i][j].color = this.jewel_arr[i + 1][j];
+                        return this.piece_fill()
+                    }
+
+                }
+            }
+        }
     }
 }
 
