@@ -23,16 +23,6 @@ function Controller() {//click handlers for each piece that is clicked on
     this.clickHandlers();
 }
 
-function Game_board(parent) {
-    debugger;
-    this.parent = parent;
-
-
-    $('body > *').on('click',function(){
-        game_board.clicked($(this).attr('x'), $(this).attr('y'));
-    });
-}
-
 
 function Game_board(parent) {
     this.parent = parent;
