@@ -192,6 +192,7 @@ div[tile="yellow_tile"]{
     background-repeat: no-repeat;
     background: url("img_folder/yellow_tile.png");
     background-size: contain;
+    display: inline-block;
     width: 12.5%;
     height: 12.5%;
 }
