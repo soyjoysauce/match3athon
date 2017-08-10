@@ -109,6 +109,7 @@ div[tile="compass_tile"]{
 
 .game_grid_container > *{
     display: inline-block;
+    z-index: 1;
 }
 
 div[tile="flower_tile"]{
