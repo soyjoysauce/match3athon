@@ -65,6 +65,9 @@ function Game_board(parent) {
                     }),
 
                 };
+
+                $('.game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
+
                 var test = $('<div>', {
                     text: 'hello',
                     class: 'random'

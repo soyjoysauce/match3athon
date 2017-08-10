@@ -93,10 +93,10 @@ body{
 }
 
 .game_reset_button {
-    margin_bottom: 30px;
+    border:1px solid;
+
+
 }
-
-
 
 
 /*TILE STYLE YO*/
