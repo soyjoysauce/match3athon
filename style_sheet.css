@@ -8,7 +8,6 @@ header {
 
 .header_img {
     display: inline-block;
-    margin: 10px;
 }
 
 body{
@@ -16,10 +15,10 @@ body{
 }
 
 .game_title {
-    font-size: 60px;
+    font-size: 80px;
     font-family: Copperplate, Arial, sans-serif;
     display: inline-block;
-    margin: 20px 20px;
+    margin: 20px;
     color: rgba(255,240,254,1)
 }
 
@@ -83,13 +82,17 @@ body{
     position: absolute;
 }
 
-.normal_timer, .normal_time_bar {
+.normal_timer, .normal_time_bar_2 {
     height:1300px;
     width: 230px;
     position: relative;
     top: 0;
     left: 0;
     margin: 15% 5%;
+}
+
+.normal_time_bar_2, .bonus_time_bar{
+    animation: mymove 5s infinite; /* Chrome, Safari, Opera */
 }
 
 .game_reset_button {
@@ -109,13 +112,12 @@ span {
     display: inline-block;
     transform: translateX(300px);
     font-weight: normal;
-    opacity: 0;
-    transition: opacity 0.1s 0.5s,
-    transform 0.4s 0.5s;
 }
 
-.game_reset_button
-
+@keyframes mymove {
+    from {background-color: red;}
+    to {background-color: blue;}
+}
 
 /*TILE STYLE YO*/
 
@@ -123,6 +125,7 @@ div[tile="compass_tile"]{
     background: url("img_folder/compass_tile.png");
     background-size: contain;
     background-repeat: no-repeat;
+    display: inline-block;
     width: 12.5%;
     height: 12.5%;
 }
@@ -133,13 +136,16 @@ div[tile="flower_tile"]{
     background-repeat: no-repeat;
     width: 12.5%;
     height: 12.5%;
+    display: inline-block;
 }
+
 div[tile="pentagon_tile"]{
     background-repeat: no-repeat;
     background: url("img_folder/pentagon_tile.png");
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
+    display: inline-block;
 }
 div[tile="pinkx_tile"]{
     background-repeat: no-repeat;
@@ -147,6 +153,7 @@ div[tile="pinkx_tile"]{
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
+    display: inline-block;
 }
 div[tile="quilt_tile"]{
     background-repeat: no-repeat;
@@ -154,6 +161,7 @@ div[tile="quilt_tile"]{
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
+    display: inline-block;
 }
 div[tile="redviolet_tile"]{
     background-repeat: no-repeat;
@@ -161,6 +169,7 @@ div[tile="redviolet_tile"]{
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
+    display: inline-block;
 }
 div[tile="sapphire_tile"]{
     background-repeat: no-repeat;
@@ -168,13 +177,16 @@ div[tile="sapphire_tile"]{
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
+    display: inline-block;
 }
+
 div[tile="star_tile"]{
     background-repeat: no-repeat;
     background: url("img_folder/star_tile.png");
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
+    display: inline-block;
 }
 div[tile="yellow_tile"]{
     background-repeat: no-repeat;
@@ -184,13 +196,4 @@ div[tile="yellow_tile"]{
     height: 12.5%;
 }
 
-.game_grid_container > *{
-    display: inline-block;
-    z-index: 1;
-}
 
-.random {
-    width: 40px;
-    height: 40px;
-    background-color: red;
-}
