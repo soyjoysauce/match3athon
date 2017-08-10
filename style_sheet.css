@@ -26,7 +26,7 @@ body{
 .game_grid_container {
     border: 2px solid;
     width:1370px;
-    height:1380px;
+    height:1400px;
     display: inline-block;
     float:left;
     background-color:rgba(1,4,27,1);
@@ -93,18 +93,37 @@ body{
 }
 
 .game_reset_button {
-    border:1px solid;
-
-
+    background: url("img_folder/reset_button.png");
+    width: 171px;
+    height: 172px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 5px;
+    white-space: nowrap;
+    text-indent: 23px;
+    font-weight: bold;
 }
+
+span {
+    display: inline-block;
+    transform: translateX(300px);
+    font-weight: normal;
+    opacity: 0;
+    transition: opacity 0.1s 0.5s,
+    transform 0.4s 0.5s;
+}
+
+.game_reset_button
 
 
 /*TILE STYLE YO*/
 div[tile="compass_tile"]{
     background: url("img_folder/compass_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    background-repeat: no-repeat;
+    width: 12.5%;
+    height: 12.5%;
 }
 
 .game_grid_container > *{
@@ -114,50 +133,58 @@ div[tile="compass_tile"]{
 div[tile="flower_tile"]{
     background: url("img_folder/flower_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    background-repeat: no-repeat;
+    width: 12.5%;
+    height: 12.5%;
 }
 div[tile="pentagon_tile"]{
+    background-repeat: no-repeat;
     background: url("img_folder/pentagon_tile.png");
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
 }
 div[tile="pinkx_tile"]{
+    background-repeat: no-repeat;
     background: url("img_folder/pinkx_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 12.5%;
+    height: 12.5%;
 }
 div[tile="quilt_tile"]{
+    background-repeat: no-repeat;
     background: url("img_folder/quilt_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 12.5%;
+    height: 12.5%;
 }
 div[tile="redviolet_tile"]{
+    background-repeat: no-repeat;
     background: url("img_folder/redviolet_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 12.5%;
+    height: 12.5%;
 }
 div[tile="sapphire_tile"]{
+    background-repeat: no-repeat;
     background: url("img_folder/sapphire_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 12.5%;
+    height: 12.5%;
 }
 div[tile="star_tile"]{
+    background-repeat: no-repeat;
     background: url("img_folder/star_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 12.5%;
+    height: 12.5%;
 }
 div[tile="yellow_tile"]{
+    background-repeat: no-repeat;
     background: url("img_folder/yellow_tile.png");
     background-size: contain;
-    width: 50px;
-    height: 50px;
+    width: 12.5%;
+    height: 12.5%;
 }
 
 .random {
