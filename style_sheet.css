@@ -93,42 +93,65 @@ body{
 }
 
 .game_reset_button {
-    margin-bottom: 30px;
-}
+    border:1px solid;
 
-/*Tile properties animation*/
-.compass_tile {
 
 }
 
-.flower_tile{
 
+/*TILE STYLE YO*/
+div[tile="compass_tile"]{
+    background: url("img_folder/compass_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }
 
-.pentagon_tile{
-
+div[tile="flower_tile"]{
+    background: url("img_folder/flower_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }
-
-.pinkx_tile{
-
+div[tile="pentagon_tile"]{
+    background: url("img_folder/pentagon_tile.png");
+    background-size: contain;
+    width: 12.5%;
+    height: 12.5%;
 }
-
-.quilt_tile{
-
+div[tile="pinkx_tile"]{
+    background: url("img_folder/pinkx_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }
-
-.red_violet_tile{
-
+div[tile="quilt_tile"]{
+    background: url("img_folder/quilt_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }
-
-.sapphire_tile{
-
+div[tile="redviolet_tile"]{
+    background: url("img_folder/redviolet_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }
-
-.star_tile{
-
+div[tile="sapphire_tile"]{
+    background: url("img_folder/sapphire_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }
-
-.yellow_tile{
-
+div[tile="star_tile"]{
+    background: url("img_folder/star_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+div[tile="yellow_tile"]{
+    background: url("img_folder/yellow_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }

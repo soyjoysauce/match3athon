@@ -14,6 +14,7 @@ function Controller() {//click handlers for each piece that is clicked on
 
     this.game_board.create_pieces(16, 'blue_diamond');
 
+
     this.clickHandlers = function() {
         $('body > *').on('click',function(){
             game_board.clicked($(this).attr('x'), $(this).attr('y'));
@@ -25,6 +26,18 @@ function Controller() {//click handlers for each piece that is clicked on
 function Game_board(parent) {
     debugger;
     this.parent = parent;
+
+
+    $('body > *').on('click',function(){
+        game_board.clicked($(this).attr('x'), $(this).attr('y'));
+    });
+}
+
+
+function Game_board(parent) {
+    this.parent = parent;
+
+
     var first_click = null;
     var second_click = null;
     var x_cord = 0;
@@ -76,16 +89,20 @@ function Game_board(parent) {
             second_click = this.jewel_arr[x][y];
             $('body > *').removeClass('clickable');//.game_pieces is a place holder class, removes the clickable feature of surronding pieces
         }
+
         //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
         this.jewel_arr[second_click_x][second_click_y].tile = first_attr;
         this.jewel_arr[first_click_x][first_click_y].tile = second_attr;
 
 
+
         //send the board state to shane which is the array!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         this.jewel_arr = this.parent.model.receiveStateSendState(first_click, second_click, this.jewel_arr);
+
         first_click = null;
         second_click = null;
         this.piece_fill();
+
 
     };
 
