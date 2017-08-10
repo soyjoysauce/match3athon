@@ -52,7 +52,7 @@ function Game_board(parent) {
                     }),
 
                 };
-                $('body').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
+                $('.game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
                 multi_arr.push(this.jewel_piece);//each iteration of the inner loop pushes the value to the inner array
             } this.jewel_arr.push(multi_arr);
             x_cord++;
