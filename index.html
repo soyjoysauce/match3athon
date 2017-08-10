@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+</head>
+<body></body>
+<script>
+    var board = [
+        [
+        {color: "red",
+            id: 1,
+             x: 0,
+             y: 0},
+
+        {color: "blue",
+            id: 2,
+             x: 0,
+             y: 1},
+
+        {color: "black",
+            id: 3,
+             x: 0,
+             y: 2},
+
+        {color: "orange",
+            id: 4,
+             x: 0,
+             y: 3}],
+
+        [
+        {color: "red",
+            id: 5,
+             x: 1,
+             y: 0},
+
+        {color: "blue",
+            id: 6,
+             x: 1,
+             y: 1},
+
+        {color: "blue",
+            id: 7,
+             x: 1,
+             y: 2},
+
+        {color: "orange",
+            id: 8,
+             x: 1,
+             y: 3}],
+
+        [
+        {color: "red",
+            id: 9,
+             x: 2,
+             y: 0},
+
+        {color: "blue",
+            id: 10,
+             x: 2,
+             y: 1},
+
+        {color: "black",
+            id: 11,
+             x: 2,
+             y: 2},
+
+        {color: "orange",
+            id: 12,
+             x: 2,
+             y: 3}],
+
+        [
+        {color: "blue",
+            id: 13,
+             x: 3,
+             y: 0},
+
+        {color: "blue",
+            id: 14,
+             x: 3,
+             y: 1},
+
+        {color: "black",
+            id: 15,
+             x: 3,
+             y: 2},
+
+        {color: "orange",
+            id: 16,
+             x: 3,
+             y: 3}],
+        ];
+
+        var piece1 = board[0][0];
+        var piece2 = board[0][1];
+
+
+
+    function Model(parent){
+        this.parent = parent;
+
+
+        this.init = function(){
+            this.receiveStateSendState(piece1, piece2, board)
+        }
+
+
+//takes in a board state and the pieces acted apon by the player and sends the info to the evaluation portion
+        this.receiveStateSendState = function(piece1, piece2, board){
+            this.evaluateMove(piece1, board);
+            var finalBoard = this.evaluateMove(piece2, board);
+            if (piece1.color !== null || piece2.color!== null){
+                var p1Color = piece1.color;
+                var p2Color = piece2.color;
+                piece2.color = p1Color;
+                piece1.color = p2Color;
+            }
+            return finalBoard
+        }
+
+//takes in a piece and the board, evaluates the move made and then returns the augmented board
+        this.evaluateMove = function(piece, board) {
+            var matchArrayXAxis = [];
+            var matchArrayYAxis = [];
+            matchArrayXAxis.push(piece);
+            matchArrayYAxis.push(piece);
+//checks the position of the piece on the x coordinate plane and runs the check function that's appropriate
+            switch(piece.x){
+                case 0:
+                    checkDown(piece);
+                    break;
+                case 1:
+                    checkDown(piece);
+                    checkUp(piece);
+                    break;
+                case 2:
+                    checkDown(piece);
+                    checkUp(piece);
+                    break;
+                case 3:
+                    checkUp(piece);
+                    break;
+            }
+//checks the position of the piece on the y coordinate plane and runs the check function that's appropriate
+            switch(piece.y){
+                case 0:
+                    checkRight(piece);
+                    break;
+                case 1:
+                    checkRight(piece);
+                    checkLeft(piece);
+                    break;
+                case 2:
+                    checkRight(piece);
+                    checkLeft(piece);
+                    break;
+                case 3:
+                    checkLeft(piece);
+                    break;
+            }
+//checks for matches below the initial piece
+            function checkDown(piece){
+                if (board[piece.x+1] !== undefined && piece.color === board[piece.x+1][piece.y].color){
+                    matchArrayXAxis.push(board[piece.x+1][piece.y]);
+                    checkDown(board[piece.x+1][piece.y]);
+                }
+            }
+//checks for matches above the initial piece
+            function checkUp(piece) {
+                if (board[piece.x - 1] !== undefined && piece.color === board[piece.x - 1][piece.y].color) {
+                    matchArrayXAxis.push(board[piece.x - 1][piece.y]);
+                    checkUp(board[piece.x - 1][piece.y]);
+                }
+            }
+//checks for matches to the right the initial piece
+            function checkRight(piece){
+                if (board[piece.y+1] !== undefined && piece.color === board[piece.x][piece.y+1].color){
+                    matchArrayYAxis.push(board[piece.x][piece.y+1]);
+                    checkRight(board[piece.x][piece.y+1]);
+                }
+            }
+//checks for matches to the left the initial piece
+            function checkLeft(piece) {
+                if (board[piece.y - 1] !== undefined && piece.color === board[piece.x][piece.y - 1].color) {
+                    matchArrayYAxis.push(board[piece.x][piece.y - 1]);
+                    checkLeft(board[piece.y - 1][piece.x]);
+                }
+            }
+//checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
+            //their defining value to null
+            if(matchArrayYAxis.length > 2) {
+                for (var i = 0; i < matchArrayYAxis.length; i++) {
+                    board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].color = null;
+                }
+            }
+//checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
+            //their defining value to null
+            if(matchArrayXAxis.length > 2){
+                for (var i = 0; i < matchArrayXAxis.length; i++) {
+                    board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].color = null;
+                }
+            }
+            //returns augmented board
+            return board;
+        }
+
+
+
+
+
+
+
+            /*var arr = [4][4]
+
+            if(arr[0][1])
+
+                if(arr[x-1])
+
+                    return;
+
+
+
+            /*if(piece1.color === board[piece1Index + 1].color && piece1.color === board[piece1Index + 2].color){
+                piece1.color = null;
+                board[piece1Index + 4].color = null;
+                board[piece1Index + 8].color = null;
+            }
+            else if(piece1.color === board[piece1Index - 1].color && piece1.color === board[piece1Index - 2].color){
+                piece1.color = null;
+                board[piece1Index - 1].color = null;
+                board[piece1Index - 2].color = null;
+            }
+            else if(piece1.color === board[piece1Index + 4].color && piece1.color === board[piece1Index + 8].color){
+                piece1.color = null;
+                board[piece1Index + 4].color = null;
+                board[piece1Index + 8].color = null;
+            }
+            else if(piece1.color === board[piece1Index - 4].color && piece1.color === board[piece1Index - 8].color){
+                piece1.color = null;
+                board[piece1Index - 4].color = null;
+                board[piece1Index - 8].color = null;
+            }
+
+            if(piece2.color === board[piece2Index + 1].color && piece2.color === board[piece2Index + 2].color){
+                piece2.color = null;
+                board[piece2Index + 4].color = null;
+                board[piece2Index + 8].color = null;
+            }
+            else if(piece2.color === board[piece2Index - 1].color && piece2.color === board[piece2Index - 2].color){
+                piece2.color = null;
+                board[piece2Index - 1].color = null;
+                board[piece2Index - 2].color = null;
+            }
+            else if(piece2.color === board[piece2Index + 4].color && piece2.color === board[piece2Index + 8].color){
+                piece2.color = null;
+                board[piece2Index + 4].color = null;
+                board[piece2Index + 8].color = null;
+            }
+            else if(piece2.color === board[piece2Index - 4].color && piece2.color === board[piece2Index - 8].color){
+                piece2.color = null;
+                board[piece2Index - 4].color = null;
+                board[piece2Index - 8].color = null;
+            }
+            */
+
+
+
+
+        this.init();
+    }
+
+
+
+    function Parent(){
+        this.model = new Model(this);
+    }
+
+
+    $(document).ready(function(){
+        var gameParent = new Parent();
+    })
+
+
+</script>
+</html>
