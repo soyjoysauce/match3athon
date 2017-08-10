@@ -95,3 +95,63 @@ body{
 .game_reset_button {
     margin_bottom: 30px;
 }
+
+
+
+
+/*TILE STYLE YO*/
+div[tile="compass_tile"]{
+    background: url("img_folder/compass_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+
+div[tile="flower_tile"]{
+    background: url("img_folder/flower_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+div[tile="pentagon_tile"]{
+    background: url("img_folder/pentagon_tile.png");
+    background-size: contain;
+    width: 12.5%;
+    height: 12.5%;
+}
+div[tile="pinkx_tile"]{
+    background: url("img_folder/pinkx_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+div[tile="quilt_tile"]{
+    background: url("img_folder/quilt_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+div[tile="redviolet_tile"]{
+    background: url("img_folder/redviolet_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+div[tile="sapphire_tile"]{
+    background: url("img_folder/sapphire_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+div[tile="star_tile"]{
+    background: url("img_folder/star_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+div[tile="yellow_tile"]{
+    background: url("img_folder/yellow_tile.png");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
