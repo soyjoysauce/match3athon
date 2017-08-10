@@ -1,9 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <script type="text/javascript" src="main.js"></script>
-    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <title>match3athon</title>
+    <link rel="stylesheet" type="text/css" href="style_sheet.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+   
 </head>
-<body></body>
+<body>
+    <header>
+        <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
+        <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
+        <p class="game_title">Jewel Tiles</p>
+        <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
+        <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
+    </header>
+        <div class="game_area">
+            //stats
+            <div class="stats_bar">
+                <div class="game_stats">stats</div>
+                <div class="game_round">Round</div>
+                <div class="game_points">Points</div>
+                <div class="game_reset">
+                    <p>reset</p>
+                    <div><img class= game_reset_button src="img_folder/reset_button.png"/></div>
+                </div>
+            </div>
+            //grid tiles
+            <div class="game_grid_container"></div>
+            //columns
+            <div class="timer_column">
+                <div class="timer_container">
+                    <img class="normal_timer" src="img_folder/normal_timer.png"/>
+                </div>
+                <div class="normal_time_bar_container">
+                    <img class="normal_time_bar" src="img_folder/normal_time_bar.png"/>
+                </div>
+            </div>
+
+        </div>
+   
+</body>
 </html>
