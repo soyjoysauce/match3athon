@@ -35,27 +35,25 @@ function Game_board(parent) {
     var first_click_x = null;
     var first_click_y = null;
     this.jewel_arr = [];
+    this.pieces_arr = ['compass_tile', 'flower_title', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
     this.create_pieces = function (num,piece_class) {//creation of the pieces
         for (var i = 0; i < num; i += 4) {//first loop changes the x coordinates increments adds four to complete total number of requested pieces
             var multi_arr = [];//creation of the multi-array that holds the coordinates of each piece, created at the start of each the outer loop
             for(var j = 0; j < 4;j++ ) {//creation of the the inner multi-array objects
+                var ran_num = Math.floor(Math.random() * this.pieces_arr.length);
                 this.jewel_piece = {
                     x: x_cord,
                     y: j,
-                    color: 'white',//color is how we'll determine what piece to place on the board
+                    tile: 'white',//tile is how we'll determine what piece to place on the board
                     info: $('<div>', {//class to add along with the x and y attributes for each dom element creating
-                        class: piece_class,
+                        class: this.pieces_arr[ran_num],
                         x: x_cord,
                         y: j
                     }),
-                    jewel_piece_img: $('<img>', {//test image I'm using to visualize the board, delete later
-                        src: 'https://webadictos.com/media/2010/11/bejeweled-3.png'
-                    })
+
                 };
-                $(this.jewel_piece.info).append(this.jewel_piece.jewel_piece_img);//append the image to the dom elements just for my visuals
                 $('body').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
                 multi_arr.push(this.jewel_piece);//each iteration of the inner loop pushes the value to the inner array
-
             } this.jewel_arr.push(multi_arr);
             x_cord++;
         }
@@ -66,21 +64,21 @@ function Game_board(parent) {
         if(first_click === null) {//assigns the first click x and y coordinates of the piece that was clicked
             first_click_x = x;
             first_click_y = y;
-            first_attr = this.jewel_arr[x][y].color;
-            first_click = this.jewel_arr[x][y];//saves the color attribute for the first piece for the sway
+            first_attr = this.jewel_arr[x][y].tile;
+            first_click = this.jewel_arr[x][y];//saves the tile attribute for the first piece for the sway
             this.off_click(x,y);
-            console.log(this.jewel_arr[x][y].color)
+            console.log(this.jewel_arr[x][y].tile)
             return
         } else {//assigns the second click x and y coordinates of the piece that was clicked
             second_click_x = x;
             second_click_y = y;
-            second_attr = this.jewel_arr[x][y].color;//saves the color attribute for the second for the sway
+            second_attr = this.jewel_arr[x][y].tile;//saves the tile attribute for the second for the sway
             second_click = this.jewel_arr[x][y];
             $('body > *').removeClass('clickable');//.game_pieces is a place holder class, removes the clickable feature of surronding pieces
         }
-        //after the two clicks and happen this switches the color attribute which we'll tie to the board pieces
-        this.jewel_arr[second_click_x][second_click_y].color = first_attr;
-        this.jewel_arr[first_click_x][first_click_y].color = second_attr;
+        //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
+        this.jewel_arr[second_click_x][second_click_y].tile = first_attr;
+        this.jewel_arr[first_click_x][first_click_y].tile = second_attr;
 
 
         //send the board state to shane which is the array!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -109,14 +107,14 @@ function Game_board(parent) {
         debugger;
         for (var i = 3; i >= 0; i--) {
             for(var j = 3; j >= 0; j--) {
-                if(this.jewel_arr[i][j].color === null) {
+                if(this.jewel_arr[i][j].tile === null) {
                     if(i === 0) {
-                        this.jewel_arr[i][j].color = 'yellow';
+                        this.jewel_arr[i][j].tile = 'yellow';
 
                         return this.piece_fill()
                     }else {
-                        this.jewel_arr[i][j].color = this.jewel_arr[i - 1][j].color;
-                        this.jewel_arr[i - 1][j].color = null;
+                        this.jewel_arr[i][j].tile = this.jewel_arr[i - 1][j].tile;
+                        this.jewel_arr[i - 1][j].tile = null;
                         return this.piece_fill();
                     }
                 }
@@ -133,11 +131,11 @@ function Model(parent) {
     this.receiveStateSendState = function (piece1, piece2, board) {
         this.evaluateMove(piece1, board);
         var finalBoard = this.evaluateMove(piece2, board);
-        if (piece1.color !== null || piece2.color !== null) {
-            var p1Color = piece1.color;
-            var p2Color = piece2.color;
-            piece2.color = p1Color;
-            piece1.color = p2Color;
+        if (piece1.tile !== null || piece2.tile !== null) {
+            var p1tile = piece1.tile;
+            var p2tile = piece2.tile;
+            piece2.tile = p1tile;
+            piece1.tile = p2tile;
         }
         return finalBoard
     }
@@ -184,7 +182,7 @@ function Model(parent) {
         }
 //checks for matches below the initial piece
         function checkDown(piece) {
-            if (board[piece.x + 1] !== undefined && piece.color === board[piece.x + 1][piece.y].color) {
+            if (board[piece.x + 1] !== undefined && piece.tile === board[piece.x + 1][piece.y].tile) {
                 matchArrayXAxis.push(board[piece.x + 1][piece.y]);
                 checkDown(board[piece.x + 1][piece.y]);
             }
@@ -192,7 +190,7 @@ function Model(parent) {
 
 //checks for matches above the initial piece
         function checkUp(piece) {
-            if (board[piece.x - 1] !== undefined && piece.color === board[piece.x - 1][piece.y].color) {
+            if (board[piece.x - 1] !== undefined && piece.tile === board[piece.x - 1][piece.y].tile) {
                 matchArrayXAxis.push(board[piece.x - 1][piece.y]);
                 checkUp(board[piece.x - 1][piece.y]);
             }
@@ -200,7 +198,7 @@ function Model(parent) {
 
 //checks for matches to the right the initial piece
         function checkRight(piece) {
-            if (board[piece.y + 1] !== undefined && piece.color === board[piece.x][piece.y + 1].color) {
+            if (board[piece.y + 1] !== undefined && piece.tile === board[piece.x][piece.y + 1].tile) {
                 matchArrayYAxis.push(board[piece.x][piece.y + 1]);
                 checkRight(board[piece.x][piece.y + 1]);
             }
@@ -208,7 +206,7 @@ function Model(parent) {
 
 //checks for matches to the left the initial piece
         function checkLeft(piece) {
-            if (board[piece.y - 1] !== undefined && piece.color === board[piece.x][piece.y - 1].color) {
+            if (board[piece.y - 1] !== undefined && piece.tile === board[piece.x][piece.y - 1].tile) {
                 matchArrayYAxis.push(board[piece.x][piece.y - 1]);
                 checkLeft(board[piece.y - 1][piece.x]);
             }
@@ -218,14 +216,14 @@ function Model(parent) {
         //their defining value to null
         if (matchArrayYAxis.length > 2) {
             for (var i = 0; i < matchArrayYAxis.length; i++) {
-                board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].color = null;
+                board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].tile = null;
             }
         }
 //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
         //their defining value to null
         if (matchArrayXAxis.length > 2) {
             for (var i = 0; i < matchArrayXAxis.length; i++) {
-                board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].color = null;
+                board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].tile = null;
             }
         }
         //returns augmented board
