@@ -13,16 +13,14 @@ function init() {
 function Controller() {//click handlers for each piece that is clicked on
     //this.model = new Model(this)
 
-    game_board.create_pieces(64);
+    game_board.create_pieces();
 
 
     this.clickHandlers = function() {
         $('.game_grid_container').on('click','div',function(){
-            debugger;
             game_board.clicked($(this).attr('x'), $(this).attr('y'));
         });
         $('.game_grid_container').on('click','.clickable',function(){
-            debugger;
             game_board.clicked($(this).attr('x'), $(this).attr('y'));
         });
     };
@@ -31,9 +29,6 @@ function Controller() {//click handlers for each piece that is clicked on
 
 
 function Game_board() {
-    //this.parent = parent;
-
-
     var first_click = null;
     var second_click = null;
     var x_cord = 0;
@@ -44,34 +39,23 @@ function Game_board() {
     var first_click_x = null;
     var first_click_y = null;
     this.jewel_arr = [];
-    this.pieces_arr = ['compass_tile', 'flower_title', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
-    this.create_pieces = function (num) {//creation of the pieces
-        for (var i = 0; i < num; i += 8) {//first loop changes the x coordinates increments adds four to complete total number of requested pieces
+    this.pieces_arr = ['compass_tile', 'flower_tile', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
+    this.create_pieces = function () {//creation of the pieces
+        for (var i = 0; i < 7; i++) {//first loop changes the x coordinates increments adds four to complete total number of requested pieces
             var multi_arr = [];//creation of the multi-array that holds the coordinates of each piece, created at the start of each the outer loop
-            for(var j = 0; j < 8;j++ ) {//creation of the the inner multi-array objects
+            for(var j = 0; j < 7; j++) {//creation of the the inner multi-array objects
                 var ran_num = Math.floor(Math.random() * this.pieces_arr.length);
                 this.jewel_piece = {
                     x: x_cord,
                     y: j,
-                    tile: this.pieces_arr[ran_num],//tile is how we'll determine what piece to place on the board
-                    info: $('<div>', {//class to add along with the x and y attributes for each dom element creating
-                        tile: this.pieces_arr[ran_num],
-                        x: x_cord,
-                        y: j
-                    }),
-
+                    tile: this.pieces_arr[ran_num],//tile is how we'll determine what piece to place on the boar
                 };
-                $('.game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
-
-
-                var test = $('<div>', {
-                    text: 'hello',
-                    class: 'random'
-                })
-
-                $('.game_grid_container').append(this.jewel_piece.info);//actual appending of the dom element to the html body
-
-                // $('game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
+                var div_piece = $('<div>', {//class to add along with the x and y attributes for each dom element creating
+                    tile: this.pieces_arr[ran_num],
+                    x: x_cord,
+                    y: j
+                });
+                $('.game_grid_container').append(div_piece.clone());//actual appending of the dom element to the html body
                 multi_arr.push(this.jewel_piece);//each iteration of the inner loop pushes the value to the inner array
             } this.jewel_arr.push(multi_arr);
             x_cord++;
@@ -79,7 +63,6 @@ function Game_board() {
     };
 
     this.clicked = function(x,y) {//click handler function when the player clicks on a piece, passed the x and y values of the piece clicked
-        debugger;
         if(first_click === null) {//assigns the first click x and y coordinates of the piece that was clicked
             first_click_x = x;
             first_click_y = y;
@@ -127,7 +110,6 @@ function Game_board() {
     }
 
     this.piece_fill = function() {
-        debugger;
         for (var i = 7; i >= 0; i--) {
             for(var j = 7; j >= 0; j--) {
                 if(this.jewel_arr[i][j].tile === null) {

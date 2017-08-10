@@ -118,17 +118,13 @@ span {
 
 
 /*TILE STYLE YO*/
+
 div[tile="compass_tile"]{
     background: url("img_folder/compass_tile.png");
     background-size: contain;
     background-repeat: no-repeat;
     width: 12.5%;
     height: 12.5%;
-}
-
-.game_grid_container > *{
-    display: inline-block;
-    z-index: 1;
 }
 
 div[tile="flower_tile"]{
@@ -186,6 +182,11 @@ div[tile="yellow_tile"]{
     background-size: contain;
     width: 12.5%;
     height: 12.5%;
+}
+
+.game_grid_container > *{
+    display: inline-block;
+    z-index: 1;
 }
 
 .random {
