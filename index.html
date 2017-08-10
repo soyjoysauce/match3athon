@@ -2,24 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>match3athon</title>
     <link rel="stylesheet" type="text/css" href="style_sheet.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script>
-        $(document).ready(div_creator);
-        function div_creator(){
-            var div_creation = $("<div>",{
-                class: 'pieces'
-            });
-            var img_creation = $("<img>",{
-                src:"img_folder/star_tile.png"
-            });
-            for (var i=0; i<64;i++){
-                $(div_creation).append(img_creation);
-                $('.game_grid_container').append(div_creation.clone());
-            }
-        }
-    </script>
+   
 </head>
 <body>
     <header>
@@ -53,5 +40,6 @@
             </div>
 
         </div>
+   
 </body>
 </html>
