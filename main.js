@@ -12,7 +12,7 @@ function Controller() {//click handlers for each piece that is clicked on
     this.game_board = new Game_board(this);
     this.model = new Model(this)
 
-    this.game_board.create_pieces(16, 'blue_diamond');
+    this.game_board.create_pieces(64);
 
 
     this.clickHandlers = function() {
@@ -49,7 +49,7 @@ function Game_board(parent) {
     var first_click_y = null;
     this.jewel_arr = [];
     this.pieces_arr = ['compass_tile', 'flower_title', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
-    this.create_pieces = function (num,piece_class) {//creation of the pieces
+    this.create_pieces = function (num) {//creation of the pieces
         for (var i = 0; i < num; i += 4) {//first loop changes the x coordinates increments adds four to complete total number of requested pieces
             var multi_arr = [];//creation of the multi-array that holds the coordinates of each piece, created at the start of each the outer loop
             for(var j = 0; j < 4;j++ ) {//creation of the the inner multi-array objects
@@ -57,15 +57,24 @@ function Game_board(parent) {
                 this.jewel_piece = {
                     x: x_cord,
                     y: j,
-                    tile: 'white',//tile is how we'll determine what piece to place on the board
+                    tile: this.pieces_arr[ran_num],//tile is how we'll determine what piece to place on the board
                     info: $('<div>', {//class to add along with the x and y attributes for each dom element creating
-                        class: this.pieces_arr[ran_num],
+                        tile: this.pieces_arr[ran_num],
                         x: x_cord,
                         y: j
                     }),
 
                 };
+
                 $('.game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
+
+                var test = $('<div>', {
+                    text: 'hello',
+                    class: 'random'
+                })
+                debugger
+                $('.game_grid_container').append(this.jewel_piece.info);//actual appending of the dom element to the html body
+                // $('game_grid_container').append(this.jewel_piece.info.clone());//actual appending of the dom element to the html body
                 multi_arr.push(this.jewel_piece);//each iteration of the inner loop pushes the value to the inner array
             } this.jewel_arr.push(multi_arr);
             x_cord++;
