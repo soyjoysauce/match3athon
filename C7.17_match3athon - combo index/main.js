@@ -14,16 +14,13 @@ function Controller() {//click handlers for each piece that is clicked on
 
     this.game_board.create_pieces(16, 'blue_diamond');
 
-
     $('body > *').on('click',function(){
         game_board.clicked($(this).attr('x'), $(this).attr('y'));
     });
 }
 
-
 function Game_board(parent) {
     this.parent = parent;
-
     var first_click = null;
     var second_click = null;
     var x_cord = 0;
@@ -87,7 +84,6 @@ function Game_board(parent) {
         //send the board state to shane which is the array!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         this.jewel_arr = this.parent.model.receiveStateSendState(first_click, second_click, this.jewel_arr);
 
-
     };
 
     this.off_click = function(x,y) {//this turns the click handler off all pieces and turns them on just for the adjacent pieces
@@ -144,7 +140,7 @@ function Model(parent){
     this.receiveStateSendState = function(piece1, piece2, board){
         this.evaluateMove(piece1, board);
         var finalBoard = this.evaluateMove(piece2, board);
-        if (piece1.color !== null || piece2.color!== null){
+    if (piece1.color !== null || piece2.color!== null){
             var p1Color = piece1.color;
             var p2Color = piece2.color;
             piece2.color = p1Color;
@@ -239,4 +235,3 @@ function Model(parent){
         return board;
     }
 
-var controller = null;
