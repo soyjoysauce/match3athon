@@ -1,0 +1,97 @@
+header {
+    border:3px solid rgba(6,25,189,1);
+    width: 1880px;
+    height: 150px;
+    background-color:#00057A;
+    text-align: center;
+}
+
+.header_img {
+    display: inline-block;
+    margin: 10px;
+}
+
+body{
+    background-image: url("img_folder/background_img.png");
+}
+
+.game_title {
+    font-size: 60px;
+    font-family: Copperplate, Arial, sans-serif;
+    display: inline-block;
+    margin: 20px 20px;
+    color: rgba(255,240,254,1)
+}
+
+.game_grid_container {
+    border: 2px solid;
+    width:1370px;
+    height:1380px;
+    display: inline-block;
+    float:left;
+    background-color:rgba(1,4,27,1);
+}
+
+.pieces {
+    width:12.5%;
+    height:12.5%;
+    display: inline-table;
+}
+
+.stats_bar {
+    width: 250px;
+    height: 1380px;
+    display: inline-block;
+    border: 2px solid;
+    float: left;
+    background-color:rgba(1,4,27,1);
+}
+
+.game_stats, .game_round ,.game_points, .game_reset {
+    width: 95%;
+    height: 24%;
+    border: 5px solid rgba(23,9,189,1);
+    font-family: Copperplate, Arial, sans-serif;
+    font-size: 50px;
+    text-align: center;
+    margin:2px;
+    background-color: #D3EAFF;
+}
+
+.timer_column {
+    width: 250px ;
+    height: 1380px;
+    display: inline-block;
+    border: 2px solid;
+    float: left;
+    background-color:rgba(1,4,27,1);
+}
+
+.timer_container{
+    width:220px;
+    height: 1350px;
+}
+
+.game_area {
+    text-align: justify;
+    width: 2000px;
+    height: 1380px;
+}
+.timer_container , .normal_time_bar_container{
+    height:1300px;
+    width: 230px;
+    position: absolute;
+}
+
+.normal_timer, .normal_time_bar {
+    height:1300px;
+    width: 230px;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 15% 5%;
+}
+
+.game_reset_button {
+    margin_bottom: 30px;
+}
