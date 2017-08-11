@@ -156,23 +156,38 @@ function Game_board() {
         for (var i = 7; i >= 0; i--) {
             for (var j = 7; j >= 0; j--) {
                 if (this.jewel_arr[i][j].tile === null) {
-                    if (i === 0) {
-                        var ran_num = Math.floor(Math.random() * this.pieces_arr.length);
+                    var ran_num = Math.floor(Math.random() * 7);
                         var match_id = this.jewel_arr[i][j].id;
                         this.jewel_arr[i][j].tile = this.pieces_arr[ran_num];
                         $("[id='" + match_id + "']").attr('tile', this.pieces_arr[ran_num]);
                         return this.piece_fill()
-                    } else {
-                        var match_id = this.jewel_arr[i][j].id;
-                        $("[id='" + match_id + "']").attr('tile', this.jewel_arr[i - 1][j].tile);
-                        this.jewel_arr[i][j].tile = this.jewel_arr[i - 1][j].tile;
-                        this.jewel_arr[i - 1][j].tile = null;
-                        return this.piece_fill();
-                    }
                 }
+                // if (this.jewel_arr[i][j].tile === null) {
+                //     if (i === 0) {
+                //         var ran_num = Math.floor(Math.random() * this.pieces_arr.length);
+                //         var match_id = this.jewel_arr[i][j].id;
+                //         this.jewel_arr[i][j].tile = this.pieces_arr[ran_num];
+                //         $("[id='" + match_id + "']").attr('tile', this.pieces_arr[ran_num]);
+                //         return this.piece_fill()
+                //     } else {
+                //         var match_id = this.jewel_arr[i][j].id;
+                //         for(var k = i; k > 0; k--) {
+                //             if(this.jewel_arr[k - 1][j].tile !== null) {
+                //                 $("[id='" + match_id + "']").attr('tile', this.jewel_arr[k - 1][j].tile);
+                //                 this.jewel_arr[k][j].tile = this.jewel_arr[k - 1][j].tile;
+                //                 return this.piece_fill();
+                //             }
+                //         }
+                //         var ran_num = Math.floor(Math.random() * 7);
+                //         var match_id = this.jewel_arr[i][j].id;
+                //         this.jewel_arr[i][j].tile = this.pieces_arr[ran_num];
+                //         $("[id='" + match_id + "']").attr('tile', this.pieces_arr[ran_num]);
+                //         return this.piece_fill()
+                //     }
+                // }
             }
         }
-        //return controller.clickHandlers();
+        return controller.clickHandlers();
     }
 }
 
