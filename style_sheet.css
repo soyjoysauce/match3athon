@@ -10,9 +10,15 @@ header {
     display: inline-block;
 }
 
+
 body{
-    background-image: url("img_folder/background_img.png");
+    background-image: url("img_folder/gem_background.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+
 }
+
 
 .game_title {
     font-size: 80px;
@@ -23,7 +29,6 @@ body{
 }
 
 .game_grid_container {
-    border: 2px solid;
     width:1370px;
     height:1400px;
     display: inline-block;
@@ -34,16 +39,20 @@ body{
 .pieces {
     width:12.5%;
     height:12.5%;
-    display: inline-table;
+    display: inline-block;
 }
 
 .stats_bar {
     width: 250px;
-    height: 1380px;
+    height: 1400px;
     display: inline-block;
     border: 2px solid;
     float: left;
     background-color:rgba(1,4,27,1);
+}
+
+p  {
+    margin: 0px;
 }
 
 .game_stats, .game_round ,.game_points, .game_reset {
@@ -59,23 +68,22 @@ body{
 
 .timer_column {
     width: 250px ;
-    height: 1380px;
+    height: 1400px;
     display: inline-block;
-    border: 2px solid;
     float: left;
     background-color:rgba(1,4,27,1);
-}
 
-.timer_container{
-    width:220px;
-    height: 1350px;
 }
 
 .game_area {
     text-align: justify;
-    width: 2000px;
-    height: 1380px;
+    width: 1900px;
+    height: 1400px;
+    border-radius: 20px;
+    background-color:rgba(1,4,27,1);
+
 }
+
 .timer_container , .normal_time_bar_container{
     height:1300px;
     width: 230px;
@@ -91,8 +99,10 @@ body{
     margin: 15% 5%;
 }
 
-.normal_time_bar_2, .bonus_time_bar{
-    animation: mymove 5s infinite; /* Chrome, Safari, Opera */
+
+.normal_time_bar_2{
+    animation: mymove 10s infinite;
+    border-radius: 100px;
 }
 
 .game_reset_button {
@@ -108,15 +118,16 @@ body{
     font-weight: bold;
 }
 
-span {
-    display: inline-block;
-    transform: translateX(300px);
-    font-weight: normal;
-}
 
 @keyframes mymove {
-    from {background-color: red;}
-    to {background-color: blue;}
+    0% {background-color: red;}
+    25% {background-color: orange;}
+    70% {background-color: green;}
+    100% {background-color: blue;}
+    0% {transform: scaleY(0)}
+    25% {transform: scaleY(0.25)}
+    50% {transform: scaleY(0.7)}
+    100% {transform: scaleY(1)}
 }
 
 /*TILE STYLE YO*/
@@ -128,77 +139,83 @@ div[tile] {
 div[tile="compass_tile"]{
     background: url("img_folder/compass_tile.png");
     background-size: contain;
-    background-repeat: no-repeat;
     display: inline-block;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
+    background-repeat: no-repeat;
 }
 
 div[tile="flower_tile"]{
     background: url("img_folder/flower_tile.png");
     background-size: contain;
-    background-repeat: no-repeat;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
     display: inline-block;
+    background-repeat: no-repeat;
 }
 
 div[tile="pentagon_tile"]{
-    background-repeat: no-repeat;
     background: url("img_folder/pentagon_tile.png");
     background-size: contain;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
     display: inline-block;
+    background-repeat: no-repeat;
 }
 div[tile="pinkx_tile"]{
-    background-repeat: no-repeat;
     background: url("img_folder/pinkx_tile.png");
     background-size: contain;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
     display: inline-block;
-}
-div[tile="quilt_tile"]{
     background-repeat: no-repeat;
+}
+
+div[tile="quilt_tile"]{
     background: url("img_folder/quilt_tile.png");
     background-size: contain;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
     display: inline-block;
-}
-div[tile="redviolet_tile"]{
     background-repeat: no-repeat;
+}
+
+div[tile="redviolet_tile"]{
     background: url("img_folder/redviolet_tile.png");
     background-size: contain;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
     display: inline-block;
-}
-div[tile="sapphire_tile"]{
     background-repeat: no-repeat;
+}
+
+div[tile="sapphire_tile"]{
     background: url("img_folder/sapphire_tile.png");
     background-size: contain;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
     display: inline-block;
+    background-repeat: no-repeat;
 }
 
 div[tile="star_tile"]{
-    background-repeat: no-repeat;
     background: url("img_folder/star_tile.png");
     background-size: contain;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
     display: inline-block;
-}
-div[tile="yellow_tile"]{
     background-repeat: no-repeat;
+
+}
+
+div[tile="yellow_tile"]{
     background: url("img_folder/yellow_tile.png");
     background-size: contain;
     display: inline-block;
-    width: 12.5%;
-    height: 12.5%;
+    width: 12%;
+    height: 12%;
+    background-repeat: no-repeat;
+
 }
 
 
