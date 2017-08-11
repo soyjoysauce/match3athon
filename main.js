@@ -258,3 +258,32 @@ var game_board = null;
 var controller = null;
 var model = null;
 
+
+//***************************************************************
+// reset tiles
+
+$('.game_reset_button').on('click',handleResetClick);
+
+var stats = 0;
+var round = 0;
+var points = 0;
+
+function display_stats (){
+    $('.game_stats .value').text(stats);
+    $('.game_round .value').text(round);
+    var score = (Math.floor((match_counter/attempts)*100));
+    $('.game_points .value').text(score);
+}
+
+function reset_stats(){
+    stats = 0 ;
+    round = 0 ;
+    points = 0 ;
+}
+
+function handleResetClick(){
+    console.log('reset clicked');
+    display_stats();
+    reset_stats();
+
+}
