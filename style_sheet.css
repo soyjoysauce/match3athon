@@ -132,8 +132,11 @@ p  {
 
 /*TILE STYLE YO*/
 
-div[tile] {
+.game_grid_container > * {
     display: inline-block;
+    width: 12%;
+    height: 12%;
+    background-repeat: no-repeat;
 }
 
 div[tile="compass_tile"]{
