@@ -8,6 +8,7 @@ function init() {
     game_board = new Game_board();
     controller = new Controller();
     model = new Model();
+    $('.game_reset_button').on('click', model.handleResetClick);
 }
 
 function Controller() {//click handlers for each piece that is clicked on
@@ -17,6 +18,7 @@ function Controller() {//click handlers for each piece that is clicked on
 
 
     this.clickHandlers = function() {
+
         $('.game_grid_container').on('click','div',function(){
             console.log('click')
             game_board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
@@ -25,6 +27,8 @@ function Controller() {//click handlers for each piece that is clicked on
             console.log('click')
             game_board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
         });
+
+
     };
     this.clickHandlers();
 }
@@ -79,6 +83,17 @@ function Game_board() {
             first_click = this.jewel_arr[x][y];//saves the tile attribute for the first piece for the sway
             //this.off_click(x, y);
             first_id = id;
+            $("[id='" + second_id + "']").removeClass("government");
+            $("[id='" + (parseInt(second_id)+ 1) + "']").removeClass("government");
+            $("[id='" + (parseInt(second_id)+ 8) + "']").removeClass("government");
+            $("[id='" + (parseInt(second_id)- 1) + "']").removeClass("government");
+            $("[id='" + (parseInt(second_id)- 8) + "']").removeClass("government");
+            $("[id='" + first_id + "']").addClass("government");
+            $("[id='" + (parseInt(first_id)+ 1) + "']").addClass("government");
+            $("[id='" + (parseInt(first_id)+ 8) + "']").addClass("government");
+            $("[id='" + (parseInt(first_id)- 1) + "']").addClass("government");
+            $("[id='" + (parseInt(first_id)- 8) + "']").addClass("government");
+
             return
         } else {//assigns the second click x and y coordinates of the piece that was clicked
             second_click_x = x;
@@ -86,11 +101,22 @@ function Game_board() {
             second_attr = this.jewel_arr[x][y].tile;//saves the tile attribute for the second for the sway
             second_click = this.jewel_arr[x][y];
             second_id = id;
+            $("[id='" + first_id + "']").removeClass("government");
+            $("[id='" + (parseInt(first_id)+ 1) + "']").removeClass("government");
+            $("[id='" + (parseInt(first_id)+ 8) + "']").removeClass("government");
+            $("[id='" + (parseInt(first_id)- 1) + "']").removeClass("government");
+            $("[id='" + (parseInt(first_id)- 8) + "']").removeClass("government");
+            $("[id='" + second_id + "']").addClass("government");
+            $("[id='" + (parseInt(second_id)+ 1) + "']").addClass("government");
+            $("[id='" + (parseInt(second_id)+ 8) + "']").addClass("government");
+            $("[id='" + (parseInt(second_id)- 1) + "']").addClass("government");
+            $("[id='" + (parseInt(second_id)- 8) + "']").addClass("government");
             if(this.off_click(first_click_x, first_click_y, second_id) === false ) {
                 first_click = second_click;
                 second_click = null;
                 $('.game_grid_container').off('click', 'div')
                 controller.clickHandlers()
+
                 return
             }
             // $('.game_grid_container > *').removeClass('clickable');
@@ -102,6 +128,11 @@ function Game_board() {
         $("[id='" + first_id + "']").attr('tile', second_attr);
         $("[id='" + second_id + "']").attr('tile', first_attr);
         //send the board state to shane which is the array!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        $("[id='" + second_id + "']").removeClass("government");
+        $("[id='" + (parseInt(second_id)+ 1) + "']").removeClass("government");
+        $("[id='" + (parseInt(second_id)+ 8) + "']").removeClass("government");
+        $("[id='" + (parseInt(second_id)- 1) + "']").removeClass("government");
+        $("[id='" + (parseInt(second_id)- 8) + "']").removeClass("government");
         this.jewel_arr = model.receiveStateSendState(first_click, second_click, this.jewel_arr);
 
         first_click = null;
@@ -157,10 +188,10 @@ function Game_board() {
             for (var j = 7; j >= 0; j--) {
                 if (this.jewel_arr[i][j].tile === null) {
                     var ran_num = Math.floor(Math.random() * 7);
-                        var match_id = this.jewel_arr[i][j].id;
-                        this.jewel_arr[i][j].tile = this.pieces_arr[ran_num];
-                        $("[id='" + match_id + "']").attr('tile', this.pieces_arr[ran_num]);
-                        return this.piece_fill()
+                    var match_id = this.jewel_arr[i][j].id;
+                    this.jewel_arr[i][j].tile = this.pieces_arr[ran_num];
+                    $("[id='" + match_id + "']").attr('tile', this.pieces_arr[ran_num]);
+                    return this.piece_fill()
                 }
                 // if (this.jewel_arr[i][j].tile === null) {
                 //     if (i === 0) {
@@ -194,14 +225,18 @@ function Game_board() {
 
 //BEGIN EVALUATION OF BOARD AREA INSIDE OF THIS SPACE BELOW THIS SPOT I AM HERE
 function Model() {
-    // this.parent = parent;
+    this.score = 0;
+    this.matches = 0;
+    this.fails = 0;
+
 
 //takes in a board state and the pieces acted upon by the player and sends the info to the evaluation portion
     this.receiveStateSendState = function (piece1, piece2, board) {
-        debugger
         this.evaluateMove(piece1, board);
         var finalBoard = this.evaluateMove(piece2, board);
         if (piece1.tile !== null && piece2.tile !== null) {
+            this.fails += 1;
+            model.display_stats();
             var p1tile = piece1.tile;
             var p2tile = piece2.tile;
             var first_id = piece1.id;
@@ -210,8 +245,11 @@ function Model() {
             piece1.tile = p2tile;
             $("[id='" + first_id + "']").attr('tile', p2tile);
             $("[id='" + second_id + "']").attr('tile', p1tile);
+
         }
-        return finalBoard
+
+        return finalBoard;
+
     }
 
 //takes in a piece and the board, evaluates the move made and then returns the augmented board
@@ -277,11 +315,15 @@ function Model() {
                 checkLeft(board[piece.y - 1][piece.x]);
             }
         }
-
+//INCREMENT MATCH COUNTER
+        if (matchArrayYAxis.length > 2 || matchArrayXAxis.length > 2){
+            model.matches +=1
+        }
 //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
         //their defining value to null
         if (matchArrayYAxis.length > 2) {
             for (var i = 0; i < matchArrayYAxis.length; i++) {
+                model.score += 1;
                 var match_id = matchArrayYAxis[i].id;
                 board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].tile = null;
                 $("[id='" + match_id + "']").attr('tile', 'empty');
@@ -291,14 +333,39 @@ function Model() {
         //their defining value to null
         if (matchArrayXAxis.length > 2) {
             for (var i = 0; i < matchArrayXAxis.length; i++) {
+                model.score += 1;
                 var match_id = matchArrayXAxis[i].id;
                 board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].tile = null;
                 $("[id='" + match_id + "']").attr('tile', 'empty');
             }
         }
+
         //returns augmented board
         return board;
     }
+
+
+
+
+
+
+    this.display_stats = function (){
+        if(model.score > localStorage.personalBest){
+            localStorage.personalBest = model.score
+        }
+        $('#personal_best_value').text(localStorage.personalBest)
+        $('#score_value').text(model.score);
+        $('#stats_value').text(model.matches + '/' + model.fails)
+    }
+
+    this.handleResetClick = function(){
+        console.log("GET")
+        this.matches = 0;
+        this.fails = 0;
+        this.score = 0;
+
+    }
+
 }
 
 var game_board = null;
@@ -309,28 +376,17 @@ var model = null;
 //***************************************************************
 // reset tiles
 
-$('.game_reset_button').on('click',handleResetClick);
 
-var stats = 0;
-var round = 0;
-var points = 0;
 
-function display_stats (){
-    $('.game_stats .value').text(stats);
-    $('.game_round .value').text(round);
-    var score = (Math.floor((match_counter/attempts)*100));
-    $('.game_points .value').text(score);
-}
+// var stats = 0;
+// var round = 0;
+// var points = 0;
 
-function reset_stats(){
-    stats = 0 ;
-    round = 0 ;
-    points = 0 ;
-}
 
-function handleResetClick(){
-    console.log('reset clicked');
-    display_stats();
-    reset_stats();
 
-}
+// function reset_stats(){
+//     stats = 0 ;
+//     round = 0 ;
+//     points = 0 ;
+// }
+
