@@ -18,10 +18,11 @@ function Controller() {//click handlers for each piece that is clicked on
 
     this.clickHandlers = function() {
         $('.game_grid_container').on('click','div',function(){
-            debugger
+            console.log('click')
             game_board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
         });
         $('.game_grid_container').on('click','.clickable',function(){
+            console.log('click')
             game_board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
         });
     };
@@ -52,6 +53,7 @@ function Game_board() {
                 this.jewel_piece = {
                     x: x_cord,
                     y: j,
+                    id: counter,
                     tile: this.pieces_arr[ran_num],//tile is how we'll determine what piece to place on the boar
                     info: $('<div>', {//class to add along with the x and y attributes for each dom element creating
                         tile: this.pieces_arr[ran_num],
@@ -75,7 +77,7 @@ function Game_board() {
             first_click_y = y;
             first_attr = this.jewel_arr[x][y].tile;
             first_click = this.jewel_arr[x][y];//saves the tile attribute for the first piece for the sway
-            this.off_click(x, y);
+            //this.off_click(x, y);
             first_id = id;
             return
         } else {//assigns the second click x and y coordinates of the piece that was clicked
@@ -83,14 +85,20 @@ function Game_board() {
             second_click_y = y;
             second_attr = this.jewel_arr[x][y].tile;//saves the tile attribute for the second for the sway
             second_click = this.jewel_arr[x][y];
-            $('.game_grid_container > *').removeClass('clickable');//.game_pieces is a place holder class, removes the clickable feature of surronding pieces
             second_id = id;
+            if(this.off_click(first_click_x, first_click_y, second_id) === false ) {
+                first_click = second_click;
+                second_click = null;
+                $('.game_grid_container').off('click', 'div')
+                controller.clickHandlers()
+                return
+            }
+            // $('.game_grid_container > *').removeClass('clickable');
         }
 
         //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
         this.jewel_arr[second_click_x][second_click_y].tile = first_attr;
         this.jewel_arr[first_click_x][first_click_y].tile = second_attr;
-        debugger;
         $("[id='" + first_id + "']").attr('tile', second_attr);
         $("[id='" + second_id + "']").attr('tile', first_attr);
         //send the board state to shane which is the array!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -98,6 +106,7 @@ function Game_board() {
 
         first_click = null;
         second_click = null;
+        controller.clickHandlers();
         this.piece_fill();
 
     };
@@ -111,7 +120,7 @@ function Game_board() {
     //
     // }
 
-    this.off_click = function (x, y) {//this turns the click handler off all pieces and turns them on just for the adjacent pieces
+    this.off_click = function (x,y, id) {//this turns the click handler off all pieces and turns them on just for the adjacent pieces
         $('.game_grid_container').off('click', 'div');
         var selectx = "[x='" + x + "']";//baseline for where to start on the x coordinate for the pieces
         var selecty = "[y='" + y + "']";//baseline for where to start on the y coordinate for the pieces
@@ -119,21 +128,43 @@ function Game_board() {
         var select_right = "[y='" + (parseInt(y) + 1) + "']";//move right 1 spot to select the piece above
         var select_down = "[x='" + (parseInt(x) + 1) + "']";//move down 1 spot to select the piece above
         var select_left = "[y='" + (parseInt(y) - 1) + "']";//move left 1 spot to select the piece above
-        $(selectx).filter(select_right).addClass('clickable');//add click handler to right piece
-        $(selectx).filter(select_left).addClass('clickable');//add click handler to left piece
-        $(select_up).filter(selecty).addClass('clickable');//add click handler to piece above
-        $(select_down).filter(selecty).addClass('clickable');//add click handler to piece below
+        // $(selectx).filter(select_right).addClass('clickable');//add click handler to right piece
+        // $(selectx).filter(select_left).addClass('clickable');//add click handler to left piece
+        // $(select_up).filter(selecty).addClass('clickable');//add click handler to piece above
+        // $(select_down).filter(selecty).addClass('clickable');//add click handler to piece below
+        var right_id = $(selectx).filter(select_right).attr('id');
+        var left_id = $(selectx).filter(select_left).attr('id');
+        var up_id = $(select_up).filter(selecty).attr('id');
+        var down_id = $(select_down).filter(selecty).attr('id');
+        switch(id) {
+            case right_id:
+                return true;
+            case left_id:
+                return true;
+            case up_id:
+                return true;
+            case down_id:
+                return true
+            default:
+                return false
+
+        }
     }
 
     this.piece_fill = function () {
+        debugger;
         for (var i = 7; i >= 0; i--) {
             for (var j = 7; j >= 0; j--) {
                 if (this.jewel_arr[i][j].tile === null) {
                     if (i === 0) {
-                        this.jewel_arr[i][j].tile = 'yellow';
-
+                        var ran_num = Math.floor(Math.random() * this.pieces_arr.length);
+                        var match_id = this.jewel_arr[i][j].id;
+                        this.jewel_arr[i][j].tile = this.pieces_arr[ran_num];
+                        $("[id='" + match_id + "']").attr('tile', this.pieces_arr[ran_num]);
                         return this.piece_fill()
                     } else {
+                        var match_id = this.jewel_arr[i][j].id;
+                        $("[id='" + match_id + "']").attr('tile', this.jewel_arr[i - 1][j].tile);
                         this.jewel_arr[i][j].tile = this.jewel_arr[i - 1][j].tile;
                         this.jewel_arr[i - 1][j].tile = null;
                         return this.piece_fill();
@@ -141,7 +172,7 @@ function Game_board() {
                 }
             }
         }
-        return controller.clickHandlers();
+        //return controller.clickHandlers();
     }
 }
 
@@ -152,13 +183,18 @@ function Model() {
 
 //takes in a board state and the pieces acted upon by the player and sends the info to the evaluation portion
     this.receiveStateSendState = function (piece1, piece2, board) {
+        debugger
         this.evaluateMove(piece1, board);
         var finalBoard = this.evaluateMove(piece2, board);
-        if (piece1.tile !== null || piece2.tile !== null) {
+        if (piece1.tile !== null && piece2.tile !== null) {
             var p1tile = piece1.tile;
             var p2tile = piece2.tile;
+            var first_id = piece1.id;
+            var second_id = piece2.id;
             piece2.tile = p1tile;
             piece1.tile = p2tile;
+            $("[id='" + first_id + "']").attr('tile', p2tile);
+            $("[id='" + second_id + "']").attr('tile', p1tile);
         }
         return finalBoard
     }
@@ -174,15 +210,11 @@ function Model() {
             case 0:
                 checkDown(piece);
                 break;
-            case 1:
-                checkDown(piece);
+            case 7:
                 checkUp(piece);
                 break;
-            case 2:
+            default:
                 checkDown(piece);
-                checkUp(piece);
-                break;
-            case 3:
                 checkUp(piece);
                 break;
         }
@@ -191,15 +223,11 @@ function Model() {
             case 0:
                 checkRight(piece);
                 break;
-            case 1:
-                checkRight(piece);
+            case 7:
                 checkLeft(piece);
                 break;
-            case 2:
+            default:
                 checkRight(piece);
-                checkLeft(piece);
-                break;
-            case 3:
                 checkLeft(piece);
                 break;
         }
@@ -221,7 +249,7 @@ function Model() {
 
 //checks for matches to the right the initial piece
         function checkRight(piece) {
-            if (board[piece.y + 1] !== undefined && piece.tile === board[piece.x][piece.y + 1].tile) {
+            if (board[piece.x][piece.y + 1] !== undefined && piece.tile === board[piece.x][piece.y + 1].tile) {
                 matchArrayYAxis.push(board[piece.x][piece.y + 1]);
                 checkRight(board[piece.x][piece.y + 1]);
             }
@@ -229,7 +257,7 @@ function Model() {
 
 //checks for matches to the left the initial piece
         function checkLeft(piece) {
-            if (board[piece.y - 1] !== undefined && piece.tile === board[piece.x][piece.y - 1].tile) {
+            if (board[piece.x][piece.y - 1] !== undefined && piece.tile === board[piece.x][piece.y - 1].tile) {
                 matchArrayYAxis.push(board[piece.x][piece.y - 1]);
                 checkLeft(board[piece.y - 1][piece.x]);
             }
@@ -239,14 +267,18 @@ function Model() {
         //their defining value to null
         if (matchArrayYAxis.length > 2) {
             for (var i = 0; i < matchArrayYAxis.length; i++) {
+                var match_id = matchArrayYAxis[i].id;
                 board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].tile = null;
+                $("[id='" + match_id + "']").attr('tile', 'empty');
             }
         }
 //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
         //their defining value to null
         if (matchArrayXAxis.length > 2) {
             for (var i = 0; i < matchArrayXAxis.length; i++) {
+                var match_id = matchArrayXAxis[i].id;
                 board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].tile = null;
+                $("[id='" + match_id + "']").attr('tile', 'empty');
             }
         }
         //returns augmented board
