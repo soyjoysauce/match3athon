@@ -132,6 +132,10 @@ p  {
 
 /*TILE STYLE YO*/
 
+div[tile] {
+    display: inline-block;
+}
+
 div[tile="compass_tile"]{
     background: url("img_folder/compass_tile.png");
     background-size: contain;
