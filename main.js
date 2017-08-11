@@ -8,7 +8,11 @@ function init() {
     game_board = new Game_board();
     controller = new Controller();
     model = new Model();
-    $('.game_reset_button').on('click', model.handleResetClick);
+    model.display_stats();
+    setTimeout(function(){
+        alert("Out of time, but don't give up champ, we believe!");
+        location.reload();
+    }, 30000);
 }
 
 function Controller() {//click handlers for each piece that is clicked on
@@ -27,7 +31,14 @@ function Controller() {//click handlers for each piece that is clicked on
             console.log('click')
             game_board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
         });
-
+        $('#reset').on('click', function(){
+            location.reload();
+            model.display_stats()
+        });
+        $('.game_reset_button').on('click', function(){
+            location.reload();
+            model.display_stats();
+        })
 
     };
     this.clickHandlers();
@@ -76,6 +87,7 @@ function Game_board() {
         }
     }
     this.clicked = function (x, y, id) {//click handler function when the player clicks on a piece, passed the x and y values of the piece clicked
+        model.display_stats();
         if (first_click === null) {//assigns the first click x and y coordinates of the piece that was clicked
             first_click_x = x;
             first_click_y = y;
@@ -358,13 +370,13 @@ function Model() {
         $('#stats_value').text(model.matches + '/' + model.fails)
     }
 
-    this.handleResetClick = function(){
-        console.log("GET")
-        this.matches = 0;
-        this.fails = 0;
-        this.score = 0;
-
-    }
+    // this.handleResetClick = function(){
+    //     console.log("GET")
+    //     this.matches = 0;
+    //     this.fails = 0;
+    //     this.score = 0;
+    //
+    // }
 
 }
 

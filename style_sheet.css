@@ -118,7 +118,7 @@ p  {
 
 
 .normal_time_bar_2{
-    animation: mymove 10s infinite;
+    animation: mymove 32s infinite;
     border-radius: 100px;
 }
 
@@ -231,6 +231,7 @@ div[tile="yellow_tile"]{
     height: 11.5%;
     background-repeat: no-repeat;
 
+
 }
 
 .game_grid_container > div[tile]{
@@ -240,11 +241,7 @@ div[tile="yellow_tile"]{
     margin: 5px;
 }
 
-.government{
-    -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
-    animation: neon2 1.5s ease-in-out infinite alternate;
-    opacity: 0.5;
-}
+
 
 #reset:hover {
     -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
@@ -296,10 +293,31 @@ div[tile="yellow_tile"]{
 
 @-webkit-keyframes neon6 {
     from {
-        box-shadow: 0 0 0px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #ff00de, 0 0 5px #ff00de, 0 6px #ff00de, 0 0 8px #ff00de, 0 0 10px #ff00de;
+        box-shadow: 0 0 150px #fff, 0 0 150px #fff, 0 0 150px #fff, 0 0 140px #ff00de, 0 0 150px black, 0 160px black, 0 0 70px black, 0 0 80px black;
+        opacity: 0.4;
+
     }
     to {
-        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de, 0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 55px #ff00de;
+        box-shadow: 0 0 5px #fff, 0 0 110px black, 0 0 115px black, 0 0 120px black, 0 0 135px black, 0 0 140px black, 0 0 150px black, 0 0 205px black;
+
     }
 }
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
 
+.government{
+    animation-name: spin;
+
+
+    opacity: 0.1;
+}
