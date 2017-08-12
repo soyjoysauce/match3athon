@@ -1,9 +1,15 @@
+
+body{
+    box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;
+}
+
 header {
     border:3px solid rgba(6,25,189,1);
     width: 1880px;
     height: 150px;
     background-color:#00057A;
     text-align: center;
+    box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;
 }
 
 .header_img {
@@ -12,15 +18,19 @@ header {
 
 
 body{
+
+    text-align: center;
     background-image: url("img_folder/gem_background.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     text-align: center;
+    box-sizing: content-box;
 
 }
 
 
 .game_title {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
     font-size: 80px;
     font-family: Copperplate, Arial, sans-serif;
     display: inline-block;
@@ -48,14 +58,16 @@ body{
     display: inline-block;
     border: 2px solid;
     float: left;
+    margin-right: 10px;
     background-color:rgba(1,4,27,1);
+    box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;
 }
 
 p  {
     margin: 0px;
 }
 
-.game_stats, .game_round ,.game_points, .game_reset {
+.game_stats, .personal_best ,.score, .game_reset {
     width: 95%;
     height: 24%;
     border: 5px solid rgba(23,9,189,1);
@@ -64,6 +76,8 @@ p  {
     text-align: center;
     margin:2px;
     background-color: #D3EAFF;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+
 }
 
 .timer_column {
@@ -73,6 +87,7 @@ p  {
     float: left;
     background-color:rgba(1,4,27,1);
 
+
 }
 
 .game_area {
@@ -81,6 +96,7 @@ p  {
     height: 1400px;
     border-radius: 20px;
     background-color:rgba(1,4,27,1);
+    box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;
 
 }
 
@@ -97,11 +113,12 @@ p  {
     top: 0;
     left: 0;
     margin: 15% 5%;
+
 }
 
 
 .normal_time_bar_2{
-    animation: mymove 10s infinite;
+    animation: mymove 32s infinite;
     border-radius: 100px;
 }
 
@@ -132,27 +149,22 @@ p  {
 
 /*TILE STYLE YO*/
 
-.game_grid_container > * {
-    display: inline-block;
-    width: 12%;
-    height: 12%;
-    background-repeat: no-repeat;
-}
+
 
 div[tile="compass_tile"]{
     background: url("img_folder/compass_tile.png");
     background-size: contain;
     display: inline-block;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     background-repeat: no-repeat;
 }
 
 div[tile="flower_tile"]{
     background: url("img_folder/flower_tile.png");
     background-size: contain;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     display: inline-block;
     background-repeat: no-repeat;
 }
@@ -160,16 +172,16 @@ div[tile="flower_tile"]{
 div[tile="pentagon_tile"]{
     background: url("img_folder/pentagon_tile.png");
     background-size: contain;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     display: inline-block;
     background-repeat: no-repeat;
 }
 div[tile="pinkx_tile"]{
     background: url("img_folder/pinkx_tile.png");
     background-size: contain;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     display: inline-block;
     background-repeat: no-repeat;
 }
@@ -177,8 +189,8 @@ div[tile="pinkx_tile"]{
 div[tile="quilt_tile"]{
     background: url("img_folder/quilt_tile.png");
     background-size: contain;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     display: inline-block;
     background-repeat: no-repeat;
 }
@@ -186,8 +198,8 @@ div[tile="quilt_tile"]{
 div[tile="redviolet_tile"]{
     background: url("img_folder/redviolet_tile.png");
     background-size: contain;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     display: inline-block;
     background-repeat: no-repeat;
 }
@@ -195,8 +207,8 @@ div[tile="redviolet_tile"]{
 div[tile="sapphire_tile"]{
     background: url("img_folder/sapphire_tile.png");
     background-size: contain;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     display: inline-block;
     background-repeat: no-repeat;
 }
@@ -204,8 +216,8 @@ div[tile="sapphire_tile"]{
 div[tile="star_tile"]{
     background: url("img_folder/star_tile.png");
     background-size: contain;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     display: inline-block;
     background-repeat: no-repeat;
 
@@ -215,10 +227,97 @@ div[tile="yellow_tile"]{
     background: url("img_folder/yellow_tile.png");
     background-size: contain;
     display: inline-block;
-    width: 12%;
-    height: 12%;
+    width: 11.5%;
+    height: 11.5%;
     background-repeat: no-repeat;
+
 
 }
 
+.game_grid_container > div[tile]{
+    -webkit-animation: neon6 1.5s ease-in-out infinite alternate;
+    -moz-animation: neon6 1.5s ease-in-out infinite alternate;
+    animation: neon6 1.5s ease-in-out infinite alternate;
+    margin: 5px;
+}
 
+
+
+#reset:hover {
+    -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
+}
+
+
+@-webkit-keyframes neon1 {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;
+    }
+    to {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177;
+    }
+}
+
+@-webkit-keyframes neon2 {
+    from {
+        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+    }
+
+}
+
+@-webkit-keyframes neon3 {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
+    }
+    to {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
+    }
+}
+
+@-webkit-keyframes neon4 {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
+    }
+    to {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #B6FF00, 0 0 35px #B6FF00, 0 0 40px #B6FF00, 0 0 50px #B6FF00, 0 0 75px #B6FF00;
+    }
+}
+
+@-webkit-keyframes neon5 {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
+    }
+    to {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
+    }
+}
+
+@-webkit-keyframes neon6 {
+    from {
+        box-shadow: 0 0 150px #fff, 0 0 150px #fff, 0 0 150px #fff, 0 0 140px #ff00de, 0 0 150px black, 0 160px black, 0 0 70px black, 0 0 80px black;
+        opacity: 0.4;
+
+    }
+    to {
+        box-shadow: 0 0 5px #fff, 0 0 110px black, 0 0 115px black, 0 0 120px black, 0 0 135px black, 0 0 140px black, 0 0 150px black, 0 0 205px black;
+
+    }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+.government{
+    animation-name: spin;
+
+
+    opacity: 0.1;
+}
