@@ -9,46 +9,47 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <header>
-        <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
-        <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
-        <p class="game_title">Jewel Tiles</p>
-        <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
-        <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
-    </header>
-        <div class="game_area">
-            <!--stats-->
-            <div class="stats_bar">
-                <div class="game_stats">
-                    <p>stats</p>
-                    <div class="value"></div>
-                </div>
-                <div class="game_round">
-                    <p>Round</p>
-                    <div class="value"></div>
-                </div>
-                <div class="game_points">
-                    <p>Points</p>
-                    <div class="value"></div>
-                </div>
-                <div class="game_reset">
-                    <p>reset</p>
-                        <button class= "game_reset_button"></button>
-                </div>
-            </div>
-            <!--grid tiles-->
-            <div class="game_grid_container"></div>
-            <!--columns-->
-            <div class="timer_column">
-                <div class="normal_time_bar_container">
-                    <img class="normal_time_bar_2" src="img_folder/normal_time_bar_2.png"/>
-                </div>
-                <div class="timer_container">
-                    <img class="normal_timer" src="img_folder/normal_timer.png"/>
-                </div>
-            </div>
 
+<header>
+    <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
+    <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
+    <p class="game_title">Jewel Tiles</p>
+    <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
+    <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
+</header>
+<div class="game_area">
+    <!--stats-->
+    <div class="stats_bar">
+        <div class="score">
+            <p>Score</p>
+            <div class="value" id="score_value"></div>
         </div>
+        <div class="personal_best">
+            <p>Personal Best</p>
+            <div class="value" id="personal_best_value"></div>
+        </div>
+        <div class="personal_best">
+            <p>Stats</p>
+            <div class="value" id="stats_value"></div>
+        </div>
+        <div class="game_reset">
+            <p id="reset">reset</p>
+            <button class= "game_reset_button"></button>
+        </div>
+    </div>
+    <!--grid tiles-->
+    <div class="game_grid_container"></div>
+    <!--columns-->
+    <div class="timer_column">
+        <div class="normal_time_bar_container">
+            <img class="normal_time_bar_2" src="img_folder/normal_time_bar_2.png"/>
+        </div>
+        <div class="timer_container">
+            <img class="normal_timer" src="img_folder/normal_timer.png"/>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
