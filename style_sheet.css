@@ -103,6 +103,7 @@ p  {
 .normal_time_bar_2{
     animation: mymove 10s infinite;
     border-radius: 100px;
+    transform-origin: 90% 92% ;
 }
 
 .game_reset_button {
@@ -120,14 +121,14 @@ p  {
 
 
 @keyframes mymove {
-    0% {background-color: red;}
-    25% {background-color: orange;}
-    70% {background-color: green;}
     100% {background-color: blue;}
-    0% {transform: scaleY(0)}
-    25% {transform: scaleY(0.25)}
-    50% {transform: scaleY(0.7)}
+    70% {background-color: green;}
+    25% {background-color: orange;}
+    0% {background-color: red;}
     100% {transform: scaleY(1)}
+    50% {transform: scaleY(0.7)}
+    25% {transform: scaleY(0.25)}
+    0% {transform: scaleY(0)}
 }
 
 /*TILE STYLE YO*/
@@ -213,5 +214,4 @@ div[tile="yellow_tile"]{
     background-repeat: no-repeat;
 
 }
-
 
