@@ -1,7 +1,7 @@
 
-body{
-    box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;
-}
+/*body{*/
+    /*box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;*/
+/*}*/
 
 header {
     border:3px solid rgba(6,25,189,1);
@@ -21,8 +21,8 @@ body{
     text-align: center;
     background-image: url("img_folder/gem_background.png");
     background-repeat: no-repeat;
-    background-size: 100% 100%;
-    text-align: center;
+    background-size: cover;
+    height:100vh;
     box-sizing: content-box;
 }
 
@@ -39,7 +39,6 @@ body{
     width:1370px;
     height:1400px;
     display: inline-block;
-    float:left;
     background-color:rgba(1,4,27,1);
 }
 
@@ -89,8 +88,8 @@ p  {
 
 .game_area {
     text-align: justify;
-    width: 1900px;
-    height: 1400px;
+    width: 100vw;
+    height: 100vh;
     border-radius: 20px;
     background-color:rgba(1,4,27,1);
     box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;
@@ -245,61 +244,64 @@ div[tile="yellow_tile"]{
     -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
 }
 
+/*this keyframes makes the tiles become too bright hurts eyes*/
 
-@-webkit-keyframes neon1 {
-    from {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;
-    }
-    to {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177;
-    }
-}
 
-@-webkit-keyframes neon2 {
-    from {
-        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
-    }
+/*@-webkit-keyframes neon1 {*/
+    /*from {*/
+        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;*/
+    /*}*/
+    /*to {*/
+        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177;*/
+    /*}*/
+/*}*/
 
-}
+/*@-webkit-keyframes neon2 {*/
+    /*from {*/
+        /*box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;*/
+    /*}*/
 
-@-webkit-keyframes neon3 {
-    from {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
-    }
-    to {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;
-    }
-}
+/*}*/
 
-@-webkit-keyframes neon4 {
-    from {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;
-    }
-    to {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #B6FF00, 0 0 35px #B6FF00, 0 0 40px #B6FF00, 0 0 50px #B6FF00, 0 0 75px #B6FF00;
-    }
-}
+/*@-webkit-keyframes neon3 {*/
+    /*from {*/
+        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;*/
+    /*}*/
+    /*to {*/
+        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;*/
+    /*}*/
+/*}*/
 
-@-webkit-keyframes neon5 {
-    from {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;
-    }
-    to {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;
-    }
-}
+/*@-webkit-keyframes neon4 {*/
+    /*from {*/
+        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;*/
+    /*}*/
+    /*to {*/
+        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #B6FF00, 0 0 35px #B6FF00, 0 0 40px #B6FF00, 0 0 50px #B6FF00, 0 0 75px #B6FF00;*/
+    /*}*/
+/*}*/
 
-@-webkit-keyframes neon6 {
-    from {
-        box-shadow: 0 0 150px #fff, 0 0 150px #fff, 0 0 150px #fff, 0 0 140px #ff00de, 0 0 150px black, 0 160px black, 0 0 70px black, 0 0 80px black;
-        opacity: 0.4;
+/*@-webkit-keyframes neon5 {*/
+    /*from {*/
+        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;*/
+    /*}*/
+    /*to {*/
+        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;*/
+    /*}*/
+/*}*/
 
-    }
-    to {
-        box-shadow: 0 0 5px #fff, 0 0 110px black, 0 0 115px black, 0 0 120px black, 0 0 135px black, 0 0 140px black, 0 0 150px black, 0 0 205px black;
+/*@-webkit-keyframes neon6 {*/
+    /*from {*/
+        /*box-shadow: 0 0 150px #fff, 0 0 150px #fff, 0 0 150px #fff, 0 0 140px #ff00de, 0 0 150px black, 0 160px black, 0 0 70px black, 0 0 80px black;*/
+        /*opacity: 0.4;*/
 
-    }
-}
+    /*}*/
+    /*to {*/
+        /*box-shadow: 0 0 5px #fff, 0 0 110px black, 0 0 115px black, 0 0 120px black, 0 0 135px black, 0 0 140px black, 0 0 150px black, 0 0 205px black;*/
+
+    /*}*/
+/*}*/
+
 @-moz-keyframes spin {
     from { -moz-transform: rotate(0deg); }
     to { -moz-transform: rotate(360deg); }

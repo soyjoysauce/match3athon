@@ -7,19 +7,19 @@
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="main.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-<body>
-
-<header>
+<body class="row">
+<header class="col-lg-12 ">
     <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
     <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
     <p class="game_title">Jewel Tiles</p>
     <div class="header_img"><img src="img_folder/gem_rows.png"/></div>
     <div class="header_img"><img src="img_folder/gem_row2.png"/></div>
 </header>
-<div class="game_area">
+<div class="game_area col-lg-12 ">
     <!--stats-->
-    <div class="stats_bar">
+    <div class="stats_bar col-lg-2">
         <div class="score">
             <p>Score</p>
             <div class="value" id="score_value"></div>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <!--grid tiles-->
-    <div class="game_grid_container"></div>
+    <div class="game_grid_container col-lg-8"> </div>
     <!--columns-->
     <div class="timer_column">
         <div class="normal_time_bar_container">
@@ -48,8 +48,6 @@
             <img class="normal_timer" src="img_folder/normal_timer.png"/>
         </div>
     </div>
-
 </div>
-
 </body>
 </html>
