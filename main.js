@@ -8,14 +8,18 @@ function init() {
     game_board = new Game_board();
     controller = new Controller();
     model = new Model();
-    model.display_stats();
-    setTimeout(function(){
-        alert("Out of time, but don't give up champ, we believe!");
-        location.reload();
-    }, 30000);
+
+    // turned off the modulus because it got obnoxious will turn on later
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // model.display_stats();
+    // setTimeout(function(){
+    //     alert("Out of time, but don't give up champ, we believe!");
+    //     location.reload();
+    // }, 30000);
 }
 
-function Controller() {//click handlers for each piece that is clicked on
+function Controller() {
+    //click handlers for each piece that is clicked on
     //this.model = new Model(this)
 
     game_board.create_pieces();
@@ -58,8 +62,12 @@ function Game_board() {
     var first_click_y = null;
     var first_id = null;
     var second_id = null;
+
     this.jewel_arr = [];
-    this.pieces_arr = ['compass_tile', 'flower_tile', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
+    // this.pieces_arr = ['compass_tile', 'flower_tile', 'pentagon_tile', 'pinkx_tile', 'quilt_tile', 'redviolet_tile', 'sapphire_tile', 'yellow_tile'];
+    this.pieces_arr = ['blue-diamond-tile','compass-tile','flower-tile', 'pink-diamond-tile', 'purple-pentagon-tile','red-flower-tile','star-tile','yellow-diamond-tile'];
+
+
     this.create_pieces = function () {//creation of the pieces
         for (var i = 0; i < 8; i++) {//first loop changes the x coordinates increments adds four to complete total number of requested pieces
             var multi_arr = [];//creation of the multi-array that holds the coordinates of each piece, created at the start of each the outer loop
@@ -86,6 +94,7 @@ function Game_board() {
             x_cord++;
         }
     }
+
     this.clicked = function (x, y, id) {//click handler function when the player clicks on a piece, passed the x and y values of the piece clicked
         model.display_stats();
         if (first_click === null) {//assigns the first click x and y coordinates of the piece that was clicked
@@ -154,14 +163,14 @@ function Game_board() {
 
     };
 
-    // this.swap_attr = function(x,y) {
-    //     var selectx = "[x='" + x + "']";//baseline for where to start on the x coordinate for the pieces
-    //     var selecty = "[y='" + y + "']";//baseline for where to start on the y coordinate for the pieces
-    //     $(selectx).filter(select_left).addClass('clickable');//add click handler to left piece
-    //     $(select_up).filter(selecty).addClass('clickable');//add click handler to piece above
-    //     $(select_down).filter(selecty).addClass('clickable');//add click handler to piece below
-    //
-    // }
+    this.swap_attr = function(x,y) {
+        var selectx = "[x='" + x + "']";//baseline for where to start on the x coordinate for the pieces
+        var selecty = "[y='" + y + "']";//baseline for where to start on the y coordinate for the pieces
+        $(selectx).filter(select_left).addClass('clickable');//add click handler to left piece
+        $(select_up).filter(selecty).addClass('clickable');//add click handler to piece above
+        $(select_down).filter(selecty).addClass('clickable');//add click handler to piece below
+
+    }
 
     this.off_click = function (x,y, id) {//this turns the click handler off all pieces and turns them on just for the adjacent pieces
         $('.game_grid_container').off('click', 'div');
