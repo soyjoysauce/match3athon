@@ -24,7 +24,6 @@ function Controller() {
 
     game_board.create_pieces();
 
-
     this.clickHandlers = function() {
 
         $('.game_grid_container').on('click','div',function(){
@@ -366,10 +365,6 @@ function Model() {
     }
 
 
-
-
-
-
     this.display_stats = function (){
         if(model.score > localStorage.personalBest){
             localStorage.personalBest = model.score
@@ -397,17 +392,12 @@ var model = null;
 //***************************************************************
 // reset tiles
 
-
-
 // var stats = 0;
 // var round = 0;
 // var points = 0;
-
-
 
 // function reset_stats(){
 //     stats = 0 ;
 //     round = 0 ;
 //     points = 0 ;
 // }
-
