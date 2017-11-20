@@ -203,7 +203,6 @@ function Game_board() {
     }
 
     this.piece_fill = function () {
-        debugger;
         for (var i = 7; i >= 0; i--) {
             for (var j = 7; j >= 0; j--) {
                 if (this.jewel_arr[i][j].tile === null) {
@@ -265,11 +264,8 @@ function Model() {
             piece1.tile = p2tile;
             $("[id='" + first_id + "']").attr('tile', p2tile);
             $("[id='" + second_id + "']").attr('tile', p1tile);
-
         }
-
         return finalBoard;
-
     }
 
 //takes in a piece and the board, evaluates the move made and then returns the augmented board

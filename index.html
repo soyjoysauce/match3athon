@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>match3athon</title>
@@ -10,8 +11,7 @@
     <script src="main.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
-
-<body class="col-lg-12">
+<body>
     <!--Game Area-->
     <div class="game_area">
         <!--header-->
@@ -22,17 +22,20 @@
         </header>
         <!--stats column-->
         <div class="stats_bar">
-            <div class="value score" id="score_value">
+            <div class="value score">
                 <p>Score</p>
+                <span id="score_value"></span>                
             </div>
-            <div class="value personal_best" id="personal_best_value">
+            <div class="value personal_best">
                 <p>Personal Best</p>
+                <span id="personal_best_value"></span>
             </div>
-            <div class="value personal_best" id="stats_value">
+            <div class="value personal_best">
                 <p>Stats</p>
+                <span id="stats_value"></span>                
             </div>
             <div class="game_reset">
-                <p id="reset">reset</p>
+                <p>Reset</p>
                 <button class="game_reset_button"></button>
             </div>
         </div>
@@ -40,10 +43,9 @@
         <div class="game_grid_container"></div>
         <!--timer column-->
         <div class="timer_column">
-            <img class="normal_timer" src="img/timer.svg" />
             <img class="normal_time_bar" src="img/timer-bar.svg" />
+            <img class="normal_timer" src="img/timer.svg" />            
         </div>
     </div>
 </body>
-
 </html>
