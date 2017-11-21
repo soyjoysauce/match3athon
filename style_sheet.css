@@ -1,108 +1,116 @@
 /*  */
 /*body{*/
-    /*box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;*/
+/*box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;*/
 /*}*/
-body{
-    text-align: center;
-    background-size: cover;
-    height:100vh;
-    width:100vw;
+body {
+  text-align: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
 }
 
-p  {
-    margin: 0px;
+p {
+  margin: 0px;
 }
 
 header {
-    border:3px solid rgba(6,25,189,1);
-    width: 100vw;
-    height: 15%;
-    background-color:#00057A;
-    text-align: center;
-    box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF;
+  width: 100vw;
+  height: 15%;
+  padding-bottom: 1%;
+  text-align: center;
+  position: fixed;
+  /* box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 50px #228DFF; */
 }
 
 .header_img {
-    display: inline-block;
+  display: inline-block;
+  height: 80%;
+  /* margin-bottom:2%; */
 }
 
 .game_title {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;
-    font-size: 80px;
-    font-family: Copperplate, Arial, sans-serif;
-    display: inline-block;
-    color: rgba(255,240,254,1)
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffdd1b,
+    0 0 70px #ffdd1b, 0 0 80px #ffdd1b, 0 0 100px #ffdd1b, 0 0 150px #ffdd1b;
+  /* font-size: 80px; */
+  font-family: Copperplate, Arial, sans-serif;
+  display: inline-block;
+  color: rgba(255, 240, 254, 1);
 }
 
 .game_area {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    text-align: justify;
-    background-color:rgba(1,4,27,1);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  text-align: justify;
+  background-color: rgba(1, 4, 27, 1);
 }
 
 .game_grid_container {
-    width: 70%;
-    height: 80%;
-    padding-left: 14%;
-    padding-right: 12%;
-    display: inline-block;
-    background-color:rgba(1,4,27,1);
+  width: 70%;
+  height: 80%;
+  /* padding-left: 14%; */
+  /* padding-right: 12%; */
+  display: inline-block;
+  /* background-color:rgba(1,4,27,1); */
 }
 
 .stats_bar {
-    width: 15%;
-    height: 80%;
-    float: left;
-    background-color:rgba(1,4,27,1);
+  width: 15%;
+  height: 80%;
+  float: left;
+  background-color: rgba(1, 4, 27, 1);
 }
 
-.game_stats, .personal_best ,.score, .game_reset {
-    width: 100%;
-    height: 24.5%;
-    border: 2px solid rgba(23,9,189,1);
-    font-family: Copperplate, Arial, sans-serif;
-    font-size: 25px;
-    text-align: center;
-    margin: 1%;
-    background-color: #D3EAFF;
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
+.game_stats,
+.personal_best,
+.score,
+.game_reset {
+  width: 100%;
+  height: 24.5%;
+  border: 2px solid rgba(23, 9, 189, 1);
+  border-radius: 10%;
+  font-family: Copperplate, Arial, sans-serif;
+  font-size: 25px;
+  text-align: center;
+  margin: 1%;
+  background-color: #d3eaff;
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff,
+    0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
 }
 
 .timer_column {
-    width: 15%;
-    height: 80%;
-    float: right;
-    background-color: rgba(1,4,27,1);
+  width: 15%;
+  height: 80%;
+  float: right;
+  background-color: rgba(1, 4, 27, 1);
 }
 
 .normal_timer {
-    position: absolute;
-    width: 15%;
-    height: 80%;
-    float: right;   
+  position: absolute;
+  width: 15%;
+  height: 80%;
+  float: right;
 }
 
 .normal_time_bar {
-    position: absolute;
-    width: 15%;
-    height: 80%;
-    float: right;
-    animation: mymove 32s infinite;
-    border-radius: 100px;
-    transform-origin: 90% 92% ;
+  position: absolute;
+  width: 15%;
+  height: 80%;
+  float: right;
+  animation: mymove 32s infinite;
+  border-radius: 100px;
+  transform-origin: 90% 92%;
 }
 
 .game_reset_button {
-    background: url(img/red-jewel-button-tile.svg);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    display: inline-block;
-    width: 45%;
-    height: 71%;
-    border-style: none;
-    /* overflow: hidden;
+  background: url(img/red-jewel-button-tile.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 45%;
+  height: 71%;
+  border-style: none;
+  /* overflow: hidden;
     box-shadow: 5px;
     white-space: nowrap;
     text-indent: 23px;
@@ -110,146 +118,164 @@ header {
 }
 
 @keyframes mymove {
-    100% {background-color: blue;}
+  /* 100% {background-color: blue;}
     70% {background-color: green;}
     25% {background-color: orange;}
-    0% {background-color: red;}
-    100% {transform: scaleY(1)}
-    50% {transform: scaleY(0.7)}
-    25% {transform: scaleY(0.25)}
-    0% {transform: scaleY(0)}
+    0% {background-color: red;} */
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.7);
+  }
+  25% {
+    transform: scaleY(0.25);
+  }
+  0% {
+    transform: scaleY(0);
+  }
 }
 /*This is the reset button -- requires its own style*/
-div[tile="red-jewel-button-tile"]{
-    background: url("img/red-jewel-button-tile.svg");
-    background-size: 100%;
-    display: inline-block;
-    width: 10%;
-    height: 10%;
-    background-repeat: no-repeat;
+div[tile="red-jewel-button-tile"] {
+  background: url("img/red-jewel-button-tile.svg");
+  background-size: 100%;
+  display: inline-block;
+  width: 10%;
+  height: 10%;
+  background-repeat: no-repeat;
 }
 #reset:hover {
-    /* -webkit-animation: neon1 1.5s ease-in-out infinite alternate; */
+  /* -webkit-animation: neon1 1.5s ease-in-out infinite alternate; */
 }
 
 /*TILE STYLE YO*/
 
-.game_grid_container > div[tile]{
-    /* -webkit-animation: neon6 1.5s ease-in-out infinite alternate; */
-    /* -moz-animation: neon6 1.5s ease-in-out infinite alternate; */
-    animation: neon6 1.5s ease-in-out infinite alternate;
-    background-size: contain;
-    background-position: left;
-    display: inline-flex;
-    width: 12%;
-    height: 12%;
-    background-repeat: no-repeat;
+.game_grid_container > div[tile] {
+  /* -webkit-animation: neon6 1.5s ease-in-out infinite alternate; */
+  /* -moz-animation: neon6 1.5s ease-in-out infinite alternate; */
+  animation: neon6 1.5s ease-in-out infinite alternate;
+  background-size: contain;
+  background-position: left;
+  display: inline-flex;
+  width: 12.5%;
+  height: 12.5%;
+  background-repeat: no-repeat;
 }
 
-div[tile="blue-diamond-tile"]{
-    background: url("img/blue-diamond-tile.svg");
+div[tile="blue-diamond-tile"] {
+  background: url("img/blue-diamond-tile.svg");
 }
 
-div[tile="compass-tile"]{
-    background: url("img/compass-tile.svg");
+div[tile="compass-tile"] {
+  background: url("img/compass-tile.svg");
 }
 
-div[tile="flower-tile"]{
-    background: url("img/flower-tile.svg");
+div[tile="flower-tile"] {
+  background: url("img/flower-tile.svg");
 }
-div[tile="pink-diamond-tile"]{
-    background: url("img/pink-diamond-tile.svg");
-}
-
-div[tile="purple-pentagon-tile"]{
-    background: url("img/purple-pentagon-tile.svg");
+div[tile="pink-diamond-tile"] {
+  background: url("img/pink-diamond-tile.svg");
 }
 
-div[tile="red-flower-tile"]{
-    background: url("img/red-flower-tile.svg");
+div[tile="purple-pentagon-tile"] {
+  background: url("img/purple-pentagon-tile.svg");
 }
 
-div[tile="star-tile"]{
-    background: url("img/star-tile.svg");
+div[tile="red-flower-tile"] {
+  background: url("img/red-flower-tile.svg");
 }
 
-div[tile="yellow-diamond-tile"]{
-    background: url("img/yellow-diamond-tile.svg");
+div[tile="star-tile"] {
+  background: url("img/star-tile.svg");
+}
+
+div[tile="yellow-diamond-tile"] {
+  background: url("img/yellow-diamond-tile.svg");
 }
 
 /*this keyframes makes the tiles become too bright hurts eyes*/
 
-
 /*@-webkit-keyframes neon1 {*/
-    /*from {*/
-        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;*/
-    /*}*/
-    /*to {*/
-        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177;*/
-    /*}*/
+/*from {*/
+/*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF1177, 0 0 70px #FF1177, 0 0 80px #FF1177, 0 0 100px #FF1177, 0 0 150px #FF1177;*/
+/*}*/
+/*to {*/
+/*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF1177, 0 0 35px #FF1177, 0 0 40px #FF1177, 0 0 50px #FF1177, 0 0 75px #FF1177;*/
+/*}*/
 /*}*/
 
 /*@-webkit-keyframes neon2 {*/
-    /*from {*/
-        /*box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;*/
-    /*}*/
+/*from {*/
+/*box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;*/
+/*}*/
 
 /*}*/
 
 /*@-webkit-keyframes neon3 {*/
-    /*from {*/
-        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;*/
-    /*}*/
-    /*to {*/
-        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;*/
-    /*}*/
+/*from {*/
+/*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FFDD1B, 0 0 70px #FFDD1B, 0 0 80px #FFDD1B, 0 0 100px #FFDD1B, 0 0 150px #FFDD1B;*/
+/*}*/
+/*to {*/
+/*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FFDD1B, 0 0 35px #FFDD1B, 0 0 40px #FFDD1B, 0 0 50px #FFDD1B, 0 0 75px #FFDD1B;*/
+/*}*/
 /*}*/
 
 /*@-webkit-keyframes neon4 {*/
-    /*from {*/
-        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;*/
-    /*}*/
-    /*to {*/
-        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #B6FF00, 0 0 35px #B6FF00, 0 0 40px #B6FF00, 0 0 50px #B6FF00, 0 0 75px #B6FF00;*/
-    /*}*/
+/*from {*/
+/*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B6FF00, 0 0 70px #B6FF00, 0 0 80px #B6FF00, 0 0 100px #B6FF00, 0 0 150px #B6FF00;*/
+/*}*/
+/*to {*/
+/*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #B6FF00, 0 0 35px #B6FF00, 0 0 40px #B6FF00, 0 0 50px #B6FF00, 0 0 75px #B6FF00;*/
+/*}*/
 /*}*/
 
 /*@-webkit-keyframes neon5 {*/
-    /*from {*/
-        /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;*/
-    /*}*/
-    /*to {*/
-        /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;*/
-    /*}*/
+/*from {*/
+/*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #FF9900, 0 0 70px #FF9900, 0 0 80px #FF9900, 0 0 100px #FF9900, 0 0 150px #FF9900;*/
+/*}*/
+/*to {*/
+/*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #FF9900, 0 0 35px #FF9900, 0 0 40px #FF9900, 0 0 50px #FF9900, 0 0 75px #FF9900;*/
+/*}*/
 /*}*/
 
 /*@-webkit-keyframes neon6 {*/
-    /*from {*/
-        /*box-shadow: 0 0 150px #fff, 0 0 150px #fff, 0 0 150px #fff, 0 0 140px #ff00de, 0 0 150px black, 0 160px black, 0 0 70px black, 0 0 80px black;*/
-        /*opacity: 0.4;*/
+/*from {*/
+/*box-shadow: 0 0 150px #fff, 0 0 150px #fff, 0 0 150px #fff, 0 0 140px #ff00de, 0 0 150px black, 0 160px black, 0 0 70px black, 0 0 80px black;*/
+/*opacity: 0.4;*/
 
-    /*}*/
-    /*to {*/
-        /*box-shadow: 0 0 5px #fff, 0 0 110px black, 0 0 115px black, 0 0 120px black, 0 0 135px black, 0 0 140px black, 0 0 150px black, 0 0 205px black;*/
+/*}*/
+/*to {*/
+/*box-shadow: 0 0 5px #fff, 0 0 110px black, 0 0 115px black, 0 0 120px black, 0 0 135px black, 0 0 140px black, 0 0 150px black, 0 0 205px black;*/
 
-    /*}*/
+/*}*/
 /*}*/
 
 @-moz-keyframes spin {
-    from { -moz-transform: rotate(0deg); }
-    to { -moz-transform: rotate(360deg); }
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
 }
 @-webkit-keyframes spin {
-    from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(360deg); }
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.government{
-    animation-name: spin;
-    opacity: 0.1;
+.government {
+  animation-name: spin;
+  opacity: 0.1;
 }
-

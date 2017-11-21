@@ -9,22 +9,23 @@
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="main.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 </head>
+
 <body>
     <!--Game Area-->
-    <div class="game_area">
+    <div class="game_area row">
         <!--header-->
-        <header class="">
+        <header class="col s12 m12 l12">
             <img src="img/gem-tile-1.svg" class="header_img" />
-            <p class="game_title">Jewel Tiles</p>
+            <h1 class="game_title">Jewel Tiles</h1>
             <img src="img/gem-tile2.svg" class="header_img" />
         </header>
         <!--stats column-->
-        <div class="stats_bar">
+        <div class="stats_bar hide-on-small-only col s5 m2 l2">
             <div class="value score">
                 <p>Score</p>
-                <span id="score_value"></span>                
+                <span id="score_value"></span>
             </div>
             <div class="value personal_best">
                 <p>Personal Best</p>
@@ -32,7 +33,7 @@
             </div>
             <div class="value personal_best">
                 <p>Stats</p>
-                <span id="stats_value"></span>                
+                <span id="stats_value"></span>
             </div>
             <div class="game_reset">
                 <p>Reset</p>
@@ -40,12 +41,13 @@
             </div>
         </div>
         <!--grid tiles column-->
-        <div class="game_grid_container"></div>
+        <div class="game_grid_container col s12 m8 l8"></div>
         <!--timer column-->
-        <div class="timer_column">
+        <div class="timer_column col s5 m2 l2">
             <img class="normal_time_bar" src="img/timer-bar.svg" />
-            <img class="normal_timer" src="img/timer.svg" />            
+            <img class="normal_timer" src="img/timer.svg" />
         </div>
     </div>
 </body>
+
 </html>
