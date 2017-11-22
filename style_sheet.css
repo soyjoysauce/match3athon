@@ -111,12 +111,15 @@ header {
 }
 .grid-div{
     height:100%;
+    display: inline-block;
 }
 
 .xs-sm{
     display:none;
 }
-
+.med-lg {
+    display:inline-block;
+}
 @media(max-width: 420px){
     .game_area {
         height: 100%;
