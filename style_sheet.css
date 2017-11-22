@@ -42,131 +42,119 @@ header {
   width: 100%;
   height: 79%;
   display: inline-block;
-  /* padding-left: 14%; */
-  /* padding-right: 12%; */
-  /* background-color:rgba(1,4,27,1); */
 }
 
 .stats_bar {
   width: 100%;
-  height: 80%;
+  height: 100%;
   float: left;
-  background-color: rgba(1, 4, 27, 1);
 }
 
-.game_stats,
-.personal_best,
-.score,
-.game_reset {
+.best-score ,.stat-reset {
   width: 100%;
-  height: 24.5%;
-  border: 2px solid rgba(23, 9, 189, 1);
+  height: 42%;
+  display: inline-grid;
   border-radius: 10%;
   font-family: Copperplate, Arial, sans-serif;
-  font-size: 25px;
-  text-align: center;
-  margin: 1%;
-  background-color: #d3eaff;
+  text-align:  -webkit-center;
+  margin:.5%;
   text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #228dff,
     0 0 70px #228dff, 0 0 80px #228dff, 0 0 100px #228dff, 0 0 150px #228dff;
 }
 
-.timer_column {
+div.best-score > h3 , div.stat-reset > h3 {
+ display:inline-table
+}
+
+div.timer_column {
   width: 15%;
   height: 80%;
   float: right;
-  background-color: rgba(1, 4, 27, 1);
 }
 
 .normal_timer {
   position: absolute;
-  width: 15%;
+  width: 100%;
   height: 80%;
-  float: right;
+  float: left;
 }
 
 .normal_time_bar {
   position: absolute;
-  width: 15%;
+  width: 100%;
   height: 80%;
-  float: right;
+  float: left;
   animation: mymove 32s infinite;
   border-radius: 100px;
   transform-origin: 90% 92%;
 }
 
-.game_reset_button {
-  background: url(img/red-jewel-button-tile.svg);
-  background-size: 100%;
+div.game_reset_button {
+  background: url("img/red-jewel-button-tile.svg");
+  background-size: contain;
   background-repeat: no-repeat;
   display: inline-block;
-  width: 45%;
-  height: 71%;
+  width: 100px;
+  height: 100px;;
   border-style: none;
-  /* overflow: hidden;
-    box-shadow: 5px;
-    white-space: nowrap;
-    text-indent: 23px;
-    font-weight: bold; */
+  
 }
-.grid-div{
+div.grid-div{
     height:100%;
     display: inline-block;
 }
 
-.xs-sm{
+div.xs-sm{
     display:none;
 }
 .med-lg {
     display:inline-block;
 }
 @media(max-width: 420px){
+  span {
+    margin: 0px;
+    width: 49%;
+    min-height: 1px;    
+    color: white;
+    display: inline-block;
+  }
+
     .game_area {
         height: 100%;
         width: 100%;
         position: fixed;
         text-align: justify;
-        background-color: rgba(1, 4, 27, 1);
         }
-    .grid-div{
+    div.grid-div{
         height: 62%;
-        text-align: center;        
+        text-align: center;
+        padding:unset;        
     }
     .med-lg {
         display:none;
     }
-    .xs-sm{
-        display:inline-block;
-    }
+    div.xs-sm{
+      top: 1%;
+      display: inline-block;
 
-    .stats_bar {
-        width: 100%;
-        height: 80%;
-        float: left;
-        background-color: rgba(1, 4, 27, 1);
     }
 
     .timer_column {
         width: 15%;
         height: 80%;
         float: right;
-        background-color: rgba(1, 4, 27, 1);
     }
 
-    .game_stats,
-    .personal_best,
-    .score,
-    .game_reset {
+    .stats_bar {
+      width: 100%;
+      height: 80%;
+      float: left;
+  }
+
+  .best-score,.stat-reset{    
         width: 40%;
         height:40%;
-        display: inline-block;
-        font-size: small;
-        margin:none;
-        border: 2px solid rgba(23, 9, 189, 1);
-        border-radius: 10%;
-        font-family: Copperplate, Arial, sans-serif;
-        text-align: center;
-        background-color: #d3eaff;
+        float: left;
     }
 
     .game_grid_container > div[tile] {        
@@ -174,15 +162,21 @@ header {
         height: 12.5%;
     }
 
-    .game_reset_button {
-        background: url(img/red-jewel-button-tile.svg);
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: inline-block;
-        width: 50%;
-        height: 60%;
-        border-style: none;
+    div.game_grid_container {
+      padding: unset;
+      width: 100%;
+      height: 85%;
+    }
+
+    div.game_reset_button {
+      background: url("img/red-jewel-button-tile.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: left;
+      display: inline-block;
+      width: 49%;
+      height: 73px;
+      border-style: none;
       }
 }
 
@@ -204,15 +198,7 @@ header {
     transform: scaleY(0);
   }
 }
-/*This is the reset button -- requires its own style*/
-div[tile="red-jewel-button-tile"] {
-  background: url("img/red-jewel-button-tile.svg");
-  background-size: 100%;
-  display: inline-block;
-  width: 10%;
-  height: 10%;
-  background-repeat: no-repeat;
-}
+
 #reset:hover {
   /* -webkit-animation: neon1 1.5s ease-in-out infinite alternate; */
 }
