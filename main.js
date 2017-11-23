@@ -74,7 +74,7 @@ function Game_board() {
                 var ran_num = Math.floor(Math.random() * this.pieces_arr.length);
                 this.jewel_piece = {
                     x: x_cord,
-                    y: j,
+                    y: j
                     id: counter,
                     tile: this.pieces_arr[ran_num],//tile is how we'll determine what piece to place on the boar
                     info: $('<div>', {//class to add along with the x and y attributes for each dom element creating
