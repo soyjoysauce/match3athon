@@ -23,35 +23,40 @@ class Board {
         let tile = null;        
         let counter = 1;
         let piecesArr = this.pieces_arr;
-        this.randomNum = Math.floor(Math.random() * this.pieces_arr.length);        
+        let jewelArr = this.jewel_arr;
         
-        this.jewelPiece = {
-            x: x_axis,
-            y : y_axis,
-            id : counter , 
-            tile : tile,
-            info : $('<div>', {
-                tile: tile,
-                x: x_axis,
-                y: y_axis,
-                id: counter
-            })
-        };
+        
+    while(jewelArr.length < 64 ){
+        piecesArr.map(function(){ 
+            let randomNum = Math.floor(Math.random() * piecesArr.length);                                        
+            let tile = piecesArr[randomNum];                            
+            let axisArr = [];
 
-        while(this.jewel_arr.length < 64 ){
-            let item = piecesArr[this.randomNum]            
-            piecesArr.forEach(function(item,jewelPiece){ 
-                let axisArr = [];
-                console.log('item', item);
-                this.jewelPiece.attr(tile) = item ;
-                $('.game_grid_container').append(this.jewelPiece.info.clone());
-                axisArr.push(this.jewelPiece);
-                this.jewel_arr.push(axisArr); 
-                x_axis++;  
-                y_axis++;
-                counter++;                               
-             })
-        }        
+            let jewelPiece = {
+                'x': x_axis,
+                'y' : y_axis,
+                'id' : counter , 
+                'tile' : tile,
+                'info' : $('<div>', {
+                    'tile' : tile,
+                    'x' : x_axis,
+                    'y' : y_axis,
+                    'id' : counter
+                })
+            };
+
+            console.log('tile', tile);
+            console.log('jewelPiece', jewelPiece);
+            $('.game_grid_container').append(jewelPiece.info.clone());
+            axisArr.push(jewelPiece);
+            jewelArr.push(axisArr); 
+            x_axis++;  
+            y_axis++;
+            counter++;                               
+            })
+            return jewelArr;
+    }   
+
     }
 
     displayBoard(){
@@ -75,7 +80,18 @@ class Controller {
     }
     
     clickHandlers(){
-
+        $('.game_grid_container').on('click','div',function(){
+            console.log('click')
+            game_board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
+        });
+        $('.game_grid_container').on('click','.clickable',function(){
+            console.log('click')
+            game_board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
+        });
+        $('.game_reset_button').on('click', function(){
+            location.reload();
+            model.displayStats();
+        });
     }
 
     recieveBoardState(){
@@ -89,11 +105,17 @@ class Controller {
     sendBoardUpdate(){
 
     }
+
+    displayStats(){
+        
+    }
 }
 
 // Model takes the tiles matched from Controller and removes/replaces them. 
 // Removes and Replaces Y first and then x
 // Also listens to the Board state and runs a check on every x and y axis
+// Also in charge of keeping the state of the scores in the game 
+
 class Model {
     constructor(){
         this.board_update= [];
