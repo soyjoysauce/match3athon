@@ -6,8 +6,8 @@
     <title>match3athon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style_sheet.css">
-    <!-- <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>    -->
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>   
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
     <!-- This is the implementation of newly written Js file. -->
@@ -15,60 +15,59 @@
     <script src="index.js"></script> 
 
 </head>
+<!--header-->
+<header class="col-sm-12 col-md-12 col-lg-12">
+    <img src="img/gem-tile-1.svg" class="header_img med-lg" />
+    <h1 class="game_title">Jewel Tiles</h1>
+    <img src="img/gem-tile2.svg" class="header_img med-lg" />
+</header>
 <body class="game_area">   
-        <!--header-->
-        <header class="col-sm-12 col-md-12 col-lg-12">
-            <img src="img/gem-tile-1.svg" class="header_img med-lg" />
-            <h1 class="game_title">Jewel Tiles</h1>
-            <img src="img/gem-tile2.svg" class="header_img med-lg" />
-        </header>
-        <!--Desktop stats column-->
-        <div class="stats_bar med-lg col-sm-5 col-md-2 col-lg-2">
-            <div class="best-score">
-                    <h3>Score</h3>
-                    <span id="score_value"></span><br>
-                    <h3>Personal Best</h3>
-                    <span id="personal_best_value"></span><br>
-            </div>
-            <br>
-            <div class="stat-reset">
-                    <h3>Stats</h3>
-                    <span id="stats_value"></span><br>
-                    <h3>Reset</h3>
-                    <div class="game_reset_button"></div><br>
-            </div>
+    <!--Desktop stats column-->
+    <div class="stats_bar med-lg col-sm-5 col-md-2 col-lg-2">
+        <div class="best-score">
+                <h3>Score</h3>
+                <span id="score_value"></span><br>
+                <h3>Personal Best</h3>
+                <span id="personal_best_value"></span><br>
         </div>
-        <!--Jewel Tiles column-->
-        <div class="grid-div col-sm-12 col-md-8 col-lg-8">
-            <div id ="gameTile" class="game_grid_container col-sm-12 col-md-11 col-lg-11"> </div>
+        <br>
+        <div class="stat-reset">
+                <h3>Stats</h3>
+                <span id="stats_value"></span><br>
+                <h3>Reset</h3>
+                <div class="game_reset_button"></div><br>
         </div>
-        <!--Desktop Timer column-->
-        <div class="timer_column med-lg col-sm-5 col-md-2 col-lg-2">
+    </div>
+    <!--Jewel Tiles column-->
+    <div id ="gameTile" class="grid-div col-sm-12 col-md-8 col-lg-8">
+        <div k="game_grid_container col-sm-12 col-md-11 col-lg-11"> </div>
+    </div>
+    <!--Desktop Timer column-->
+    <div class="timer_column med-lg col-sm-5 col-md-2 col-lg-2">
+        <img class="normal_time_bar" src="img/timer-bar.svg" />
+        <img class="normal_timer" src="img/timer.svg" />
+    </div>
+    <!--Mobile stats column-->
+    <div class="xs-sm col-sm-12">
+        <!--Mobile Timer column-->
+        <div class="timer_column">
             <img class="normal_time_bar" src="img/timer-bar.svg" />
             <img class="normal_timer" src="img/timer.svg" />
         </div>
-        <!--Mobile stats column-->
-        <div class="xs-sm col-sm-12">
-            <!--Mobile Timer column-->
-            <div class="timer_column">
-                <img class="normal_time_bar" src="img/timer-bar.svg" />
-                <img class="normal_timer" src="img/timer.svg" />
+        <div class="stats_bar">
+            <div class="best-score">
+                <h3>Score</h3>
+                <span id="score_value"></span>
+                <h3>Personal Best</h3>
+                <span id="personal_best_value"></span>
             </div>
-            <div class="stats_bar">
-                <div class="best-score">
-                    <h3>Score</h3>
-                    <span id="score_value"></span>
-                    <h3>Personal Best</h3>
-                    <span id="personal_best_value"></span>
-                </div>
-                <div class="stat-reset">
-                    <h3>Stats</h3>
-                    <span id="stats_value"></span>
-                    <h3>Reset</h3>
-                    <div class="game_reset_button"></div>
-                </div>
+            <div class="stat-reset">
+                <h3>Stats</h3>
+                <span id="stats_value"></span>
+                <h3>Reset</h3>
+                <div class="game_reset_button"></div>
             </div>
         </div>
+    </div>
 </body>
-
 </html>

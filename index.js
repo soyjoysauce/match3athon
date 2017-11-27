@@ -1,12 +1,12 @@
-// $(document).ready(init);
-// function init(){
-//     board = new Board();
-//     controller = new Controller();
-//     model = new Model();
-//     console.log('init and things are made');
-// }
+$(document).ready(init);
+function init(){
+    board = new Board();
+    controller = new Controller();
+    model = new Model();
+    console.log('init and things are made');
+}
 //moving away from jquery
-document.addEventListener('onload',init());
+Document.addEventListener('onload',init());
 
 function init() {
 // Board randomly generates pieces. 
@@ -27,11 +27,12 @@ class Board {
         let piecesArr = this.pieces_arr;
         let jewelArr = this.jewel_arr;
 
-        // let containerDiv = document.documentElement.getElementsById('gameTile');
-        let containerDiv = document.documentElement.getElementsByClassName('grid-div')
-        console.log('containerDiv:', containerDiv);
-        let game_grid = document.documentElement.querySelectorAll('.game_grid_container');
-        console.log('game_grid:',game_grid);
+        // let containerDiv = Document.body.getElementsByClassName('grid-div');        
+        // console.log('containerDiv:', containerDiv);
+        // let gameDiv = containerDiv; 
+        // console.log('gameDiv:',gameDiv);
+        
+        // let game_grid = containerDiv.children;
         while(jewelArr.length < 64 ){
             piecesArr.map(function(){ 
                 let randomNum = Math.floor(Math.random() * piecesArr.length);                                        
@@ -43,21 +44,15 @@ class Board {
                     'id' : counter , 
                     'tile' : piecesArr[randomNum],
                     'class': piecesArr[randomNum],
-                    'info' : {
-                        'tile' : piecesArr[randomNum],
-                        'x' : x_axis,
-                        'y' : y_axis,
-                        'id' : counter
-                    }
+                    // 'info' : {
+                    //     'tile' : piecesArr[randomNum],
+                    //     'x' : x_axis,
+                    //     'y' : y_axis,
+                    //     'id' : counter
+                    // }
                 };
                 console.log('jewelPiece:', jewelPiece);
-                let newDiv  = document.createElement('div',tile);
-                // let jewelClone = Object.assign(newDiv, jewelPiece);
-                console.log('newDiv:',newDiv);
-                // let newDiv = document.createElement(jewelClone);
-                // console.log('newDiv:',newDiv);
-                document.body.insertBefore(newDiv,containerDiv);
-                // $('.game_grid_container').append(jewelPiece.info.clone());
+                $('.game_grid_container').append(jewelPiece);
                 axisArr.push(jewelPiece);
                 jewelArr.push(axisArr); 
                 x_axis++;  
@@ -65,7 +60,7 @@ class Board {
                 counter++;                               
             }) 
         }
-        let board_state = [...jewelArr];
+        let board_state = jewelArr;
         this.sendControllerBoardState(board_state);        
 
     }
