@@ -1,14 +1,14 @@
 $(document).ready(init);
+    
 function init(){
     board = new Board();
-    controller = new Controller();
+    controller =  new Controller();
     model = new Model();
     console.log('init and things are made');
-}
+};
 //moving away from jquery
-Document.addEventListener('onload',init());
+// Document.addEventListener('onload',init());
 
-function init() {
 // Board randomly generates pieces. 
 // Board sends the most current state of the board to Controller 
 // Board receives the updated state of the board from the Model 
@@ -20,46 +20,40 @@ class Board {
     }
 
     createPieces(){
+        let piecesArr = this.pieces_arr;
+        let jewelArr = this.jewel_arr;
         let x_axis = 0;
         let y_axis = 0;
         let tile = null;        
         let counter = 1;
-        let piecesArr = this.pieces_arr;
-        let jewelArr = this.jewel_arr;
-
-        // let containerDiv = Document.body.getElementsByClassName('grid-div');        
-        // console.log('containerDiv:', containerDiv);
-        // let gameDiv = containerDiv; 
-        // console.log('gameDiv:',gameDiv);
         
-        // let game_grid = containerDiv.children;
-        while(jewelArr.length < 64 ){
+        while(jewelArr.length < 64 ){ 
+            let tileArr = [];                       
             piecesArr.map(function(){ 
-                let randomNum = Math.floor(Math.random() * piecesArr.length);                                        
+                let randomNum = Math.floor(Math.random() * piecesArr.length);                                                    
                 let tile = piecesArr[randomNum];                            
-                let axisArr = [];                
                 let jewelPiece = {
-                    'x': x_axis,
-                    'y' : y_axis,
-                    'id' : counter , 
-                    'tile' : piecesArr[randomNum],
-                    'class': piecesArr[randomNum],
-                    // 'info' : {
-                    //     'tile' : piecesArr[randomNum],
-                    //     'x' : x_axis,
-                    //     'y' : y_axis,
-                    //     'id' : counter
-                    // }
+                    x: x_axis,
+                    y : y_axis,
+                    id : counter , 
+                    tile : tile,
+                    info : $('<div>', {
+                        tile : tile,
+                        x : x_axis,
+                        y : y_axis,
+                        id : counter
+                    })
                 };
+                tileArr.push(jewelPiece);
                 console.log('jewelPiece:', jewelPiece);
-                $('.game_grid_container').append(jewelPiece);
-                axisArr.push(jewelPiece);
-                jewelArr.push(axisArr); 
+                let new_tile = jewelPiece.info.clone();
+                $('.game_grid_container').append(new_tile);
                 x_axis++;  
                 y_axis++;
-                counter++;                               
+                counter++;   
             }) 
         }
+        jewelArr = tileArr;                                                
         let board_state = jewelArr;
         this.sendControllerBoardState(board_state);        
 
@@ -91,14 +85,14 @@ class Controller {
     }
     
     clickHandlers(){
-        // $('.game_grid_container').on('click','div',function(){
-        //     console.log('click')
-        //     board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
-        // });
-        // $('.game_reset_button').on('click', function(){
-        //     location.reload();
-        //     model.displayStats();
-        // });
+        $('.game_grid_container').on('click','div',function(){
+            console.log('click')
+            board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
+        });
+        $('.game_reset_button').on('click', function(){
+            location.reload();
+            model.displayStats();
+        });
     }
 
     receiveBoardState(){
@@ -144,10 +138,7 @@ class Model {
 
 }
 
-let board = this.board = new Board;
-let controller = this.controller = new Controller;
-let model = this.model = new Model;
+let board = null;
+let controller = null;
+let model = null;
 
-console.log('init and things are made');
-
-};
