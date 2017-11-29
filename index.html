@@ -1,22 +1,28 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>match3athon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="style_sheet.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>    
     <!-- This is the implementation of newly written Js file. -->
-    <!-- <script src="main.js"></script> -->
-    <script src="index.js"></script> 
+    <script src="index.js"></script>         
 </head>
 <body class="game_area">  
     <!--header-->
     <header class="col-sm-12 col-md-12 col-lg-12">
         <img src="img/gem-tile-1.svg" class="header_img med-lg" />
-        <h1 class="game_title">Jewel Tiles</h1>
+        <h1 class="game_title ">Jewel Tiles</h1>
         <img src="img/gem-tile2.svg" class="header_img med-lg" />
+        <!--Mobile Timer column-->
+        <div class="xs-sm timer_column">
+            <img class="normal_time_bar" src="img/timer-bar.svg" />
+            <img class="normal_timer" src="img/timer.svg" />
+        </div>
     </header> 
     <!--Desktop stats column-->
     <div class="stats_bar med-lg col-sm-5 col-md-2 col-lg-2">
@@ -35,8 +41,8 @@
         </div>
     </div>
     <!--Jewel Tiles column-->
-    <div id ="gameTile" class="grid-div col-sm-12 col-md-8 col-lg-8">
-        <div ="game_grid_container col-sm-12 col-md-11 col-lg-11"> </div>
+    <div class="grid-div col-sm-12 col-md-8 col-lg-8">
+        <div class="game_grid_container col-sm-12 col-md-12 col-lg-11 col-lg-offset-1"></div>
     </div>
     <!--Desktop Timer column-->
     <div class="timer_column med-lg col-sm-5 col-md-2 col-lg-2">
@@ -45,12 +51,7 @@
     </div>
     <!--Mobile stats column-->
     <div class="xs-sm col-sm-12">
-        <!--Mobile Timer column-->
-        <div class="timer_column">
-            <img class="normal_time_bar" src="img/timer-bar.svg" />
-            <img class="normal_timer" src="img/timer.svg" />
-        </div>
-        <div class="stats_bar">
+        <div class="stats_bar col-sm-6">
             <div class="best-score">
                 <h3>Score</h3>
                 <span id="score_value"></span>

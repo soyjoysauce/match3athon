@@ -1,11 +1,15 @@
-$(document).ready(init);
-    
-function init(){
-    board = new Board();
-    controller =  new Controller();
-    model = new Model();
+$(document).ready(function(){
+     
+    const jewelTileGame = {
+        board : new Board(),
+        controller :  new Controller(),
+        model : new Model(),
+    }
+    const {board,controller,model} = jewelTileGame;
+    $(jewelTileGame).bind(this);
+
     console.log('init and things are made');
-};
+});
 //moving away from jquery
 // Document.addEventListener('onload',init());
 
@@ -14,49 +18,57 @@ function init(){
 // Board receives the updated state of the board from the Model 
 class Board {
     constructor(){
-        this.jewel_arr = [];
+        this.jewel_arr = [ ];
         this.pieces_arr = ['blue-diamond-tile','compass-tile','flower-tile', 'pink-diamond-tile', 'purple-pentagon-tile','red-flower-tile','star-tile','yellow-diamond-tile'];
-        this.createPieces();
+        this.createTile();
+        this.x_axis = [ ];
+
     }
 
-    createPieces(){
+    createTile(){
         let piecesArr = this.pieces_arr;
         let jewelArr = this.jewel_arr;
+        let xAxis = this.x_axis;
+
         let x_axis = 0;
         let y_axis = 0;
-        let tile = null;        
         let counter = 1;
+
         
-        while(jewelArr.length < 64 ){ 
-            let tileArr = [];                       
+        while(jewelArr.length < 8 ){ 
+            let axis_arr = [ ];
+            
             piecesArr.map(function(){ 
                 let randomNum = Math.floor(Math.random() * piecesArr.length);                                                    
-                let tile = piecesArr[randomNum];                            
                 let jewelPiece = {
-                    x: x_axis,
-                    y : y_axis,
-                    id : counter , 
-                    tile : tile,
-                    info : $('<div>', {
-                        tile : tile,
+                    'x': x_axis,
+                    'y' : y_axis,
+                    'id' : counter , 
+                    'tile' : piecesArr[randomNum],
+                    'info' : $('<div>', {
+                        tile : piecesArr[randomNum],
                         x : x_axis,
                         y : y_axis,
                         id : counter
                     })
                 };
-                tileArr.push(jewelPiece);
+                let newJewelPiece = jewelPiece;
+                $('.game_grid_container').append(newJewelPiece.info.clone());                
+                axis_arr.push(jewelPiece);
                 console.log('jewelPiece:', jewelPiece);
-                let new_tile = jewelPiece.info.clone();
-                $('.game_grid_container').append(new_tile);
+                console.log('axis_arr:',axis_arr);
                 x_axis++;  
                 y_axis++;
                 counter++;   
-            }) 
+            })     
+            jewelArr.push(axis_arr);
+            console.log('axis_arr',axis_arr); 
+            console.log('jewelArr',jewelArr);           
         }
-        jewelArr = tileArr;                                                
-        let board_state = jewelArr;
-        this.sendControllerBoardState(board_state);        
-
+        // console.log('xAxis',xAxis);
+        // let board_state = xAxis;
+        // console.log('board_state',board_state);
+        // this.sendControllerBoardState(board_state);
     }
 
     displayBoard(){
@@ -65,7 +77,7 @@ class Board {
 
     sendControllerBoardState(board_state){
         //if there is something in the jewelArr -- send this to controller state
-        let boardState = [...board_state];
+        let boardState = board_state;
         boardState !== null ? Controller.boardState = board_state : 'error';
         console.log('Controller.boardState:',Controller.boardState);
     }
@@ -138,7 +150,9 @@ class Model {
 
 }
 
-let board = null;
-let controller = null;
-let model = null;
+// let board = null;
+// let controller = null;
+// let model = null;
+
+
 
