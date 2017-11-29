@@ -39,13 +39,12 @@ header {
 }
 
 .game_grid_container {
-  width: 100%;
+  /* width: 100%; */
   height: 79%;
   display: inline-block;
 }
 
 .stats_bar {
-  width: 100%;
   height: 100%;
   float: left;
 }
@@ -73,17 +72,17 @@ div.timer_column {
 }
 
 .normal_timer {
-  position: absolute;
-  width: 100%;
+  position: relative;
+  /* width: 100%; */
   height: 80%;
-  float: left;
+  /* float: left; */
 }
 
 .normal_time_bar {
   position: absolute;
-  width: 100%;
+  /* width: 100%; */
   height: 80%;
-  float: left;
+  /* float: left; */
   animation: mymove 32s infinite;
   border-radius: 100px;
   transform-origin: 90% 92%;
@@ -100,6 +99,7 @@ div.game_reset_button {
   
 }
 div.grid-div{
+  width: 100%;  
     height:100%;
     display: inline-block;
 }
@@ -118,7 +118,9 @@ div.xs-sm{
     color: white;
     display: inline-block;
   }
-
+    .game_title {
+      display: block;
+    }
     .game_area {
         height: 100%;
         width: 100%;
@@ -126,6 +128,7 @@ div.xs-sm{
         text-align: justify;
         }
     div.grid-div{
+        width: 100%;
         height: 62%;
         text-align: center;
         padding:unset;        
@@ -139,10 +142,11 @@ div.xs-sm{
 
     }
 
-    .timer_column {
-        width: 15%;
-        height: 80%;
-        float: right;
+    div.timer_column {
+      width: 15%;
+      height: 440px;
+      float: right;
+      transform: rotate(-90deg);
     }
 
     .stats_bar {
