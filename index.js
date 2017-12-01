@@ -1,15 +1,4 @@
-$(document).ready(function(){
-     
-    const jewelTileGame = {
-        board : new Board(),
-        controller :  new Controller(),
-        model : new Model(),
-    }
-    const {board,controller,model} = jewelTileGame;
-    $(jewelTileGame).bind(this);
 
-    console.log('init and things are made');
-});
 //moving away from jquery
 // Document.addEventListener('onload',init());
 
@@ -20,20 +9,16 @@ class Board {
     constructor(){
         this.jewel_arr = [ ];
         this.pieces_arr = ['blue-diamond-tile','compass-tile','flower-tile', 'pink-diamond-tile', 'purple-pentagon-tile','red-flower-tile','star-tile','yellow-diamond-tile'];
+        this.boardState = []; 
         this.createTile();
-        this.x_axis = [ ];
-
     }
-
+ 
     createTile(){
         let piecesArr = this.pieces_arr;
         let jewelArr = this.jewel_arr;
-        let xAxis = this.x_axis;
-
         let x_axis = 0;
         let y_axis = 0;
         let counter = 1;
-
         
         while(jewelArr.length < 8 ){ 
             let axis_arr = [ ];
@@ -52,8 +37,7 @@ class Board {
                         id : counter
                     })
                 };
-                let newJewelPiece = jewelPiece;
-                $('.game_grid_container').append(newJewelPiece.info.clone());                
+                $('.game_grid_container').append(jewelPiece.info.clone());                
                 axis_arr.push(jewelPiece);
                 console.log('jewelPiece:', jewelPiece);
                 console.log('axis_arr:',axis_arr);
@@ -66,21 +50,21 @@ class Board {
             console.log('jewelArr',jewelArr);           
         }
         // console.log('xAxis',xAxis);
-        // let board_state = xAxis;
-        // console.log('board_state',board_state);
-        // this.sendControllerBoardState(board_state);
+        let board_state = jewelArr;
+        console.log('board_state',board_state);
+        this.sendControllerBoardState(board_state);
     }
 
-    displayBoard(){
-        
-    }
 
     sendControllerBoardState(board_state){
         //if there is something in the jewelArr -- send this to controller state
-        let boardState = board_state;
-        boardState !== null ? Controller.boardState = board_state : 'error';
-        console.log('Controller.boardState:',Controller.boardState);
+        this.boardState = board_state;
+        console.log('boardState:',this.boardState);
+        // boardState !== null ? Controller.boardState = board_state : 'error';
+        // console.log('Controller.boardState:',Controller.boardState);
     }
+
+    
 
 
 }
@@ -89,25 +73,41 @@ class Board {
 // finds the x and y axis of the matches and sends to Model to process 
 class Controller {
     constructor(){
-        this.clickHandlers();
         this.first_click = null;
         this.second_click = null;
         this.boardState = [];
-        
-    }
-    
-    clickHandlers(){
-        $('.game_grid_container').on('click','div',function(){
-            console.log('click')
-            board.clicked($(this).attr('x'), $(this).attr('y'), $(this).attr('id'));
-        });
-        $('.game_reset_button').on('click', function(){
-            location.reload();
-            model.displayStats();
-        });
+        this.applyClickHandlers(); 
     }
 
-    receiveBoardState(){
+    applyClickHandlers(){
+        $('.game_grid_container').on('click','div',this.moveTile.bind(this));
+            
+        //   $(this).attr('x'), $(this).attr('y'), $(this).attr('id').bind(this);
+        //   console.log('this',this);
+       
+        $('.game_reset_button').on('click', function(){
+            location.reload();
+            Model.displayStats();
+        });
+    }
+    
+    moveTile(){
+        this.user_input = event.target.outerHTML;        
+        console.log('moveTile Clicked');
+        console.log('user_input',user_input);
+        let firstClick = null;
+        let secondClick = null;
+        console.log('1firstClick',firstClick);
+        console.log('1secondClick',secondClick);      
+        // console.log('this.first_click:',this.first_click);
+        // console.log('this.second_click:',this.second_click);
+        this.first_click === null ? this.user_input = firstClick : this.user_input = secondClick ;
+        console.log('this.user',this.user_input);
+        console.log('2firstClick',firstClick);
+        console.log('2secondClick',secondClick);        
+    }
+
+    receiveAndRenderBoardState(){
 
     }
 
@@ -156,3 +156,15 @@ class Model {
 
 
 
+$(document).ready(function(){
+    
+   const jewelTileGame = {
+       board : new Board(),
+       controller :  new Controller(),
+       model : new Model(),
+   }
+   const {board,controller,model} = jewelTileGame;
+   $(jewelTileGame).bind(this);
+   console.log('jewelTileGame:', jewelTileGame);
+   console.log('init and things are made');
+});
