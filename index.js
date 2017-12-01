@@ -1,9 +1,20 @@
-
-//moving away from jquery
+//Created by Soy on 11/24/17
+//DOM event that would replace jquery
 // Document.addEventListener('onload',init());
+$(document).ready(function(){
+    
+   const jewelTileGame = {
+       board : new Board(),
+       controller :  new Controller(),
+       model : new Model(),
+   }
+   const {board,controller,model} = jewelTileGame;
+   $(jewelTileGame).bind(this);
+   console.log('jewelTileGame:', jewelTileGame);
+   console.log('init and things are made');
+});
 
-// Board randomly generates pieces. 
-// Board sends the most current state of the board to Controller 
+// Board randomly generates pieces and sends the most current state of the board to Controller 
 // Board receives the updated state of the board from the Model 
 class Board {
     constructor(){
@@ -149,22 +160,3 @@ class Model {
     }
 
 }
-
-// let board = null;
-// let controller = null;
-// let model = null;
-
-
-
-$(document).ready(function(){
-    
-   const jewelTileGame = {
-       board : new Board(),
-       controller :  new Controller(),
-       model : new Model(),
-   }
-   const {board,controller,model} = jewelTileGame;
-   $(jewelTileGame).bind(this);
-   console.log('jewelTileGame:', jewelTileGame);
-   console.log('init and things are made');
-});

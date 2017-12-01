@@ -5,6 +5,13 @@ body {
   width: 100vw;
 }
 
+h3{
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffdd1b,
+  0 0 70px #ffdd1b, 0 0 80px #ffdd1b, 0 0 100px #ffdd1b, 0 0 150px #ffdd1b;
+font-family: Copperplate, Arial, sans-serif;
+display: inline-block;
+color: rgba(255, 240, 254, 1);
+}
 .game_area {
   height: 100vh;
   width: 100%;
@@ -35,6 +42,7 @@ header {
     0 0 70px #ffdd1b, 0 0 80px #ffdd1b, 0 0 100px #ffdd1b, 0 0 150px #ffdd1b;
   font-family: Copperplate, Arial, sans-serif;
   display: inline-block;
+  font-size: -webkit-xxx-large;
   color: rgba(255, 240, 254, 1);
 }
 

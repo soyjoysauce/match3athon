@@ -1,6 +1,6 @@
 /**
- * Created by Chris on 8/9/17.
- */
+ * Created by Chris / Shane / Soy on 8/9/17.
+ **/
 
 $(document).ready(init);
 
