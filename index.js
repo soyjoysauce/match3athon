@@ -19,11 +19,11 @@ $(document).ready(function(){
 class Board {
     constructor(){
         this.jewel_arr = [ ];
-        this.pieces_arr = ['blue-diamond-tile','compass-tile','flower-tile', 'pink-diamond-tile', 'purple-pentagon-tile','red-flower-tile','star-tile','yellow-diamond-tile'];
-        this.boardState = []; 
+        this.pieces_arr = ['blue-diamond-tile','compass-tile','flower-tile', 'pink-diamond-tile', 'purple-pentagon-tile','red-flower-tile','star-tile','yellow-diamond-tile']; 
         this.createTile();
     }
  
+
     createTile(){
         let piecesArr = this.pieces_arr;
         let jewelArr = this.jewel_arr;
@@ -66,7 +66,6 @@ class Board {
         this.sendControllerBoardState(board_state);
     }
 
-
     sendControllerBoardState(board_state){
         //if there is something in the jewelArr -- send this to controller state
         this.boardState = board_state;
@@ -75,27 +74,47 @@ class Board {
         // console.log('Controller.boardState:',Controller.boardState);
     }
 
-    
-
-
 }
 
-// Controller listens for clicks (2) moves and checks the x y axis for match
+// Controller listens for clicks (2) moves
+// first click: picks up the div id of the selected div and instantiates 'clickable divs'
+// 'clickable divs' -- checks if the second click matches any of the four directions 
+// and checks the x y axis for match
 // finds the x and y axis of the matches and sends to Model to process 
-class Controller {
+/** this is the outline of the boardState or how it should be
+    this.boardState = {
+     this.first_click = null;
+     this.second_click = null;
+     this.correctTiles = [
+        north:takes the y axis of tile clicked and +1,
+        south:takes the y axis of tile clicked and -1,
+        east:takes the x axis of tile clicked and -1,
+        west:takes the x axis of tile clicked and +1,
+     ]
+
+    }
+ */
+
+class Controller extends Board {
     constructor(){
-        this.first_click = null;
-        this.second_click = null;
-        this.boardState = [];
-        this.applyClickHandlers(); 
+        super(constructor);
+        this.boardState = {
+            first_click : null,
+            second_click : null,
+            correctTiles : this.correctTiles = {
+               north:function (first_click,northTile) {return first_click/** this returns position of the tile north of the first click **/},
+               south:function(first_click, southTile) {return first_click/** this returns position of the tile south of the first click **/},
+               east:function(first_click, eastTile) {return first_click/** this returns position of the tile east of the first click **/},
+               west:function(first_click, westTile) {return first_click/** this returns position of the tile wast of the first click **/},
+            } 
+        };  
+        this.applyClickHandlers();
     }
 
     applyClickHandlers(){
         $('.game_grid_container').on('click','div',this.moveTile.bind(this));
-            
         //   $(this).attr('x'), $(this).attr('y'), $(this).attr('id').bind(this);
         //   console.log('this',this);
-       
         $('.game_reset_button').on('click', function(){
             location.reload();
             Model.displayStats();
@@ -103,19 +122,15 @@ class Controller {
     }
     
     moveTile(){
-        this.user_input = event.target.outerHTML;        
-        console.log('moveTile Clicked');
-        console.log('user_input',user_input);
-        let firstClick = null;
-        let secondClick = null;
-        console.log('1firstClick',firstClick);
-        console.log('1secondClick',secondClick);      
-        // console.log('this.first_click:',this.first_click);
-        // console.log('this.second_click:',this.second_click);
-        this.first_click === null ? this.user_input = firstClick : this.user_input = secondClick ;
-        console.log('this.user',this.user_input);
-        console.log('2firstClick',firstClick);
-        console.log('2secondClick',secondClick);        
+        let user_input = event.target.outerHTML;        
+        console.log('user_input', user_input);
+
+        //if var first_click is empty assign user_input to the first click 
+        Board.boardState['first_click'] === null ? Board.boardState['first_click'] = user_input : Board.boardState['second_click'] = user_input ;
+            console.log('first_click', Board.boardState['first_click'] );
+        //if se
+        // this.second_click === null ? this.second_click = this.user_input : 'something inside second click';
+            console.log('second_click', Board.boardState['second_click']);       
     }
 
     receiveAndRenderBoardState(){
@@ -140,8 +155,9 @@ class Controller {
 // Also listens to the Board state and runs a check on every x and y axis
 // Also in charge of keeping the state of the scores in the game 
 
-class Model {
+class Model extends Controller {
     constructor(){
+        super(constructor);
         this.board_update= [];
         this.updated_board = [];
 
