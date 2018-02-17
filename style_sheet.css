@@ -211,16 +211,16 @@ div.xs-sm{
   }
 }
 
-#reset:hover {
-  /* -webkit-animation: neon1 1.5s ease-in-out infinite alternate; */
-}
+/* #reset:hover {
+  -webkit-animation: neon1 1.5s ease-in-out infinite alternate;
+} */
 
 /*TILE STYLE YO*/
 
 .game_grid_container > div[tile] {
   /* -webkit-animation: neon6 1.5s ease-in-out infinite alternate; */
   /* -moz-animation: neon6 1.5s ease-in-out infinite alternate; */
-  animation: neon6 1.5s ease-in-out infinite alternate;
+  /* animation: neon6 1.5s ease-in-out infinite alternate; */
   background-size: contain;
   background-position: left;
   display: inline-flex;
@@ -344,5 +344,6 @@ div[tile="yellow-diamond-tile"] {
 
 .government {
   animation-name: spin;
-  opacity: 0.1;
+  animation-duration: 4s;
+  opacity: 0.8;
 }
