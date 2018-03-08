@@ -1,5 +1,5 @@
 /**
- * Created by Chris / Shane / Soy on 8/9/17.
+ * Created by Chris / Shane on 8/9/17.
  **/
 $(document).ready(
   function() {
@@ -8,6 +8,7 @@ $(document).ready(
      model = new Model(this);
     console.log("init and things are made");
   
+    
     // model.display_stats();
     // setTimeout(function(){
     //     alert("Out of time, but don't give up champ, we believe!");
