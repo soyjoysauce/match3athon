@@ -17,7 +17,6 @@ $(document).ready(function() {
 // Board receives the updated state of the board from the Model
 class Board {
   constructor() {
-    this.boardState = [];
     this.jewel_arr = [];
     this.pieces_arr = [
       "blue-diamond-tile",
@@ -35,8 +34,8 @@ class Board {
   createTile() {
     let piecesArr = this.pieces_arr;
     let jewelArr = this.jewel_arr;
-    let x_axis = 1;
-    let y_axis = 1;
+    let x_axis = 0;
+    let y_axis = 0;
     let counter = 1;
 
     while (jewelArr.length < 8) {
@@ -62,18 +61,21 @@ class Board {
         counter++;
       });
       jewelArr.push(axis_arr);
+      y_axis = 1;
       x_axis++;
     }
-    let boardState = jewelArr;
-    console.log("boardState", boardState);
+    this.jewel_arr = jewelArr;
+    console.log("boardState = jewelArr", this.jewel_arr);
     // this.sendControllerBoardState(boardState);
   }
 
   sendControllerBoardState(boardState) {
-    boardState = this.controllerState["board_state"]
+    boardState = this.controllerState["board_state"];
     console.log("controllerState:", this.controllerState["board_state"]);
-    controllerState !== null ? Controller.controllerState = board_state : 'error';
-    console.log('Controller.controllerState:',Controller.controllerState);
+    controllerState !== null
+      ? (Controller.controllerState = board_state)
+      : "error";
+    console.log("Controller.controllerState:", Controller.controllerState);
   }
 }
 
@@ -87,10 +89,18 @@ class Controller {
     this.controllerState = {
       first_click: null,
       second_click: null,
+
+      first_click_x: null,
+      second_click_x: null,
+
+      first_click_y: null,
+      second_click_y: null,
+
       id_1: null,
       id_2: null,
-      tile_1: null,
-      tile_2: null,
+
+      first_attr: null,
+      second_attr: null,
 
       north_tile: null,
       south_tile: null,
@@ -135,93 +145,86 @@ class Controller {
     });
   }
 
-  moveTile(){
-    let id1 = this.controllerState["id_1"];
-    let id2 = this.controllerState["id_2"];
-    let tile1 = this.controllerState["tile_1"];
-    let tile2 = this.controllerState["tile_2"];
-
+  moveTile() {
     this.user_input = event.target.outerHTML;
     // let user_input = this.user_input;
+    let jewelArr = this.jewel_arr 
+    let id1 = this.controllerState["id_1"];
+    let id2 = this.controllerState["id_2"];
+    let firstAttr = this.controllerState["first_attr"];
+    let secondAttr = this.controllerState["second_attr"];
 
     const input_id = $(this.user_input).attr("id");
-    // console.log("user_input:id", input_id);
     const input_tile = $(this.user_input).attr("tile");
-    // console.log("user_input:tile", input_tile);
+    const input_x = Number($(this.user_input).attr("x"));
+    const input_y = Number($(this.user_input).attr("y"));
 
-    if (this.controllerState["first_click"] === null ) {
+    console.log("const input_tile:", input_tile);
+    console.log("const input_x:", input_x);
+    console.log("const input_y:", input_y);
+    console.log("const input_id:", input_id);
+
+    if (this.controllerState["first_click"] === null) {
       this.controllerState["first_click"] = this.user_input;
-
       let id1 = input_id;
-      console.log("id1", id1);
-      let tile1 = this.user_input;
-      console.log("tile1", tile1);
-      console.log("first_click", this.controllerState["first_click"]);
+      console.log("id1 from input_id:", id1);
+      this.switchAttributes(input_x, input_y, jewelArr);
 
-      this.controllerState["north_tile"] = $("[id='" + (parseInt(id1) - 8) + "']").addClass(
-        "clickable government"
-      );
+      this.controllerState["north_tile"] = $(
+        "[id='" + (parseInt(id1) - 8) + "']"
+      ).addClass("clickable government");
       // console.log("northTile", northTile);
-      this.controllerState["south_tile"] = $("[id='" + (parseInt(id1) + 8) + "']").addClass(
-        "clickable government"
-      );
+      this.controllerState["south_tile"] = $(
+        "[id='" + (parseInt(id1) + 8) + "']"
+      ).addClass("clickable government");
       // console.log("southTile", southTile);
-      this.controllerState["east_tile"] = $("[id='" + (parseInt(id1) + 1) + "']").addClass(
-        "clickable government"
-      );
+      this.controllerState["east_tile"] = $(
+        "[id='" + (parseInt(id1) + 1) + "']"
+      ).addClass("clickable government");
       // console.log("eastTile", eastTile);
-      this.controllerState["west_tile"] = $("[id='" + (parseInt(id1) - 1) + "']").addClass(
-        "clickable government"
-      );
+      this.controllerState["west_tile"] = $(
+        "[id='" + (parseInt(id1) - 1) + "']"
+      ).addClass("clickable government");
       // console.log("westTile", westTile);
-    }
-    else if (
+    } else if (
       this.controllerState["first_click"] !== null &&
       $(this.user_input).attr("class") === "clickable government"
     ) {
       //controller state takes the first click and establishes the clickables.
       //second click assignement will take the controller state and switch the arrtibutes of the id img
       this.controllerState["second_click"] = this.user_input;
-      console.log("second_click: user_input", this.controllerState["second_click"]);
+      let id2 = input_id;
+      console.log("id2 from input_id:", id2);
+
 
       let tile1 = this.controllerState["first_click"];
-      console.log("tile1!!!!!", tile1);
       let tile2 = this.controllerState["second_click"];
-
       console.log("before tile1:", tile1);
       console.log("before tile2:", tile2);
-      tile1 = tile2;
-
-      tile2 = this.controllerState["second_click"];
-      console.log("aftr tile_1:", tile1);
-      console.log("aftr tile_2:", tile2);
-
-      // id2 = input_id; //inputId assigned to second click id to be parsed
-      // // console.log("id2", id2);
-      // this.controllerState["north_tile"] = $("[id='" + (parseInt(id2) - 8) + "']").addClass(
-      //   "government"
-      // );
-      // // console.log("northTile", northTile);
-      // this.controllerState["south_tile"] = $("[id='" + (parseInt(id2) + 8) + "']").addClass(
-      //   "government"
-      // );
-      // // console.log("southTile", southTile);
-      // this.controllerState["east_tile"] = $("[id='" + (parseInt(id2) + 1) + "']").addClass(
-      //   "government"
-      // );
-      // // console.log("eastTile", eastTile);
-      // this.controllerState["west_tile"] = $("[id='" + (parseInt(id2) - 1) + "']").addClass(
-      //   "government"
-      // );
-      // // console.log("westTile", westTile);
+      tile2 = [tile1, (tile1 = tile2)][0];
+      console.log("aftr tile1:", this.controllerState["first_click"]);
+      console.log("aftr tile2:", this.controllerState["second_click"]);
+      this.jewel_arr[second_click_x][second_click_y].tile = first_attr;
+      this.jewel_arr[first_click_x][first_click_y].tile = second_attr;
+      $("[id='" + id1 + "']").attr("tile", tile2);
+      $("[id='" + id2 + "']").attr("tile", tile1);
     }
   }
 
-  receiveAndRenderBoardState() {}
+  switchAttributes(input_x, input_y, jewelArr) {
+    let x = input_x;
+    let y = input_y;
+    let jewel_Arr =jewelArr
+    console.log(jewelArr);
+    let firstAttr = jewel_Arr[x][y].tile;
+    console.log("firstAttr:", firstAttr);
+  }
 
   filterMatch() {}
 
   sendBoardUpdate() {}
+
+  receiveAndRenderBoardState() {}
 
   displayStats() {}
 }
