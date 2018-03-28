@@ -16,7 +16,7 @@ $(document).ready(function() {
 // Board randomly generates pieces and sends the most current state of the board to Controller
 // Board receives the updated state of the board from the Model
 class Board {
-  constructor() {
+  constructor(jewel_arr) {
     this.jewel_arr = [];
     this.pieces_arr = [
       "blue-diamond-tile",
@@ -30,6 +30,7 @@ class Board {
     ];
     this.createTile();
   }
+
 
   createTile() {
     let piecesArr = this.pieces_arr;
@@ -64,18 +65,14 @@ class Board {
       y_axis = 1;
       x_axis++;
     }
+    //assigns the constructor with the saved arrays of tiles randomized
     this.jewel_arr = jewelArr;
     console.log("boardState = jewelArr", this.jewel_arr);
-    // this.sendControllerBoardState(boardState);
+    this.sendControllerBoardState(jewelArr);
   }
 
-  sendControllerBoardState(boardState) {
-    boardState = this.controllerState["board_state"];
-    console.log("controllerState:", this.controllerState["board_state"]);
-    controllerState !== null
-      ? (Controller.controllerState = board_state)
-      : "error";
-    console.log("Controller.controllerState:", Controller.controllerState);
+  sendControllerBoardState(arrays) {
+    
   }
 }
 
@@ -84,8 +81,9 @@ class Board {
 // 'clickable divs' -- checks if the second click matches any of the four directions
 // and checks the x y axis for match
 // finds the x and y axis of the matches and sends to Model to process
-class Controller {
+class Controller extends Board{
   constructor() {
+    super(jewel_arr);
     this.controllerState = {
       first_click: null,
       second_click: null,
@@ -143,12 +141,14 @@ class Controller {
       location.reload();
       model.display_stats();
     });
+
+    console.log('this.jewel_arr',this.jewel_arr);
   }
 
   moveTile() {
     this.user_input = event.target.outerHTML;
     // let user_input = this.user_input;
-    let jewelArr = this.jewel_arr 
+    let jewelArr = Board.jewel_arr ;
     let id1 = this.controllerState["id_1"];
     let id2 = this.controllerState["id_2"];
     let firstAttr = this.controllerState["first_attr"];
@@ -201,6 +201,7 @@ class Controller {
       let tile2 = this.controllerState["second_click"];
       console.log("before tile1:", tile1);
       console.log("before tile2:", tile2);
+      //this switches tile 1 from tile 2
       tile2 = [tile1, (tile1 = tile2)][0];
       console.log("aftr tile1:", this.controllerState["first_click"]);
       console.log("aftr tile2:", this.controllerState["second_click"]);
@@ -214,7 +215,7 @@ class Controller {
   switchAttributes(input_x, input_y, jewelArr) {
     let x = input_x;
     let y = input_y;
-    let jewel_Arr =jewelArr
+    let jewelArr =this.jewel_Arr
     console.log(jewelArr);
     let firstAttr = jewel_Arr[x][y].tile;
     console.log("firstAttr:", firstAttr);
