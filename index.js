@@ -68,74 +68,105 @@ class Board extends Model {
     this.createTile();
   }
 
-  //takes in the first and second click and switches it first.
+  //moveTile() takes in the first and second click and switches it first.
   //check starts to see if any horizontal or vertical matches are happening while loop possibly
   //console.log('',);
   moveTile() {
+    //event targeting the click
     this.user_input = event.target.outerHTML;
     console.log("this.user_input", this.user_input);
+    let userInput = this.user_input;
+    console.log("Input", userInput);
 
+    //variables for this function to access the state
     let id1 = this.controllerState["id_1"];
     let id2 = this.controllerState["id_2"];
     let firstAttr = this.controllerState["first_attr"];
     let secondAttr = this.controllerState["second_attr"];
-
+    
+    // let input_x = Number($(this.user_input).attr("x"));
+    // let input_y = Number($(this.user_input).attr("y"));
+    // console.log("const input_x:", input_x);
+    // console.log("const input_y:", input_y);
     // const input_id = $(this.user_input).attr("id");
     // const input_tile = $(this.user_input).attr("tile");
-    const input_x = Number($(this.user_input).attr("x"));
-    const input_y = Number($(this.user_input).attr("y"));
     // console.log("const input_id:", input_id);
     // console.log("const input_tile:", input_tile);
-    console.log("const input_x:", input_x);
-    console.log("const input_y:", input_y);
 
     //this assigns clicks based on their turns. the order of the statement is important
-    if (
-      this.controllerState["first_click"] !== null &&
-      $(this.user_input).attr("class") === "clickable government"
-    ) {
-      this.controllerState["second_click"] = this.user_input;
-      this.controllerState["id_2"] = $(this.user_input).attr("id");
-      this.controllerState["second_attr"] = $(this.user_input).attr("tile");
-      console.log("secondClick", this.controllerState["second_click"]);
-
-      //this switches tile 1 from tile 2
-      //  tile2 = [tile1, (tile1 = tile2)][0];
-
-      this.jewel_arr[second_click_x][second_click_y].tile = first_attr;
-      this.jewel_arr[first_click_x][first_click_y].tile = second_attr;
-      $("[id='" + id1 + "']").attr("tile", tile2);
-      $("[id='" + id2 + "']").attr("tile", tile1);
-    }
     if (
       this.controllerState["first_click"] === null &&
       this.controllerState["second_click"] === null
     ) {
-      this.controllerState["first_click"] = this.user_input;
-      this.controllerState["id_1"] = $(this.user_input).attr("id");
-      this.controllerState["first_attr"] = $(this.user_input).attr("tile");
+      //if first click and second click is empty
+      this.controllerState["first_click"] = userInput;
+      this.controllerState["id_1"] = $(userInput).attr("id");
+      this.controllerState["first_attr"] = $(userInput).attr("tile");
+      //this captures the values of each div's x and y attributes
+      this.controllerState["first_click_x"] = Number($(userInput).attr("x"));
+      this.controllerState["first_click_y"] = Number($(userInput).attr("y")); 
+      console.log("first input_x:",  this.controllerState["first_click_x"]);
+      console.log("first input_y:",  this.controllerState["first_click_y"]);
+      
       let id1 = this.controllerState["id_1"];
       this.controllerState["north_tile"] = $(
         "[id='" + (parseInt(id1) - 8) + "']"
-      ).addClass("clickable government");
+      ).toggleClass("clickable government");
       this.controllerState["south_tile"] = $(
         "[id='" + (parseInt(id1) + 8) + "']"
-      ).addClass("clickable government");
+      ).toggleClass("clickable government");
       this.controllerState["east_tile"] = $(
         "[id='" + (parseInt(id1) + 1) + "']"
-      ).addClass("clickable government");
+      ).toggleClass("clickable government");
       this.controllerState["west_tile"] = $(
         "[id='" + (parseInt(id1) - 1) + "']"
-      ).addClass("clickable government");
+      ).toggleClass("clickable government");
       console.log("northTile", this.controllerState["north_tile"]);
       console.log("southTile", this.controllerState["south_tile"]);
       console.log("eastTile", this.controllerState["east_tile"]);
       console.log("westTile", this.controllerState["west_tile"]);
 
-      const input_tile = $(this.user_input).attr("tile");
+      const first_tile = $(userInput).attr("tile");
 
       console.log("firstClick", this.controllerState["first_click"]);
     }
+    else if (
+      this.controllerState["first_click"] !== null &&
+      $(userInput).attr("class") === "clickable government"
+    ) {
+      //if first click is not empty and the clicked div has these class "clickable government"         
+      this.controllerState["second_click"] = userInput;
+      console.log("secondClick", this.controllerState["second_click"]);
+      this.controllerState["id_2"] = $(userInput).attr("id");
+      this.controllerState["second_attr"] = $(userInput).attr("tile");
+
+      //this captures the values of each div's x and y attributes
+      this.controllerState["second_click_x"] = Number($(userInput).attr("x"));
+      this.controllerState["second_click_y"] = Number($(userInput).attr("y"));
+      
+      let secondClickY = this.controllerState["second_click_y"];
+      let secondClickX = this.controllerState["second_click_x"];
+
+      let firstClickX = null;
+      firstClickX = this.controllerState["first_click_x"];
+      let firstClickY = null;
+      firstClickY = this.controllerState["first_click_y"];
+      console.log("secondClickX:", secondClickX);
+      console.log("secondClickY:", secondClickY);
+      const second_tile = $(userInput).attr("tile");
+
+      //this switches tile 1 from tile 2
+      // secondAttr = [ firstAttr, (firstAttr = secondAttr)][0];
+      //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
+      this.jewel_arr[secondClickX][secondClickY].tile = firstAttr;
+      this.jewel_arr[this.controllerState["first_click_x"]][ this.controllerState["first_click_y"]].tile = secondAttr;
+      $("[id='" + id1 + "']").attr("tile", secondAttr);
+      $("[id='" + id2 + "']").attr("tile", firstAttr);
+      // remove class "clickable government"
+      this.controllerState["north_tile"] 
+      $("div.clickable government").toggleClass("clickable government");
+    }
+    
   }
 
   createTile() {
@@ -201,9 +232,6 @@ class Board extends Model {
 
     console.log("CONTROLLER: this.jewel_Arr : ", this.jewel_Arr);
   }
-
-  
-  
 }
 
 // Controller listens for clicks (2) moves
@@ -222,4 +250,3 @@ class Controller {
 
   displayStats() {}
 }
-
