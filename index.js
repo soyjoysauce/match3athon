@@ -20,17 +20,7 @@ $(document).ready(function() {
 
 class Model {
   constructor() {
-    this.jewel_arr = [];
-    this.pieces_arr = [
-      "blue-diamond-tile",
-      "compass-tile",
-      "flower-tile",
-      "pink-diamond-tile",
-      "purple-pentagon-tile",
-      "red-flower-tile",
-      "star-tile",
-      "yellow-diamond-tile"
-    ];
+    
     this.board_update = [];
     this.updated_board = [];
   }
@@ -44,9 +34,8 @@ class Model {
 
 // Board randomly generates pieces and sends the most current state of the board to Controller
 // Board receives the updated state of the board from the Model
-class Board extends Model {
+class Board {
   constructor() {
-    super();
     this.controllerState = {
       first_click: null,
       second_click: null,
@@ -64,6 +53,17 @@ class Board extends Model {
       east_tile: null,
       west_tile: null
     };
+    this.jewel_arr = [];
+    this.pieces_arr = [
+      "blue-diamond-tile",
+      "compass-tile",
+      "flower-tile",
+      "pink-diamond-tile",
+      "purple-pentagon-tile",
+      "red-flower-tile",
+      "star-tile",
+      "yellow-diamond-tile"
+    ];
     this.applyClickHandlers();
     this.createTile();
   }
@@ -211,7 +211,6 @@ class Board extends Model {
     Controller.jewel_Arr = this.jewel_arr;
     console.log("Controller.jewelArr", Controller.jewel_Arr);
   }
-
   applyClickHandlers() {
     $(".game_grid_container").on("click", "div", this.moveTile.bind(this));
 
@@ -229,8 +228,6 @@ class Board extends Model {
       location.reload();
       model.display_stats();
     });
-
-    console.log("CONTROLLER: this.jewel_Arr : ", this.jewel_Arr);
   }
 }
 
