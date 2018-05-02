@@ -8,10 +8,28 @@ $(document).ready(function() {
     model: new Model()
   };
   const { board, controller, model } = jewelTileGame;
-  $(this.jewelTileGame).bind(this);
+  // $(this.jewelTileGame).bind(this);
+  // console.log(this);
   console.log("jewelTileGame:", jewelTileGame);
   console.log("init and things are made");
 });
+
+// Controller listens for clicks (2) moves
+// first click: picks up the div id of the selected div and instantiates 'clickable divs'
+// 'clickable divs' -- checks if the second click matches any of the four directions
+// and checks the x y axis for match
+// finds the x and y axis of the matches and sends to Model to process
+class Controller {
+  constructor() {}
+
+  filterMatch() {}
+
+  sendBoardUpdate() {}
+
+  receiveAndRenderBoardState() {}
+
+  displayStats() {}
+}
 
 // Model is a object which to draw .
 // Removes and Replaces Y first and then x
@@ -70,28 +88,106 @@ class Board {
       "star-tile",
       "yellow-diamond-tile"
     ];
-    this.applyClickHandlers();
     this.createTile();
+    this.applyClickHandlers();
+  }
+
+  createTile() {
+    let piecesArr = this.pieces_arr;
+    let jewelArr = this.jewel_arr;
+    let x_axis = 0;
+    let y_axis = 0;
+    let counter = 1;
+
+    while (jewelArr.length < 8) {
+      let axis_arr = [];
+
+      piecesArr.map(function() {
+        let randomNum = Math.floor(Math.random() * piecesArr.length);
+        let jewelPiece = {
+          x: x_axis,
+          y: y_axis,
+          id: counter,
+          tile: piecesArr[randomNum],
+          info: $("<div>", {
+            tile: piecesArr[randomNum],
+            x: x_axis,
+            y: y_axis,
+            id: counter
+          })
+        };
+        $(".game_grid_container").append(jewelPiece.info.clone());
+        axis_arr.push(jewelPiece);
+        y_axis++;
+        counter++;
+      });
+      this.jewel_arr.push(axis_arr);
+      y_axis = 0;
+      x_axis++;
+    }
+    //assigns the constructor with the saved arrays of tiles randomized
+    this.jewel_arr = jewelArr;
+
+    //trying to send it to Controller with the jewlArr properties
+    console.log("boardState = jewelArr", this.jewel_arr);
+
+    Controller.jewel_Arr = this.jewel_arr;
+    console.log("Controller.jewelArr", Controller.jewel_Arr);
+  }
+
+  applyClickHandlers() {
+    let board = Board();
+    $(".game_grid_container").on("click", "div", function() {
+      $(
+        this.bind(
+          board.__proto__.moveTile(
+            $(this).attr("x"),
+            $(this).attr("y"),
+            $(this).attr("id"),
+            console.log("this :", this)
+          )
+        )
+      );
+    });
+    $(".game_grid_container").on("click", ".clickable government", function() {
+      $(
+        this.bind(
+          Board.__proto__.moveTile(
+            $(this).attr("x"),
+            $(this).attr("y"),
+            $(this).attr("id"),
+            console.log("this :", this)
+          )
+        )
+      );
+    });
+    $("#reset").on("click", function() {
+      location.reload();
+      model.display_stats();
+    });
+    $(".game_reset_button").on("click", function() {
+      location.reload();
+      model.display_stats();
+    });
   }
 
   //moveTile() takes in the first and second click and switches it first.
   //check starts to see if any horizontal or vertical matches are happening while loop possibly
   //console.log('',);
-  moveTile() {
+  moveTile(x, y, id) {
+    // let x = null ;
+    // let y = null ;
+    // let id = null ;
+    console.log("x", x);
+    console.log("y", y);
+    console.log("id", id);
     //event targeting the click
     this.user_input = event.target.outerHTML;
-    console.log("this.user_input", this.user_input);
     let userInput = this.user_input;
     console.log("Input", userInput);
     let eventAttr = $(userInput).attr("tile");
-    console.log("eventAttr", eventAttr);
-    //variables for this function to access the state
     let id1 = this.controllerState["id_1"];
     let id2 = this.controllerState["id_2"];
-
-    // let firstClick = this.controllerState["first_click"];
-    // let secondClick = this.controllerState["second_click"];
-
     //this assigns clicks based on their turns. the order of the statement is important
     if (
       this.controllerState["first_click"] === null &&
@@ -99,9 +195,13 @@ class Board {
     ) {
       //if first click and second click is empty
       //this captures the values of each div's x and y attributes
-      this.controllerState["id_1"] = $(userInput).attr("id");
-      this.controllerState["first_click_x"] = parseInt($(userInput).attr("x"));
-      this.controllerState["first_click_y"] = parseInt($(userInput).attr("y"));
+      this.controllerState["id_1"] = $(this.user_input).attr("id");
+      this.controllerState["first_click_x"] = parseInt(
+        $(this.user_input).attr("x")
+      );
+      this.controllerState["first_click_y"] = parseInt(
+        $(this.user_input).attr("y")
+      );
       console.log(
         'this.controllerState["id_1"] :',
         this.controllerState["id_1"]
@@ -117,7 +217,9 @@ class Board {
       let firstClickX = null;
       let firstClickY = null;
       firstClickX = this.controllerState["first_click_x"];
+      console.log("firstClickX", firstClickX);
       firstClickY = this.controllerState["first_click_y"];
+      console.log("firstClickY", firstClickY);
 
       //firstClick in the array
       this.controllerState["first_click"] = this.jewel_arr[firstClickX][
@@ -129,10 +231,9 @@ class Board {
       ].tile;
 
       console.log("firstClick", this.controllerState["first_click"]);
+      console.log("firstattr", this.controllerState["first_attr"]);
 
-      // console.log("first input_x:", this.controllerState["first_click_x"]);
-      // console.log("first input_y:", this.controllerState["first_click_y"]);
-
+      console.log("id2", id2);
       $("[id='" + (parseInt(id2) + 8) + "']").removeClass(
         "clickable government"
       );
@@ -152,17 +253,19 @@ class Board {
       $("[id='" + (parseInt(id1) + 8) + "']").addClass("clickable government");
       $("[id='" + (parseInt(id1) + 1) + "']").addClass("clickable government");
       $("[id='" + (parseInt(id1) - 1) + "']").addClass("clickable government");
-
-      const first_tile = $(userInput).attr("tile");
     } else if (
       this.controllerState["first_click"] !== null &&
-      $(userInput).attr("class") === "clickable government"
+      $(this.user_input).attr("class") === "clickable government"
     ) {
       //if first click is not empty and the clicked div has these class "clickable government"
       // console.log("secondClick", this.controllerState["second_click"]);
-      this.controllerState["id_2"] = $(userInput).attr("id");
-      this.controllerState["second_click_x"] = Number($(userInput).attr("x"));
-      this.controllerState["second_click_y"] = Number($(userInput).attr("y"));
+      this.controllerState["id_2"] = $(this.user_input).attr("id");
+      this.controllerState["second_click_x"] = parseInt(
+        $(this.user_input).attr("x")
+      );
+      this.controllerState["second_click_y"] = parseInt(
+        $(this.user_input).attr("y")
+      );
       let secondClickX = this.controllerState["second_click_x"];
       let secondClickY = this.controllerState["second_click_y"];
       console.log("secondClickX:", secondClickX);
@@ -172,29 +275,36 @@ class Board {
         secondClickY
       ];
       //secondAttr tile
-      this.controllerState["second_attr"] = this.jewel_arr[secondClickY][
+      this.controllerState["second_attr"] = this.jewel_arr[secondClickX][
         secondClickY
       ].tile;
       // this.controllerState["second_click"] = userInput;
       // this.controllerState["second_attr"] = $(userInput).attr("tile");
-
       console.log("secondClickX:", secondClickX);
       console.log("secondClickY:", secondClickY);
       let firstClickX = null;
       firstClickX = this.controllerState["first_click_x"];
       let firstClickY = null;
       firstClickY = this.controllerState["first_click_y"];
-
-      // const second_tile = $(userInput).attr("tile");
+      console.log("array before change :", this.jewel_arr);
       //this switches tile 1 from tile 2
       // secondAttr = [ firstAttr, (firstAttr = secondAttr)][0];
       //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
-      this.jewel_arr[secondClickX][secondClickY].tile = this.controllerState[
-        "first_attr"
-      ];
-      this.jewel_arr[firstClickX][firstClickY].tile = this.controllerState[
-        "second_attr"
-      ];
+      this.jewel_arr[secondClickX][secondClickY].tile = [
+        this.jewel_arr[firstClickX][firstClickY].tile,
+        (this.jewel_arr[firstClickX][firstClickY].tile = this.jewel_arr[
+          secondClickX
+        ][secondClickY].tile)
+      ][0];
+      //
+      console.log("newly changed array(i hope) :", this.jewel_arr);
+
+      // this.jewel_arr[secondClickX][secondClickY].tile = this.controllerState[
+      //   "first_attr"
+      // ];
+      // this.jewel_arr[firstClickX][firstClickY].tile = this.controllerState[
+      //   "second_attr"
+      // ];
 
       console.log(
         'this.controllerState["first_attr"]:',
@@ -208,11 +318,13 @@ class Board {
       let secondAttr = this.controllerState["second_attr"];
       secondAttr = [firstAttr, (firstAttr = secondAttr)][0];
       console.log("tis.newaee", this.jewel_arr);
+
       this.jewel_arr = this.receiveStateSendState(
         (this.piece1 = this.controllerState["first_click"]),
         (this.piece2 = this.controllerState["second_click"]),
         (this.board = this.jewel_arr)
       );
+
       //Last left off: i connected th
       // this is where i call in the newly updated array and evaluate
       //if {
@@ -253,6 +365,11 @@ class Board {
     matchArrayXAxis.push(piece);
     matchArrayYAxis.push(piece);
     //checks the position of the piece on the x coordinate plane and runs the check function that's appropriate
+    console.log("piece.x", piece.x);
+    console.log("piece.y", piece.y);
+    console.log("piece", piece);
+
+    //the switch statements are being ignored.
     switch (piece.x) {
       case 0:
         checkDown(piece);
@@ -280,6 +397,8 @@ class Board {
     }
     //checks for matches below the initial piece
     function checkDown(piece) {
+      console.log("Down piece", piece);
+      console.log("board", board);
       if (
         board[piece.x + 1] !== undefined &&
         piece.tile === board[piece.x + 1][piece.y].tile
@@ -291,6 +410,8 @@ class Board {
 
     //checks for matches above the initial piece
     function checkUp(piece) {
+      console.log("Up piece", piece);
+
       if (
         board[piece.x - 1] !== undefined &&
         piece.tile === board[piece.x - 1][piece.y].tile
@@ -302,6 +423,8 @@ class Board {
 
     //checks for matches to the right the initial piece
     function checkRight(piece) {
+      console.log("Right piece", piece);
+
       if (
         board[piece.x][piece.y + 1] !== undefined &&
         piece.tile === board[piece.x][piece.y + 1].tile
@@ -313,6 +436,8 @@ class Board {
 
     //checks for matches to the left the initial piece
     function checkLeft(piece) {
+      console.log("Left piece", piece);
+
       if (
         board[piece.x][piece.y - 1] !== undefined &&
         piece.tile === board[piece.x][piece.y - 1].tile
@@ -364,83 +489,6 @@ class Board {
     this.fails = 0;
     this.score = 0;
   }
-
-  createTile() {
-    let piecesArr = this.pieces_arr;
-    let jewelArr = this.jewel_arr;
-    let x_axis = 0;
-    let y_axis = 0;
-    let counter = 1;
-
-    while (jewelArr.length < 8) {
-      let axis_arr = [];
-
-      piecesArr.map(function() {
-        let randomNum = Math.floor(Math.random() * piecesArr.length);
-        let jewelPiece = {
-          x: x_axis,
-          y: y_axis,
-          id: counter,
-          tile: piecesArr[randomNum],
-          info: $("<div>", {
-            tile: piecesArr[randomNum],
-            x: x_axis,
-            y: y_axis,
-            id: counter
-          })
-        };
-        $(".game_grid_container").append(jewelPiece.info.clone());
-        axis_arr.push(jewelPiece);
-        y_axis++;
-        counter++;
-      });
-      this.jewel_arr.push(axis_arr);
-      y_axis = 0;
-      x_axis++;
-    }
-    //assigns the constructor with the saved arrays of tiles randomized
-    this.jewel_arr = jewelArr;
-
-    //trying to send it to Controller with the jewlArr properties
-    console.log("boardState = jewelArr", this.jewel_arr);
-
-    Controller.jewel_Arr = this.jewel_arr;
-    console.log("Controller.jewelArr", Controller.jewel_Arr);
-  }
-
-  applyClickHandlers() {
-    $(".game_grid_container").on("click", "div", this.moveTile.bind(this));
-
-    $(".game_grid_container").on(
-      "click",
-      ".clickable",
-      this.moveTile.bind(this)
-    );
-
-    $("#reset").on("click", function() {
-      location.reload();
-      model.display_stats();
-    });
-    $(".game_reset_button").on("click", function() {
-      location.reload();
-      model.display_stats();
-    });
-  }
 }
 
-// Controller listens for clicks (2) moves
-// first click: picks up the div id of the selected div and instantiates 'clickable divs'
-// 'clickable divs' -- checks if the second click matches any of the four directions
-// and checks the x y axis for match
-// finds the x and y axis of the matches and sends to Model to process
-class Controller {
-  constructor() {}
 
-  filterMatch() {}
-
-  sendBoardUpdate() {}
-
-  receiveAndRenderBoardState() {}
-
-  displayStats() {}
-}

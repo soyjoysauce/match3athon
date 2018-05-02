@@ -213,7 +213,7 @@ class Board {
     // this.jewel_arr = jewelArr;
     //this is for the moveTile function
     this.move_Array = null;
-    this.move_Array = jewelArr;
+    this.move_Array = finalYAxis;
     //trying to send it to Controller with the jewlArr properties
     //this.jewel arr is essentially all the logged x axis;
     console.log("boardState = jewelArr", this.jewel_arr);
@@ -312,7 +312,7 @@ class Board {
     //SECOND CLICK :if first click is not empty
     //and the clicked div has these class "clickable government"
     else if( firstClick !== null &&
-    $(userInput).attr("class") === "clickable government"){
+    $(userInput).attr("class") === "government"){
       //assigns the second click x and y coordinates of the piece that was clicked
       second_clickX = parseInt(x);
       second_clickY = parseInt(y);
