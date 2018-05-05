@@ -107,15 +107,163 @@ class Model {
   removeReplaceState() {}
 
   sendNewBoard() {}
+
+  //takes in a board state and the pieces acted upon by the player and sends the info to the evaluation portion
+  receiveControllerState(piece1, piece2, board) {
+    this.evaluateMove(piece1, board);
+    var finalBoard = this.evaluateMove(piece2, board);
+    if (piece1.tile !== null && piece2.tile !== null) {
+      this.fails += 1;
+      this.display_stats();
+      var p1tile = piece1.tile;
+      var p2tile = piece2.tile;
+      var id_1 = piece1.id;
+      var id_2 = piece2.id;
+      piece2.tile = p1tile;
+      piece1.tile = p2tile;
+      $("[id='" + id_1 + "']").attr("tile", p2tile);
+      $("[id='" + id_2 + "']").attr("tile", p1tile);
+    }
+    return finalBoard;
+  }
+
+  //takes in a piece and the board, evaluates the move made and then returns the augmented board
+  evaluateMove(piece, board) {
+    var matchArrayXAxis = [];
+    var matchArrayYAxis = [];
+    matchArrayXAxis.push(piece);
+    matchArrayYAxis.push(piece);
+    //checks the position of the piece on the x coordinate plane and runs the check function that's appropriate
+    console.log("piece.x", piece.x);
+    console.log("piece.y", piece.y);
+    console.log("piece", piece);
+
+    //the switch statements are being ignored.
+    switch (piece.x) {
+      case 0:
+        checkDown(piece);
+        break;
+      case 7:
+        checkUp(piece);
+        break;
+      default:
+        checkDown(piece);
+        checkUp(piece);
+        break;
+    }
+    //checks the position of the piece on the y coordinate plane and runs the check function that's appropriate
+    switch (piece.y) {
+      case 0:
+        checkRight(piece);
+        break;
+      case 7:
+        checkLeft(piece);
+        break;
+      default:
+        checkRight(piece);
+        checkLeft(piece);
+        break;
+    }
+    //checks for matches below the initial piece
+    function checkDown(piece) {
+      console.log("Down piece", piece);
+      console.log("board", board);
+      if (
+        board[piece.x + 1] !== undefined &&
+        piece.tile === board[piece.x + 1][piece.y].tile
+      ) {
+        matchArrayXAxis.push(board[piece.x + 1][piece.y]);
+        checkDown(board[piece.x + 1][piece.y]);
+      }
+    }
+
+    //checks for matches above the initial piece
+    function checkUp(piece) {
+      console.log("Up piece", piece);
+
+      if (
+        board[piece.x - 1] !== undefined &&
+        piece.tile === board[piece.x - 1][piece.y].tile
+      ) {
+        matchArrayXAxis.push(board[piece.x - 1][piece.y]);
+        checkUp(board[piece.x - 1][piece.y]);
+      }
+    }
+
+    //checks for matches to the right the initial piece
+    function checkRight(piece) {
+      console.log("Right piece", piece);
+
+      if (
+        board[piece.x][piece.y + 1] !== undefined &&
+        piece.tile === board[piece.x][piece.y + 1].tile
+      ) {
+        matchArrayYAxis.push(board[piece.x][piece.y + 1]);
+        checkRight(board[piece.x][piece.y + 1]);
+      }
+    }
+
+    //checks for matches to the left the initial piece
+    function checkLeft(piece) {
+      console.log("Left piece", piece);
+
+      if (
+        board[piece.x][piece.y - 1] !== undefined &&
+        piece.tile === board[piece.x][piece.y - 1].tile
+      ) {
+        matchArrayYAxis.push(board[piece.x][piece.y - 1]);
+        checkLeft(board[piece.y - 1][piece.x]);
+      }
+    }
+    //INCREMENT MATCH COUNTER
+    if (matchArrayYAxis.length > 2 || matchArrayXAxis.length > 2) {
+      this.matches += 1;
+    }
+    //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
+    //their defining value to null
+    if (matchArrayYAxis.length > 2) {
+      for (var i = 0; i < matchArrayYAxis.length; i++) {
+        this.score += 1;
+        var match_id = matchArrayYAxis[i].id;
+        board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].tile = null;
+        $("[id='" + match_id + "']").attr("tile", "empty");
+      }
+    }
+    //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
+    //their defining value to null
+    if (matchArrayXAxis.length > 2) {
+      for (var i = 0; i < matchArrayXAxis.length; i++) {
+        this.score += 1;
+        var match_id = matchArrayXAxis[i].id;
+        board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].tile = null;
+        $("[id='" + match_id + "']").attr("tile", "empty");
+      }
+    }
+
+    //returns augmented board
+    return board;
+  }
+  display_stats() {
+    if (this.score > localStorage.personalBest) {
+      localStorage.personalBest = this.score;
+    }
+    $("span #personal_best_value").text(localStorage.personalBest);
+    $("span #score_value").text(this.score);
+    $("span #stats_value").text(this.matches + "/" + this.fails);
+  }
+
+  handleResetClick() {
+    console.log("GET");
+    this.matches = 0;
+    this.fails = 0;
+    this.score = 0;
+  }
 }
 
 // Board randomly generates pieces and sends the most current state of the board to Controller
 // Board receives the updated state of the board from the Model
 class Game_board {
   constructor() {
-    this.score = 0;
-    this.matches = 0;
-    this.fails = 0;
     this.controllerState = {
       first_click: null,
       second_click: null,
@@ -375,14 +523,9 @@ class Game_board {
     //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
     let first_attr = game_board.controllerState["first_attr"];
     let second_attr = game_board.controllerState["second_attr"];
-    // tile_board[secondClickX][secondClickY].tile = first_attr;
-    // tile_board[firstClickX][firstClickY].tile = second_attr;
-
-    tile_board[secondClickX][secondClickY].tile = [
-      tile_board[firstClickX][firstClickY].tile,
-      (tile_board[firstClickX][firstClickY].tile =
-        tile_board[secondClickX][secondClickY].tile)
-    ][0];
+    tile_board[game_board.controllerState["second_click_x"]][game_board.controllerState["second_click_y"]].tile = first_attr;
+    tile_board[game_board.controllerState["first_click_x"]][game_board.controllerState["first_click_y"]].tile = second_attr;
+    
     //jquery to actually change the tiles
     $("[id='" + game_board.controllerState["id_1"] + "']").attr(
       "tile",
@@ -419,7 +562,7 @@ class Game_board {
     );
 
     //send the board state to the model to check and complete the task
-    // this.receiveStateSendState(
+    // this.receiveControllerState(
     //   //piece1
 
     //   //piece2
@@ -464,156 +607,7 @@ class Game_board {
     }
   }
 
-  //takes in a board state and the pieces acted upon by the player and sends the info to the evaluation portion
-  receiveStateSendState(piece1, piece2, board) {
-    this.evaluateMove(piece1, board);
-    var finalBoard = this.evaluateMove(piece2, board);
-    if (piece1.tile !== null && piece2.tile !== null) {
-      this.fails += 1;
-      this.display_stats();
-      var p1tile = piece1.tile;
-      var p2tile = piece2.tile;
-      var id_1 = piece1.id;
-      var id_2 = piece2.id;
-      piece2.tile = p1tile;
-      piece1.tile = p2tile;
-      $("[id='" + id_1 + "']").attr("tile", p2tile);
-      $("[id='" + id_2 + "']").attr("tile", p1tile);
-    }
-    return finalBoard;
-  }
-
-  //takes in a piece and the board, evaluates the move made and then returns the augmented board
-  evaluateMove(piece, board) {
-    var matchArrayXAxis = [];
-    var matchArrayYAxis = [];
-    matchArrayXAxis.push(piece);
-    matchArrayYAxis.push(piece);
-    //checks the position of the piece on the x coordinate plane and runs the check function that's appropriate
-    console.log("piece.x", piece.x);
-    console.log("piece.y", piece.y);
-    console.log("piece", piece);
-
-    //the switch statements are being ignored.
-    switch (piece.x) {
-      case 0:
-        checkDown(piece);
-        break;
-      case 7:
-        checkUp(piece);
-        break;
-      default:
-        checkDown(piece);
-        checkUp(piece);
-        break;
-    }
-    //checks the position of the piece on the y coordinate plane and runs the check function that's appropriate
-    switch (piece.y) {
-      case 0:
-        checkRight(piece);
-        break;
-      case 7:
-        checkLeft(piece);
-        break;
-      default:
-        checkRight(piece);
-        checkLeft(piece);
-        break;
-    }
-    //checks for matches below the initial piece
-    function checkDown(piece) {
-      console.log("Down piece", piece);
-      console.log("board", board);
-      if (
-        board[piece.x + 1] !== undefined &&
-        piece.tile === board[piece.x + 1][piece.y].tile
-      ) {
-        matchArrayXAxis.push(board[piece.x + 1][piece.y]);
-        checkDown(board[piece.x + 1][piece.y]);
-      }
-    }
-
-    //checks for matches above the initial piece
-    function checkUp(piece) {
-      console.log("Up piece", piece);
-
-      if (
-        board[piece.x - 1] !== undefined &&
-        piece.tile === board[piece.x - 1][piece.y].tile
-      ) {
-        matchArrayXAxis.push(board[piece.x - 1][piece.y]);
-        checkUp(board[piece.x - 1][piece.y]);
-      }
-    }
-
-    //checks for matches to the right the initial piece
-    function checkRight(piece) {
-      console.log("Right piece", piece);
-
-      if (
-        board[piece.x][piece.y + 1] !== undefined &&
-        piece.tile === board[piece.x][piece.y + 1].tile
-      ) {
-        matchArrayYAxis.push(board[piece.x][piece.y + 1]);
-        checkRight(board[piece.x][piece.y + 1]);
-      }
-    }
-
-    //checks for matches to the left the initial piece
-    function checkLeft(piece) {
-      console.log("Left piece", piece);
-
-      if (
-        board[piece.x][piece.y - 1] !== undefined &&
-        piece.tile === board[piece.x][piece.y - 1].tile
-      ) {
-        matchArrayYAxis.push(board[piece.x][piece.y - 1]);
-        checkLeft(board[piece.y - 1][piece.x]);
-      }
-    }
-    //INCREMENT MATCH COUNTER
-    if (matchArrayYAxis.length > 2 || matchArrayXAxis.length > 2) {
-      this.matches += 1;
-    }
-    //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
-    //their defining value to null
-    if (matchArrayYAxis.length > 2) {
-      for (var i = 0; i < matchArrayYAxis.length; i++) {
-        this.score += 1;
-        var match_id = matchArrayYAxis[i].id;
-        board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].tile = null;
-        $("[id='" + match_id + "']").attr("tile", "empty");
-      }
-    }
-    //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
-    //their defining value to null
-    if (matchArrayXAxis.length > 2) {
-      for (var i = 0; i < matchArrayXAxis.length; i++) {
-        this.score += 1;
-        var match_id = matchArrayXAxis[i].id;
-        board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].tile = null;
-        $("[id='" + match_id + "']").attr("tile", "empty");
-      }
-    }
-
-    //returns augmented board
-    return board;
-  }
-  display_stats() {
-    if (this.score > localStorage.personalBest) {
-      localStorage.personalBest = this.score;
-    }
-    $("span #personal_best_value").text(localStorage.personalBest);
-    $("span #score_value").text(this.score);
-    $("span #stats_value").text(this.matches + "/" + this.fails);
-  }
-
-  handleResetClick() {
-    console.log("GET");
-    this.matches = 0;
-    this.fails = 0;
-    this.score = 0;
-  }
+  
 }
 
 var game_board = null;
@@ -652,3 +646,9 @@ var model = null;
 // this.jewel_arr[firstClickX][firstClickY].tile = game_board.controllerState[
 //   "second_attr"
 // ];
+
+// tile_board[secondClickX][secondClickY].tile = [
+    //   tile_board[firstClickX][firstClickY].tile,
+    //   (tile_board[firstClickX][firstClickY].tile =
+    //     tile_board[secondClickX][secondClickY].tile)
+    // ][0];
