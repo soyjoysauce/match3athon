@@ -2,14 +2,6 @@
 //DOM event that would replace jquery
 // Document.addEventListener('onload',init());
 $(document).ready(function() {
-  // const jewelTileGame = {
-  // controller : new Controller(this),
-  // game_board : new Game_board(this),
-  // model : new Model(this)
-  // }
-  // const {controller, game_board , model } = jewelTileGame
-  // $(this.jewelTileGame).bind(this);
-  // console.log(this);
   controller = new Controller(this);
   game_board = new Game_board(this);
   model = new Model(this);
@@ -613,42 +605,3 @@ class Game_board {
 var game_board = null;
 var controller = null;
 var model = null;
-
-//event targeting the click
-// this.user_input = event.target.outerHTML;
-// let userInput = this.user_input;
-// console.log("Input", userInput);
-// let eventAttr = $(userInput).attr("tile");
-
-// game_board.controllerState["id_1"] = $(this.user_input).attr("id");
-// game_board.controllerState["first_click_x"] = parseInt(
-//   $(this.user_input).attr("x")
-// );
-// game_board.controllerState["first_click_y"] = parseInt(
-//   $(this.user_input).attr("y")
-// );
-// console.log(
-//   'game_board.controllerState["id_1"] :',
-//   game_board.controllerState["id_1"]
-// );
-// console.log(
-//   '1 game_board.controllerState["first_click_x"] :',
-//   game_board.controllerState["first_click_x"]
-// );
-// console.log(
-//   '1 game_board.controllerState["first_click_y"] :',
-//   game_board.controllerState["first_click_y"]
-// );
-
-// this.jewel_arr[secondClickX][secondClickY].tile = game_board.controllerState[
-//   "first_attr"
-// ];
-// this.jewel_arr[firstClickX][firstClickY].tile = game_board.controllerState[
-//   "second_attr"
-// ];
-
-// tile_board[secondClickX][secondClickY].tile = [
-    //   tile_board[firstClickX][firstClickY].tile,
-    //   (tile_board[firstClickX][firstClickY].tile =
-    //     tile_board[secondClickX][secondClickY].tile)
-    // ][0];
