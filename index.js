@@ -20,7 +20,6 @@ class Controller {
     this.model = new Model(this);
     this.game_board = new Game_board(this);
     var gameBoard = this.game_board;
-    // this.jewel_Arr;
     this.applyClickHandlers();
     gameBoard.createTile();
     this.receiveAndRenderBoardState();
@@ -32,28 +31,29 @@ class Controller {
   }
   applyClickHandlers() {
     $(".game_grid_container").on("click", "div", function() {
+      var class_name = null;
+      class_name = $(this).attr("class");
       $(this).bind(
         game_board.__proto__.moveTile(
           $(this).attr("x"),
           $(this).attr("y"),
           $(this).attr("id"),
-          $(this).attr("class"),
+          class_name,
           Controller.jewel_Arr,
           console.log("this :", this),
-          console.log("controllerBoard :", Controller.jewel_Arr)
+          console.log("class_name:", class_name),
+          console.log("Controller.jewel_Arr :", Controller.jewel_Arr)
         )
       );
     });
     $(".game_grid_container").on("click", ".clickable government", function() {
-      $(
-        this.bind(
-          game_board.__proto__.moveTile(
-            $(this).attr("x"),
-            $(this).attr("y"),
-            $(this).attr("id"),
-            $(this).attr("class"),
-            Controller.jewel_Arr
-          )
+      $(this).bind(
+        game_board.__proto__.moveTile(
+          $(this).attr("x"),
+          $(this).attr("y"),
+          $(this).attr("id"),
+          (class_name = $(this).attr("class")),
+          Controller.jewel_Arr
         )
       );
     });
@@ -93,15 +93,15 @@ class Model {
     this.board_update = [];
     this.updated_board = [];
   }
-
-  receiveControllerState() {}
-
   removeReplaceState() {}
 
   sendNewBoard() {}
 
   //takes in a board state and the pieces acted upon by the player and sends the info to the evaluation portion
   receiveControllerState(piece1, piece2, board) {
+    console.log("receiveControllerState piece1 :", piece1);
+    console.log("receiveControllerState piece2 :", piece2);
+    console.log("receiveControllerState board :", board);
     this.evaluateMove(piece1, board);
     var finalBoard = this.evaluateMove(piece2, board);
     if (piece1.tile !== null && piece2.tile !== null) {
@@ -111,8 +111,8 @@ class Model {
       var p2tile = piece2.tile;
       var id_1 = piece1.id;
       var id_2 = piece2.id;
-      piece2.tile = p1tile;
-      piece1.tile = p2tile;
+      piece2.tile = p2tile;
+      piece1.tile = p1tile;
       $("[id='" + id_1 + "']").attr("tile", p2tile);
       $("[id='" + id_2 + "']").attr("tile", p1tile);
     }
@@ -129,6 +129,7 @@ class Model {
     console.log("piece.x", piece.x);
     console.log("piece.y", piece.y);
     console.log("piece", piece);
+    console.log("board", board);
 
     //the switch statements are being ignored.
     switch (piece.x) {
@@ -160,11 +161,13 @@ class Model {
     function checkDown(piece) {
       console.log("Down piece", piece);
       console.log("board", board);
+      //if the piece that is below is not undefined
+      //and the tile im matching with matches the next one      
       if (
-        board[piece.x + 1] !== undefined &&
+        board[piece.x + 1][piece.y] !== undefined &&
         piece.tile === board[piece.x + 1][piece.y].tile
       ) {
-        matchArrayXAxis.push(board[piece.x + 1][piece.y]);
+        matchArrayYAxis.push(board[piece.x + 1][piece.y]);
         checkDown(board[piece.x + 1][piece.y]);
       }
     }
@@ -172,12 +175,12 @@ class Model {
     //checks for matches above the initial piece
     function checkUp(piece) {
       console.log("Up piece", piece);
-
+      console.log("board", board);
       if (
-        board[piece.x - 1] !== undefined &&
+        board[piece.x - 1][piece.y] !== undefined &&
         piece.tile === board[piece.x - 1][piece.y].tile
       ) {
-        matchArrayXAxis.push(board[piece.x - 1][piece.y]);
+        matchArrayYAxis.push(board[piece.x - 1][piece.y]);
         checkUp(board[piece.x - 1][piece.y]);
       }
     }
@@ -190,7 +193,7 @@ class Model {
         board[piece.x][piece.y + 1] !== undefined &&
         piece.tile === board[piece.x][piece.y + 1].tile
       ) {
-        matchArrayYAxis.push(board[piece.x][piece.y + 1]);
+        matchArrayXAxis.push(board[piece.x][piece.y + 1]);
         checkRight(board[piece.x][piece.y + 1]);
       }
     }
@@ -198,26 +201,42 @@ class Model {
     //checks for matches to the left the initial piece
     function checkLeft(piece) {
       console.log("Left piece", piece);
-
+      //make 
       if (
         board[piece.x][piece.y - 1] !== undefined &&
         piece.tile === board[piece.x][piece.y - 1].tile
       ) {
-        matchArrayYAxis.push(board[piece.x][piece.y - 1]);
+        matchArrayXAxis.push(board[piece.x][piece.y - 1]);
         checkLeft(board[piece.y - 1][piece.x]);
       }
     }
     //INCREMENT MATCH COUNTER
     if (matchArrayYAxis.length > 2 || matchArrayXAxis.length > 2) {
+      console.log('matchArrayYAxis :', matchArrayYAxis);
+      console.log('matchArrayXAxis :', matchArrayXAxis);
+      
       this.matches += 1;
     }
+
+    //I need to make a function that takes int the Y and X axis array matched
+    //arrange the y axis [biggest id -> lowest id]
+    //arrange the x axis [lowest id -> highest id]
+
+
+    //take the manipulated array and splice 
+
     //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
     //their defining value to null
     if (matchArrayYAxis.length > 2) {
       for (var i = 0; i < matchArrayYAxis.length; i++) {
         this.score += 1;
         var match_id = matchArrayYAxis[i].id;
-        board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].tile = null;
+        //this is the actual object 
+        board[matchArrayYAxis[i].x][matchArrayYAxis[i].y] = null;
+        //this is where they made it "dissapear" by changing the attribute to empty
+        //but we are goign to make it so that every match id is paired
+        //with the topmost unmatched tile and append
+        //if there is no more on the board, create random piece
         $("[id='" + match_id + "']").attr("tile", "empty");
       }
     }
@@ -227,7 +246,11 @@ class Model {
       for (var i = 0; i < matchArrayXAxis.length; i++) {
         this.score += 1;
         var match_id = matchArrayXAxis[i].id;
-        board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].tile = null;
+        board[matchArrayXAxis[i].x][matchArrayXAxis[i].y] = null;
+        //this is where they made it "dissapear" by changing the attribute to empty
+        //but we are goign to make it so that every match id is paired
+        //with the topmost unmatched tile and append
+        //if there is no more on the board, create random piece
         $("[id='" + match_id + "']").attr("tile", "empty");
       }
     }
@@ -423,11 +446,12 @@ class Game_board {
 
       return;
     }
-    //  else if (
-    //   game_board.controllerState["first_click"] !== null &&
-    //   class_name === "clickable government"
-    // ) {
-    else {
+    //if the second click is not any of relational to 1st clickd area
+    else if (
+      game_board.off_click(firstClickX, firstClickY, id) === true &&
+      class_name === "clickable government"
+    ) {
+      // else {
       console.log("second click");
       //if first click is not empty and the clicked div has these class "clickable government"
       game_board.controllerState["id_2"] = id;
@@ -438,12 +462,12 @@ class Game_board {
       let secondClickY = game_board.controllerState["second_click_y"];
       console.log("secondClickX:", secondClickX);
       console.log("secondClickY:", secondClickY);
-      // save the second click
+      // save the second click actual bject
       game_board.controllerState["second_click"] =
-        tile_board[secondClickX][secondClickY];
+        board[secondClickX][secondClickY];
       // save tile attribute
       game_board.controllerState["second_attr"] =
-        tile_board[secondClickX][secondClickY].tile;
+        board[secondClickX][secondClickY].tile;
 
       $("[id='" + game_board.controllerState["id_1"] + "']").removeClass(
         "clickable government"
@@ -475,96 +499,106 @@ class Game_board {
       $(
         "[id='" + (parseInt(game_board.controllerState["id_2"]) - 8) + "']"
       ).addClass("clickable government");
-    //this is so that when i click something outside of the possible move
-      if(this.off_click(firstClickX, firstClickY ,(game_board.controllerState["id_2"])) === false){
-        game_board.controllerState["first_click"] = game_board.controllerState["second_click"];
-        game_board.controllerState["second_click"] = null ;
 
-        game_board.controllerState["first_click_x"] = game_board.controllerState["first_click_y"] ; 
-        game_board.controllerState["first_click_y"] = null ;
+      // after the two clicks switch the tile attributes with jquery
+      //this switches tile 1 from tile 2
+      // secondAttr = [ firstAttr, (firstAttr = secondAttr)][0];
+      console.log("BEFORE board :", board);
+      console.log(
+        'BEFORE ["first_attr"] :',
+        game_board.controllerState["first_click"]
+      );
+      console.log(
+        'BEFORE ["second_attr"] :',
+        game_board.controllerState["second_click"]
+      );
+      //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
+      let first_attr = game_board.controllerState["first_attr"];
+      let second_attr = game_board.controllerState["second_attr"];
+      tile_board[game_board.controllerState["second_click_x"]][
+        game_board.controllerState["second_click_y"]
+      ].tile = first_attr;
+      tile_board[game_board.controllerState["first_click_x"]][
+        game_board.controllerState["first_click_y"]
+      ].tile = second_attr;
 
-        game_board.controllerState["second_click_x"] = game_board.controllerState["second_click_y"] ; 
-        game_board.controllerState["second_click_y"] = null ;
-
-        game_board.controllerState["id_1"] = game_board.controllerState["id_2"] ; 
-        game_board.controllerState["id_2"] = null ; 
-
-        game_board.controllerState["first_attr"] = game_board.controllerState["second_attr"] ; 
-        game_board.controllerState["second_attr"] = null ; 
-
-        $(".game_grid_container").off("click", "div");
-        controller.applyClickHandlers();
-        return;
-      }
-    
+      //jquery to actually change the tiles
+      $("[id='" + game_board.controllerState["id_1"] + "']").attr(
+        "tile",
+        second_attr
+      );
+      $("[id='" + game_board.controllerState["id_2"] + "']").attr(
+        "tile",
+        first_attr
+      );
+      //remove class
+      $("[id='" + game_board.controllerState["id_2"] + "']").removeClass(
+        "clickable government"
+      );
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_2"]) + 1) + "']"
+      ).removeClass("clickable government");
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_2"]) + 8) + "']"
+      ).removeClass("clickable government");
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_2"]) - 1) + "']"
+      ).removeClass("clickable government");
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_2"]) - 8) + "']"
+      ).removeClass("clickable government");
+      console.log("AFTER :", board);
+      console.log(
+        'AFTER ["first_attr"] :',
+        game_board.controllerState["first_click"]
+      );
+      console.log(
+        'AFTER ["second_attr"] :',
+        game_board.controllerState["second_click"]
+      );
+      let piece1 = game_board.controllerState["second_click"];
+      let piece2 = game_board.controllerState["second_click"];
+      board = board;
+      //send the board state to the model to check and complete the task
+      model.__proto__.receiveControllerState(piece1, piece2, board);
+     
     }
-    // after the two clicks switch the tile attributes with jquery
-
-    
-    //this switches tile 1 from tile 2
-    // secondAttr = [ firstAttr, (firstAttr = secondAttr)][0];
-    console.log("BEFORE :", board);
-    console.log(
-      'BEFORE ["first_attr"] :',
-      game_board.controllerState["first_click"]
-    );
-    console.log(
-      'BEFORE ["second_attr"] :',
-      game_board.controllerState["second_click"]
-    );
-    //after the two clicks and happen this switches the tile attribute which we'll tie to the board pieces
-    let first_attr = game_board.controllerState["first_attr"];
-    let second_attr = game_board.controllerState["second_attr"];
-    tile_board[game_board.controllerState["second_click_x"]][game_board.controllerState["second_click_y"]].tile = first_attr;
-    tile_board[game_board.controllerState["first_click_x"]][game_board.controllerState["first_click_y"]].tile = second_attr;
-    
-    //jquery to actually change the tiles
-    $("[id='" + game_board.controllerState["id_1"] + "']").attr(
-      "tile",
-      second_attr
-    );
-    $("[id='" + game_board.controllerState["id_2"] + "']").attr(
-      "tile",
-      first_attr
-    );
-    //remove class
-    $("[id='" + game_board.controllerState["id_2"] + "']").removeClass(
-      "clickable government"
-    );
-    $(
-      "[id='" + (parseInt(game_board.controllerState["id_2"]) + 1) + "']"
-    ).removeClass("clickable government");
-    $(
-      "[id='" + (parseInt(game_board.controllerState["id_2"]) + 8) + "']"
-    ).removeClass("clickable government");
-    $(
-      "[id='" + (parseInt(game_board.controllerState["id_2"]) - 1) + "']"
-    ).removeClass("clickable government");
-    $(
-      "[id='" + (parseInt(game_board.controllerState["id_2"]) - 8) + "']"
-    ).removeClass("clickable government");
-    console.log("AFTER :", board);
-    console.log(
-      'AFTER ["first_attr"] :',
-      game_board.controllerState["first_click"]
-    );
-    console.log(
-      'AFTER ["second_attr"] :',
-      game_board.controllerState["second_click"]
-    );
-
-    //send the board state to the model to check and complete the task
-    // this.receiveControllerState(
-    //   //piece1
-
-    //   //piece2
-
-    //   //board
-    // );
+    // if you click outside the range of first
+    else if (game_board.off_click(firstClickX, firstClickY, id) === false) {
+      //render first clicks all null and return!
+      console.log('clicked outside the range');
+      //removed the classes in first clicked attr
+      $("[id='" + game_board.controllerState["id_1"] + "']").removeClass(
+        "clickable government"
+      );
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_1"]) + 1) + "']"
+      ).removeClass("clickable government");
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_1"]) + 8) + "']"
+      ).removeClass("clickable government");
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_1"]) - 1) + "']"
+      ).removeClass("clickable government");
+      $(
+        "[id='" + (parseInt(game_board.controllerState["id_1"]) - 8) + "']"
+      ).removeClass("clickable government");
+      //reset all valuues null
+      game_board.controllerState["id_1"] = null;
+      game_board.controllerState["first_click_x"] = null;
+      game_board.controllerState["first_click_y"] = null;
+      //firstClick in the array
+      game_board.controllerState["first_click"] = null;
+      //firstAttr tile
+      game_board.controllerState["first_attr"] = null;
+      //resets the clickhandlers that off-click turned off
+      // $(".game_grid_container").on("click", "div");
+      return controller.applyClickHandlers();
+    }
   }
-
   //this turns the click handler off all pieces and turns them on just for the adjacent pieces
   off_click(x, y, id) {
+    console.log("offclick work!!!!");
     $(".game_grid_container").off("click", "div");
     let selectx = "[x='" + x + "']"; //baseline for where to start on the x coordinate for the pieces
     let selecty = "[y='" + y + "']"; //baseline for where to start on the y coordinate for the pieces
@@ -572,19 +606,27 @@ class Game_board {
     let select_right = "[y='" + (parseInt(y) + 1) + "']"; //move right 1 spot to select the piece above
     let select_down = "[x='" + (parseInt(x) + 1) + "']"; //move down 1 spot to select the piece above
     let select_left = "[y='" + (parseInt(y) - 1) + "']"; //move left 1 spot to select the piece above
-    
+
     let right_id = $(selectx)
       .filter(select_right)
       .attr("id");
+
     let left_id = $(selectx)
       .filter(select_left)
       .attr("id");
+
     let up_id = $(select_up)
       .filter(selecty)
       .attr("id");
+
     let down_id = $(select_down)
       .filter(selecty)
       .attr("id");
+
+    console.log("right_id :", right_id);
+    console.log("left_id :", left_id);
+    console.log("up_id :", up_id);
+    console.log("down_id :", down_id);
     switch (id) {
       case right_id:
         return true;
@@ -598,10 +640,32 @@ class Game_board {
         return false;
     }
   }
-
-  
 }
 
 var game_board = null;
 var controller = null;
 var model = null;
+
+//this is so that when i click something outside of the possible move
+//let id = game_board.controllerState["id_2"];
+// if(game_board.off_click(firstClickX, firstClickY , id) === false){
+//   console.log('off click works?');
+//   game_board.controllerState["first_click"] = game_board.controllerState["second_click"];
+//   game_board.controllerState["second_click"] = null ;
+
+//   game_board.controllerState["first_click_x"] = game_board.controllerState["first_click_y"] ;
+//   game_board.controllerState["first_click_y"] = null ;
+
+//   game_board.controllerState["second_click_x"] = game_board.controllerState["second_click_y"] ;
+//   game_board.controllerState["second_click_y"] = null ;
+
+//   game_board.controllerState["id_1"] = game_board.controllerState["id_2"] ;
+//   game_board.controllerState["id_2"] = null ;
+
+//   game_board.controllerState["first_attr"] = game_board.controllerState["second_attr"] ;
+//   game_board.controllerState["second_attr"] = null ;
+
+//   $(".game_grid_container").off("click", "div");
+//   controller.applyClickHandlers();
+//   return;
+// }
