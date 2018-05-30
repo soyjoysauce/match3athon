@@ -161,11 +161,13 @@ class Model {
     function checkDown(piece) {
       console.log("Down piece", piece);
       console.log("board", board);
+      //if the piece that is below is not undefined
+      //and the tile im matching with matches the next one      
       if (
-        board[piece.x + 1] !== undefined &&
+        board[piece.x + 1][piece.y] !== undefined &&
         piece.tile === board[piece.x + 1][piece.y].tile
       ) {
-        matchArrayXAxis.push(board[piece.x + 1][piece.y]);
+        matchArrayYAxis.push(board[piece.x + 1][piece.y]);
         checkDown(board[piece.x + 1][piece.y]);
       }
     }
@@ -175,10 +177,10 @@ class Model {
       console.log("Up piece", piece);
       console.log("board", board);
       if (
-        board[piece.x - 1] !== undefined &&
+        board[piece.x - 1][piece.y] !== undefined &&
         piece.tile === board[piece.x - 1][piece.y].tile
       ) {
-        matchArrayXAxis.push(board[piece.x - 1][piece.y]);
+        matchArrayYAxis.push(board[piece.x - 1][piece.y]);
         checkUp(board[piece.x - 1][piece.y]);
       }
     }
@@ -191,7 +193,7 @@ class Model {
         board[piece.x][piece.y + 1] !== undefined &&
         piece.tile === board[piece.x][piece.y + 1].tile
       ) {
-        matchArrayYAxis.push(board[piece.x][piece.y + 1]);
+        matchArrayXAxis.push(board[piece.x][piece.y + 1]);
         checkRight(board[piece.x][piece.y + 1]);
       }
     }
@@ -199,26 +201,42 @@ class Model {
     //checks for matches to the left the initial piece
     function checkLeft(piece) {
       console.log("Left piece", piece);
-
+      //make 
       if (
         board[piece.x][piece.y - 1] !== undefined &&
         piece.tile === board[piece.x][piece.y - 1].tile
       ) {
-        matchArrayYAxis.push(board[piece.x][piece.y - 1]);
+        matchArrayXAxis.push(board[piece.x][piece.y - 1]);
         checkLeft(board[piece.y - 1][piece.x]);
       }
     }
     //INCREMENT MATCH COUNTER
     if (matchArrayYAxis.length > 2 || matchArrayXAxis.length > 2) {
+      console.log('matchArrayYAxis :', matchArrayYAxis);
+      console.log('matchArrayXAxis :', matchArrayXAxis);
+      
       this.matches += 1;
     }
+
+    //I need to make a function that takes int the Y and X axis array matched
+    //arrange the y axis [biggest id -> lowest id]
+    //arrange the x axis [lowest id -> highest id]
+
+
+    //take the manipulated array and splice 
+
     //checks to see if the recorded matches align with the required amount of matches and if so destroys the pieces by setting
     //their defining value to null
     if (matchArrayYAxis.length > 2) {
       for (var i = 0; i < matchArrayYAxis.length; i++) {
         this.score += 1;
         var match_id = matchArrayYAxis[i].id;
-        board[matchArrayYAxis[i].x][matchArrayYAxis[i].y].tile = null;
+        //this is the actual object 
+        board[matchArrayYAxis[i].x][matchArrayYAxis[i].y] = null;
+        //this is where they made it "dissapear" by changing the attribute to empty
+        //but we are goign to make it so that every match id is paired
+        //with the topmost unmatched tile and append
+        //if there is no more on the board, create random piece
         $("[id='" + match_id + "']").attr("tile", "empty");
       }
     }
@@ -228,7 +246,11 @@ class Model {
       for (var i = 0; i < matchArrayXAxis.length; i++) {
         this.score += 1;
         var match_id = matchArrayXAxis[i].id;
-        board[matchArrayXAxis[i].x][matchArrayXAxis[i].y].tile = null;
+        board[matchArrayXAxis[i].x][matchArrayXAxis[i].y] = null;
+        //this is where they made it "dissapear" by changing the attribute to empty
+        //but we are goign to make it so that every match id is paired
+        //with the topmost unmatched tile and append
+        //if there is no more on the board, create random piece
         $("[id='" + match_id + "']").attr("tile", "empty");
       }
     }
