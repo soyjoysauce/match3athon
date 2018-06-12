@@ -130,9 +130,7 @@ class Model {
     console.log("piece.y", piece.y);
     console.log("piece", piece);
     console.log("board", board);
-
-    //the switch statements are being ignored.
-    switch (piece.x) {
+    switch (piece) {
       case 0:
         checkDown(piece);
         break;
@@ -145,7 +143,7 @@ class Model {
         break;
     }
     //checks the position of the piece on the y coordinate plane and runs the check function that's appropriate
-    switch (piece.y) {
+    switch (piece) {
       case 0:
         checkRight(piece);
         break;
@@ -167,9 +165,13 @@ class Model {
         board[piece.x + 1][piece.y] !== undefined &&
         piece.tile === board[piece.x + 1][piece.y].tile
       ) {
+        console.log(piece.keys);
         matchArrayYAxis.push(board[piece.x + 1][piece.y]);
         checkDown(board[piece.x + 1][piece.y]);
       }
+      // }else{
+      //   //sort the array 
+      // }
     }
 
     //checks for matches above the initial piece
@@ -201,7 +203,7 @@ class Model {
     //checks for matches to the left the initial piece
     function checkLeft(piece) {
       console.log("Left piece", piece);
-      //make 
+      //make a forloop that will take first one and add it to the 
       if (
         board[piece.x][piece.y - 1] !== undefined &&
         piece.tile === board[piece.x][piece.y - 1].tile
@@ -231,7 +233,7 @@ class Model {
       for (var i = 0; i < matchArrayYAxis.length; i++) {
         this.score += 1;
         var match_id = matchArrayYAxis[i].id;
-        //this is the actual object 
+        //this is the actual object during the loop
         board[matchArrayYAxis[i].x][matchArrayYAxis[i].y] = null;
         //this is where they made it "dissapear" by changing the attribute to empty
         //but we are goign to make it so that every match id is paired
@@ -254,7 +256,6 @@ class Model {
         $("[id='" + match_id + "']").attr("tile", "empty");
       }
     }
-
     //returns augmented board
     return board;
   }
@@ -384,18 +385,6 @@ class Game_board {
       game_board.controllerState["id_1"] = id;
       game_board.controllerState["first_click_x"] = x;
       game_board.controllerState["first_click_y"] = y;
-      // console.log(
-      //   'game_board.controllerState["id_1"] :',
-      //   game_board.controllerState["id_1"]
-      // );
-      // console.log(
-      //   'game_board.controllerState["first_click_x"] :',
-      //   game_board.controllerState["first_click_x"]
-      // );
-      // console.log(
-      //   'game_board.controllerState["first_click_y"] :',
-      //   game_board.controllerState["first_click_y"]
-      // );
 
       let firstClickX = null;
       let firstClickY = null;
@@ -669,3 +658,17 @@ var model = null;
 //   controller.applyClickHandlers();
 //   return;
 // }
+
+
+ // console.log(
+      //   'game_board.controllerState["id_1"] :',
+      //   game_board.controllerState["id_1"]
+      // );
+      // console.log(
+      //   'game_board.controllerState["first_click_x"] :',
+      //   game_board.controllerState["first_click_x"]
+      // );
+      // console.log(
+      //   'game_board.controllerState["first_click_y"] :',
+      //   game_board.controllerState["first_click_y"]
+      // );
